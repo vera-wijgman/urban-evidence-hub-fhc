@@ -14,3 +14,5 @@ The website code is kept in this repository. Large evidence files are hosted on 
 ## Deployment
 
 Netlify can deploy this repository as a static site from the repository root.
+
+Last deployment setup: GitHub-connected code-only site.
