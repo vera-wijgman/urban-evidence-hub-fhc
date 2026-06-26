@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Urban Evidence Hub prototype" />
+    <title>Urban Evidence Hub</title>
+    <link rel="stylesheet" href="styles.css?v=remove-data-flow-1" />
+  </head>
+  <body>
+    <div class="app-shell">
+<main id="top" class="workspace">
+        <aside class="filter-panel" aria-label="Evidence filters"><button class="primary-button sidebar-add" id="open-upload" type="button">Add evidence</button>
+          <div class="search-wrap">
+            <label class="sr-only" for="search">Search evidence</label>
+            <span aria-hidden="true">⌕</span>
+            <input id="search" type="search" placeholder="Search evidence" autocomplete="off" />
+          </div>
+          <button class="text-button sidebar-clear" id="clear-filters" type="button">Clear filters</button>
+
+          <section class="filter-section tag-section">
+            <div class="section-heading"><h2>Tags</h2></div><div id="tag-mode" class="tag-mode" aria-label="Tag filter mode"></div>
+            <div id="tag-filters"></div>
+          </section>
+        </aside>
+
+        <nav class="bucket-bar" aria-label="Browse evidence by bucket"><div id="bucket-tabs" class="bucket-tabs"></div></nav>
+
+        <section id="home-view" class="home-view" hidden>
+  <div class="home-copy">
+    <p class="eyebrow">Masterproject</p>
+    <h1>Future Healthy Cities</h1>
+    <p>The Urban Evidence Hub brings together the research, methods, spatial analyses, design proposals and reflections produced throughout the masters studio. It makes the links between evidence and design decisions visible, searchable and shareable.</p>
+    <div class="tutors"><p class="eyebrow">Studio tutors</p><p class="tutor-placeholder">Cem Ataman<br />Diana Carrillo Silva<br />Kevin Pulles</p></div>
+  </div>
+  <div class="projects-grid" aria-label="Studio project groups">
+    <button class="project-card" type="button" data-project-group="Group 1: Responsive Neighbourhood"><span class="project-visual"><img src="home-responsive-neighbourhood.jpeg" alt="Responsive Neighbourhood with shared garden paths and active ground-floor spaces." /></span><span class="project-label">Group 1<strong>Responsive Neighbourhood</strong><span class="project-members">Raneem Alrifaai<br />Lara van Dam<br />Niels van Maurik</span></span></button>
+    <button class="project-card" type="button" data-project-group="Group 2: Living Superblocks"><span class="project-visual"><img src="home-living-superblocks.png" alt="Living Superblocks axonometric with green routes, collective spaces and slow mobility." /></span><span class="project-label">Group 2<strong>Living Superblocks</strong><span class="project-members">Hilda Khorsandi<br />Tim Pooters<br />Daniel Strauβ</span></span></button>
+    <button class="project-card" type="button" data-project-group="Group 3: Health Islands"><span class="project-visual"><img src="home-health-islands.png" alt="Health Islands with green waterfront public space and neighbourhood planting." /></span><span class="project-label">Group 3<strong>Health Islands</strong><span class="project-members">Cas Prinsze<br />Milana Romanova<br />Vera Wijgman</span></span></button>
+  </div>
+</section>
+        <section id="evidence-view" class="evidence-area" aria-label="Evidence library">
+          <div class="evidence-header">
+            <div>
+              <p id="results-summary" class="results-summary"></p>
+            </div>
+            <label class="sort-control">Sort
+              <select id="sort-evidence">
+                <option value="title">Title A–Z</option>
+                <option value="bucket">Bucket</option>
+                <option value="newest">Newest first</option>
+              </select>
+            </label>
+          </div>
+          <div id="active-filters" class="active-filters" aria-live="polite"></div>
+          <div id="evidence-list" class="evidence-list"></div>
+        </section>
+
+        <aside id="detail-view" class="detail-panel" aria-label="Evidence details">
+          <div id="detail-empty" class="detail-empty">
+            <span class="detail-symbol" aria-hidden="true">+</span>
+            <h2>Choose a piece of evidence</h2>
+            <p>Its description, tags, source, and attached file will appear here.</p>
+          </div>
+          <article id="detail-content" class="detail-content" hidden></article>
+        </aside>
+      </main>
+    </div>
+
+    <dialog id="upload-dialog" class="upload-dialog">
+      <form id="upload-form" method="dialog">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow">Prototype upload</p>
+            <h2>Add a piece of evidence</h2>
+          </div>
+          <button id="close-upload" class="icon-button" type="button" aria-label="Close upload form">×</button>
+        </div>
+        <p class="dialog-note">New entries are saved in this browser for the prototype. A later version can connect this form to shared file storage.</p>
+        <div class="form-grid">
+          <label>Title<input name="title" required placeholder="e.g. Neighbourhood heat study" /></label>
+          <label>Bucket<select name="bucket" id="upload-bucket" required></select></label>
+          <label class="full">Description<textarea name="description" rows="3" placeholder="A short description of the evidence."></textarea></label>
+          <label>Source URL<input name="source" type="url" placeholder="https://" /></label>
+          <label>Date<input name="date" type="date" /></label>
+          <label class="full">Attach file<input name="file" type="file" /></label>
+        </div>
+        <fieldset>
+          <legend>Assign tags</legend>
+          <div id="upload-tags" class="upload-tags"></div>
+        </fieldset>
+        <div class="dialog-actions">
+          <button id="cancel-upload" class="text-button" type="button">Cancel</button>
+          <button class="primary-button" type="submit">Save evidence</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="card-template">
+      <article class="evidence-card">
+        <button class="card-main" type="button">
+          <span class="card-bucket"></span>
+          <h2></h2>
+          <p class="card-description"></p>
+          <div class="card-tags"></div>
+        </button>
+        <div class="card-footer"><span class="card-meta"></span><span class="open-label">Open →</span></div>
+      </article>
+    </template>
+
+    <script src="app.js?v=external-evidence-host-1"></script>
+  </body>
+</html>

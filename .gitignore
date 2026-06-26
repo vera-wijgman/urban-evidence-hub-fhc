@@ -1,0 +1,17 @@
+# Netlify local state
+.netlify/
+
+# Large hosted evidence files are kept outside GitHub
+/evidence-files/
+/dist-netlify/
+
+# Local-only/generated helpers
+/import-summary.json
+/local-static-server.cjs
+/project-triptych.png
+/tmp/
+/tools/
+/output/
+/dist-code-only/
+/website concept.svg
+/website design.svg
