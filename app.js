@@ -298,7 +298,7 @@ const examples = [
   },
   {
     "id": "q3-week-3-novel-technology-hilda",
-    "title": "Q3 Week 3 (Novel Technology) - Hilda.pdf",
+    "title": "Q3 Week 3 (Novel Technology) - Hilda",
     "bucket": "Methods",
     "description": "",
     "tags": [
@@ -311,7 +311,7 @@ const examples = [
     "source": "",
     "fileName": "Q3 Week 3 (Novel Technology) - Hilda.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/q3-week-3-novel-technology-hilda.pdf",
-    "group": "",
+    "group": "Q3 Week 3 (Novel Technology) - Hilda",
     "files": [
       {
         "title": "Q3 Week 3 (Novel Technology) - Hilda.pdf",
@@ -404,7 +404,7 @@ const examples = [
   },
   {
     "id": "gebiedsprofiel-kanaleneiland-noord",
-    "title": "Gebiedsprofiel Kanaleneiland Noord.pdf",
+    "title": "Gebiedsprofiel Kanaleneiland Noord",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -422,7 +422,7 @@ const examples = [
     "source": "",
     "fileName": "Gebiedsprofiel Kanaleneiland Noord.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/gebiedsprofiel-kanaleneiland-noord.pdf",
-    "group": "",
+    "group": "Gebiedsprofiel Kanaleneiland Noord",
     "files": [
       {
         "title": "Gebiedsprofiel Kanaleneiland Noord.pdf",
@@ -434,7 +434,7 @@ const examples = [
   },
   {
     "id": "gebiedsprofiel-kanaleneiland-zuid",
-    "title": "Gebiedsprofiel Kanaleneiland Zuid.pdf",
+    "title": "Gebiedsprofiel Kanaleneiland Zuid",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -452,7 +452,7 @@ const examples = [
     "source": "",
     "fileName": "Gebiedsprofiel Kanaleneiland Zuid.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/gebiedsprofiel-kanaleneiland-zuid.pdf",
-    "group": "",
+    "group": "Gebiedsprofiel Kanaleneiland Zuid",
     "files": [
       {
         "title": "Gebiedsprofiel Kanaleneiland Zuid.pdf",
@@ -680,7 +680,7 @@ const examples = [
   },
   {
     "id": "pitch-week-6",
-    "title": "Pitch week 6.pdf",
+    "title": "Pitch week 6",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -704,12 +704,18 @@ const examples = [
     "source": "",
     "fileName": "Pitch week 6.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-6.pdf",
-    "group": "",
+    "group": "Pitch week 6",
     "files": [
       {
         "title": "Pitch week 6.pdf",
         "fileName": "Pitch week 6.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-6.pdf",
+        "source": ""
+      },
+      {
+        "title": "Pitch week 6.pptx",
+        "fileName": "Pitch week 6.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-6.pptx",
         "source": ""
       }
     ]
@@ -749,7 +755,7 @@ const examples = [
   },
   {
     "id": "residents-testimonials",
-    "title": "Residents testimonials.pdf",
+    "title": "Residents testimonials",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -768,7 +774,7 @@ const examples = [
     "source": "",
     "fileName": "Residents testimonials.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/residents-testimonials.pdf",
-    "group": "",
+    "group": "Residents testimonials",
     "files": [
       {
         "title": "Residents testimonials.pdf",
@@ -838,7 +844,7 @@ const examples = [
   },
   {
     "id": "topics-research",
-    "title": "Topics research.pdf",
+    "title": "Topics research",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -853,7 +859,7 @@ const examples = [
     "source": "",
     "fileName": "Topics research.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/topics-research.pdf",
-    "group": "",
+    "group": "Topics research",
     "files": [
       {
         "title": "Topics research.pdf",
@@ -894,7 +900,7 @@ const examples = [
   },
   {
     "id": "uhi-survey-form",
-    "title": "UHI survey form.pdf",
+    "title": "UHI survey form",
     "bucket": "Research",
     "description": "",
     "tags": [
@@ -907,7 +913,7 @@ const examples = [
     "source": "",
     "fileName": "UHI survey form.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/uhi-survey-form.pdf",
-    "group": "",
+    "group": "UHI survey form",
     "files": [
       {
         "title": "UHI survey form.pdf",
@@ -1471,7 +1477,7 @@ const examples = [
   },
   {
     "id": "buurt-scale-1-8-000-a0-energy-labels",
-    "title": "Buurt Scale 1_8.000 A0 Energy Labels.pdf",
+    "title": "Buurt Scale 1_8.000 A0 Energy Labels",
     "bucket": "Analysis",
     "description": "",
     "tags": [
@@ -1489,7 +1495,7 @@ const examples = [
     "source": "",
     "fileName": "Buurt Scale 1_8.000 A0 Energy Labels.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/buurt-scale-1-8-000-a0-energy-labels.pdf",
-    "group": "",
+    "group": "Buurt Scale 1_8.000 A0 Energy Labels",
     "files": [
       {
         "title": "Buurt Scale 1_8.000 A0 Energy Labels.pdf",
@@ -2854,7 +2860,7 @@ const examples = [
   },
   {
     "id": "gevoelstemperatuur-2022",
-    "title": "Gevoelstemperatuur 2022.pdf",
+    "title": "Gevoelstemperatuur 2022",
     "bucket": "Analysis",
     "description": "",
     "tags": [
@@ -2874,7 +2880,7 @@ const examples = [
     "source": "",
     "fileName": "Gevoelstemperatuur 2022.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/gevoelstemperatuur-2022.pdf",
-    "group": "",
+    "group": "Gevoelstemperatuur 2022",
     "files": [
       {
         "title": "Gevoelstemperatuur 2022.pdf",
@@ -3871,7 +3877,7 @@ const examples = [
   },
   {
     "id": "pitch-week-2",
-    "title": "Pitch week 2.pdf",
+    "title": "Pitch week 2",
     "bucket": "Analysis",
     "description": "",
     "tags": [
@@ -3894,12 +3900,18 @@ const examples = [
     "source": "",
     "fileName": "Pitch week 2.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-2.pdf",
-    "group": "",
+    "group": "Pitch week 2",
     "files": [
       {
         "title": "Pitch week 2.pdf",
         "fileName": "Pitch week 2.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-2.pdf",
+        "source": ""
+      },
+      {
+        "title": "Pitch week 2.pptx",
+        "fileName": "Pitch week 2.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-2.pptx",
         "source": ""
       }
     ]
@@ -6434,7 +6446,7 @@ const examples = [
   },
   {
     "id": "pitch-week-4",
-    "title": "Pitch week 4.pdf",
+    "title": "Pitch week 4",
     "bucket": "Conclusion",
     "description": "",
     "tags": [
@@ -6460,12 +6472,18 @@ const examples = [
     "source": "",
     "fileName": "Pitch week 4.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-4.pdf",
-    "group": "",
+    "group": "Pitch week 4",
     "files": [
       {
         "title": "Pitch week 4.pdf",
         "fileName": "Pitch week 4.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-4.pdf",
+        "source": ""
+      },
+      {
+        "title": "Pitch week 4.pptx",
+        "fileName": "Pitch week 4.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-4.pptx",
         "source": ""
       }
     ]
@@ -6803,7 +6821,7 @@ const examples = [
   },
   {
     "id": "midterm-group-3",
-    "title": "Midterm group 3.pdf",
+    "title": "Midterm group 3",
     "bucket": "Simulation",
     "description": "",
     "tags": [
@@ -6829,12 +6847,18 @@ const examples = [
     "source": "",
     "fileName": "Midterm group 3.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
-    "group": "",
+    "group": "Midterm group 3",
     "files": [
       {
         "title": "Midterm group 3.pdf",
         "fileName": "Midterm group 3.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
+        "source": ""
+      },
+      {
+        "title": "Midterm group 3.pptx",
+        "fileName": "Midterm group 3.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pptx",
         "source": ""
       }
     ]
@@ -7940,6 +7964,115 @@ const examples = [
     ]
   },
   {
+    "id": "active-route",
+    "title": "Active route",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Diagram",
+      "Map",
+      "Meso",
+      "Author",
+      "Raneem",
+      "Physical",
+      "Environmental",
+      "Promotion",
+      "Group 1: Responsive Neighbourhood",
+      "Image",
+      "AI-assisted",
+      "Lara",
+      "Micro",
+      "Mental",
+      "Social",
+      "Protection"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Active Route axonometric design.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-axonometric-design.png",
+    "group": "Active route",
+    "files": [
+      {
+        "title": "Active Route axonometric design.png",
+        "fileName": "Active Route axonometric design.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-axonometric-design.png",
+        "source": ""
+      },
+      {
+        "title": "Active Route design.png",
+        "fileName": "Active Route design.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-design.png",
+        "source": ""
+      },
+      {
+        "title": "Active route pushups example.png",
+        "fileName": "Active route pushups example.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-pushups-example.png",
+        "source": ""
+      },
+      {
+        "title": "Responsive Mobility System street section render.png",
+        "fileName": "Responsive Mobility System street section render.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/responsive-mobility-system-street-section-render.png",
+        "source": ""
+      },
+      {
+        "title": "Responsive Mobility System street section.png",
+        "fileName": "Responsive Mobility System street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/responsive-mobility-system-street-section.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "adaptive-street-transformation",
+    "title": "Adaptive street transformation",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Image",
+      "Micro",
+      "AI-assisted",
+      "Raneem",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Promotion",
+      "Protection",
+      "Group 1: Responsive Neighbourhood",
+      "Dataset",
+      "Diagram",
+      "Author",
+      "Lara"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Adaptive Street Transformation after render.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-after-render.png",
+    "group": "Adaptive street transformation",
+    "files": [
+      {
+        "title": "Adaptive Street Transformation after render.png",
+        "fileName": "Adaptive Street Transformation after render.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-after-render.png",
+        "source": ""
+      },
+      {
+        "title": "Adaptive Street Transformation before render.png",
+        "fileName": "Adaptive Street Transformation before render.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-before-render.jpg",
+        "source": ""
+      },
+      {
+        "title": "Adaptive Street Transformation street section.png",
+        "fileName": "Adaptive Street Transformation street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-street-section.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "atmospheres-health-island",
     "title": "Atmospheres health island",
     "bucket": "Design",
@@ -8179,6 +8312,50 @@ const examples = [
         "title": "Buslane desgin.jpg",
         "fileName": "Buslane design.jpg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/buslane-design.jpg",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "community-nodes",
+    "title": "Community nodes",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Image",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Raneem",
+      "Social",
+      "Promotion",
+      "Facilitation",
+      "Group 1: Responsive Neighbourhood",
+      "Lara",
+      "Diagram"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Community Nodes render after.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-after.png",
+    "group": "Community nodes",
+    "files": [
+      {
+        "title": "Community Nodes render after.png",
+        "fileName": "Community Nodes render after.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-after.png",
+        "source": ""
+      },
+      {
+        "title": "Community Nodes render before.png",
+        "fileName": "Community Nodes render before.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-before.png",
+        "source": ""
+      },
+      {
+        "title": "Community Nodes street section.png",
+        "fileName": "Community Nodes street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-street-section.png",
         "source": ""
       }
     ]
@@ -8782,56 +8959,8 @@ const examples = [
     ]
   },
   {
-    "id": "g1",
-    "title": "G1",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Image",
-      "Micro",
-      "AI-assisted",
-      "Raneem",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Promotion",
-      "Protection",
-      "Group 1: Responsive Neighbourhood",
-      "Dataset",
-      "Diagram",
-      "Author",
-      "Lara"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Adaptive Street Transformation after render.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-after-render.png",
-    "group": "G1",
-    "files": [
-      {
-        "title": "Adaptive Street Transformation after render.png",
-        "fileName": "Adaptive Street Transformation after render.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-after-render.png",
-        "source": ""
-      },
-      {
-        "title": "Adaptive Street Transformation before render.png",
-        "fileName": "Adaptive Street Transformation before render.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-before-render.jpg",
-        "source": ""
-      },
-      {
-        "title": "Adaptive Street Transformation street section.png",
-        "fileName": "Adaptive Street Transformation street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adaptive-street-transformation-street-section.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "g2",
-    "title": "G2",
+    "id": "green-buffer-network",
+    "title": "Green buffer network",
     "bucket": "Design",
     "description": "",
     "tags": [
@@ -8855,7 +8984,7 @@ const examples = [
     "source": "",
     "fileName": "Green Buffer Network street section.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-buffer-network-street-section.png",
-    "group": "G2",
+    "group": "Green buffer network",
     "files": [
       {
         "title": "Green Buffer Network street section.png",
@@ -8873,146 +9002,6 @@ const examples = [
         "title": "Green Neighborhood Axis design.jpg",
         "fileName": "Green Neighborhood Axis design.jpg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-neighborhood-axis-design.jpg",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "g3",
-    "title": "G3",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Image",
-      "Micro",
-      "Author",
-      "Lara",
-      "Physical",
-      "Environmental",
-      "Protection",
-      "Group 1: Responsive Neighbourhood"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Healthier Main Traffic Corridors street section render.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section-render.png",
-    "group": "G3",
-    "files": [
-      {
-        "title": "Healthier Main Traffic Corridors street section render.png",
-        "fileName": "Healthier Main Traffic Corridors street section render.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section-render.png",
-        "source": ""
-      },
-      {
-        "title": "Healthier Main Traffic Corridors street section.png",
-        "fileName": "Healthier Main Traffic Corridors street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "g4",
-    "title": "G4",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Image",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Raneem",
-      "Social",
-      "Promotion",
-      "Facilitation",
-      "Group 1: Responsive Neighbourhood",
-      "Lara",
-      "Diagram"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Community Nodes render after.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-after.png",
-    "group": "G4",
-    "files": [
-      {
-        "title": "Community Nodes render after.png",
-        "fileName": "Community Nodes render after.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-after.png",
-        "source": ""
-      },
-      {
-        "title": "Community Nodes render before.png",
-        "fileName": "Community Nodes render before.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-render-before.png",
-        "source": ""
-      },
-      {
-        "title": "Community Nodes street section.png",
-        "fileName": "Community Nodes street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/community-nodes-street-section.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "g5",
-    "title": "G5",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Diagram",
-      "Map",
-      "Meso",
-      "Author",
-      "Raneem",
-      "Physical",
-      "Environmental",
-      "Promotion",
-      "Group 1: Responsive Neighbourhood",
-      "Image",
-      "AI-assisted",
-      "Lara",
-      "Micro",
-      "Mental",
-      "Social",
-      "Protection"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Active Route axonometric design.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-axonometric-design.png",
-    "group": "G5",
-    "files": [
-      {
-        "title": "Active Route axonometric design.png",
-        "fileName": "Active Route axonometric design.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-axonometric-design.png",
-        "source": ""
-      },
-      {
-        "title": "Active Route design.png",
-        "fileName": "Active Route design.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-design.png",
-        "source": ""
-      },
-      {
-        "title": "Active route pushups example.png",
-        "fileName": "Active route pushups example.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/active-route-pushups-example.png",
-        "source": ""
-      },
-      {
-        "title": "Responsive Mobility System street section render.png",
-        "fileName": "Responsive Mobility System street section render.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/responsive-mobility-system-street-section-render.png",
-        "source": ""
-      },
-      {
-        "title": "Responsive Mobility System street section.png",
-        "fileName": "Responsive Mobility System street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/responsive-mobility-system-street-section.png",
         "source": ""
       }
     ]
@@ -9108,7 +9097,7 @@ const examples = [
   },
   {
     "id": "health-islands-final-presentation",
-    "title": "Health Islands - final presentation.pdf",
+    "title": "Health Islands - final presentation",
     "bucket": "Design",
     "description": "",
     "tags": [
@@ -9135,12 +9124,53 @@ const examples = [
     "source": "",
     "fileName": "Health Islands - final presentation.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-islands-final-presentation.pdf",
-    "group": "",
+    "group": "Health Islands - final presentation",
     "files": [
       {
         "title": "Health Islands - final presentation.pdf",
         "fileName": "Health Islands - final presentation.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-islands-final-presentation.pdf",
+        "source": ""
+      },
+      {
+        "title": "Health Islands - final presentation.pptx",
+        "fileName": "Health Islands - final presentation.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-islands-final-presentation.pptx",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "healthier-main-traffic-corridors",
+    "title": "Healthier main traffic corridors",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Image",
+      "Micro",
+      "Author",
+      "Lara",
+      "Physical",
+      "Environmental",
+      "Protection",
+      "Group 1: Responsive Neighbourhood"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Healthier Main Traffic Corridors street section render.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section-render.png",
+    "group": "Healthier main traffic corridors",
+    "files": [
+      {
+        "title": "Healthier Main Traffic Corridors street section render.png",
+        "fileName": "Healthier Main Traffic Corridors street section render.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section-render.png",
+        "source": ""
+      },
+      {
+        "title": "Healthier Main Traffic Corridors street section.png",
+        "fileName": "Healthier Main Traffic Corridors street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/healthier-main-traffic-corridors-street-section.png",
         "source": ""
       }
     ]
@@ -9238,6 +9268,12 @@ const examples = [
         "title": "Facilitation presentation.pdf",
         "fileName": "Facilitation presentation.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pdf",
+        "source": ""
+      },
+      {
+        "title": "Facilitation presentation.pptx",
+        "fileName": "Facilitation presentation.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pptx",
         "source": ""
       },
       {
@@ -9371,6 +9407,12 @@ const examples = [
         "source": ""
       },
       {
+        "title": "Individual Design Promotion.pptx",
+        "fileName": "Individual Design Promotion.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pptx",
+        "source": ""
+      },
+      {
         "title": "Living street plan.png",
         "fileName": "Living street plan.png",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-plan.png",
@@ -9428,7 +9470,7 @@ const examples = [
   },
   {
     "id": "integration-presentation",
-    "title": "Integration presentation.pdf",
+    "title": "Integration Presentation",
     "bucket": "Design",
     "description": "",
     "tags": [
@@ -9455,12 +9497,18 @@ const examples = [
     "source": "",
     "fileName": "Integration Presentation.pdf",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/integration-presentation.pdf",
-    "group": "",
+    "group": "Integration Presentation",
     "files": [
       {
         "title": "Integration presentation.pdf",
         "fileName": "Integration Presentation.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/integration-presentation.pdf",
+        "source": ""
+      },
+      {
+        "title": "Integration Presentation.pptx",
+        "fileName": "Integration Presentation.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/integration-presentation.pptx",
         "source": ""
       }
     ]
