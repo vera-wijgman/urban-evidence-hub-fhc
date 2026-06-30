@@ -15,3 +15,6 @@
 /dist-code-only/
 /website concept.svg
 /website design.svg
+
+# Cloudflare Wrangler local cache
+.wrangler/
