@@ -118,7 +118,7 @@ const projectGroups = {
 const examples = [
   {
     "id": "agent-based-modelling",
-    "title": "Agent-based Modelling.pptx",
+    "title": "Agent-based Modelling",
     "bucket": "Methods",
     "description": "",
     "tags": [
@@ -134,10 +134,16 @@ const examples = [
     ],
     "date": "",
     "source": "",
-    "fileName": "Agent-based Modelling.pptx",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/agent-based-modelling.pptx",
-    "group": "",
+    "fileName": "Agent-based Modelling.pdf",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/agent-based-modelling.pdf",
+    "group": "Agent-based Modelling",
     "files": [
+      {
+        "title": "Agent-based Modelling.pdf",
+        "fileName": "Agent-based Modelling.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/agent-based-modelling.pdf",
+        "source": ""
+      },
       {
         "title": "Agent-based Modelling.pptx",
         "fileName": "Agent-based Modelling.pptx",
@@ -179,7 +185,7 @@ const examples = [
   },
   {
     "id": "dynamic-urban-deprivation-monitoring",
-    "title": "Dynamic Urban Deprivation Monitoring.pptx",
+    "title": "Dynamic Urban Deprivation Monitoring",
     "bucket": "Methods",
     "description": "",
     "tags": [
@@ -194,10 +200,16 @@ const examples = [
     ],
     "date": "",
     "source": "",
-    "fileName": "Dynamic Urban Deprivation Monitoring.pptx",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/dynamic-urban-deprivation-monitoring.pptx",
-    "group": "",
+    "fileName": "Dynamic Urban Deprivation Monitoring.pdf",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/dynamic-urban-deprivation-monitoring.pdf",
+    "group": "Dynamic Urban Deprivation Monitoring",
     "files": [
+      {
+        "title": "Dynamic Urban Deprivation Monitoring.pdf",
+        "fileName": "Dynamic Urban Deprivation Monitoring.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/dynamic-urban-deprivation-monitoring.pdf",
+        "source": ""
+      },
       {
         "title": "Dynamic Urban Deprivation Monitoring.pptx",
         "fileName": "Dynamic Urban Deprivation Monitoring.pptx",
@@ -208,7 +220,7 @@ const examples = [
   },
   {
     "id": "health-effect-assessment-of-landscape-heal",
-    "title": "Health Effect Assessment of Landscape (HEAL)​.pptx",
+    "title": "Health Effect Assessment of Landscape (HEAL)",
     "bucket": "Methods",
     "description": "",
     "tags": [
@@ -229,10 +241,16 @@ const examples = [
     ],
     "date": "",
     "source": "",
-    "fileName": "Health Effect Assessment of Landscape (HEAL)​.pptx",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-effect-assessment-of-landscape-heal.pptx",
-    "group": "",
+    "fileName": "Health Effect Assessment of Landscape (HEAL).pdf",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-effect-assessment-of-landscape-heal.pdf",
+    "group": "Health Effect Assessment of Landscape (HEAL)",
     "files": [
+      {
+        "title": "Health Effect Assessment of Landscape (HEAL).pdf",
+        "fileName": "Health Effect Assessment of Landscape (HEAL).pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-effect-assessment-of-landscape-heal.pdf",
+        "source": ""
+      },
       {
         "title": "Health Effect Assessment of Landscape (HEAL)​.pptx",
         "fileName": "Health Effect Assessment of Landscape (HEAL)​.pptx",
@@ -9101,23 +9119,12 @@ const examples = [
     "bucket": "Design",
     "description": "",
     "tags": [
-      "Mobility",
-      "Land use",
-      "Public space",
-      "Environment",
-      "Presentation",
+      "Map",
       "Meso",
-      "Micro",
       "Author",
       "Cas",
       "Milana",
       "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Promotion",
-      "Facilitation",
-      "Protection",
       "Group 3: Health Islands"
     ],
     "date": "",
@@ -9500,7 +9507,7 @@ const examples = [
     "group": "Integration Presentation",
     "files": [
       {
-        "title": "Integration presentation.pdf",
+        "title": "Integration Presentation.pdf",
         "fileName": "Integration Presentation.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/integration-presentation.pdf",
         "source": ""
@@ -11089,14 +11096,14 @@ const examples = [
     ],
     "date": "",
     "source": "",
-    "fileName": "App events and volunteering.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+    "fileName": "Events & volunteering.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/events-volunteering.png",
     "group": "WellWay health interface tabs",
     "files": [
       {
-        "title": "Events and volunteering.png",
-        "fileName": "App events and volunteering.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+        "title": "Events & volunteering.png",
+        "fileName": "Events & volunteering.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/events-volunteering.png",
         "source": ""
       },
       {
