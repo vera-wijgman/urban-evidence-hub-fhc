@@ -521,6 +521,65 @@ const examples = [
     ]
   },
   {
+    "id": "indicators-and-indices-wheel",
+    "title": "Indicators and indices wheel",
+    "bucket": "Research",
+    "description": "",
+    "tags": [
+      "Public space",
+      "Environment",
+      "Diagram",
+      "Meso",
+      "Author",
+      "Vera",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Group 3: Health Islands",
+      "Demographics",
+      "Mobility",
+      "Land use"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Green space indices.pdf",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-space-indices.pdf",
+    "group": "Indicators and indices wheel",
+    "files": [
+      {
+        "title": "Green space indices.pdf",
+        "fileName": "Green space indices.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-space-indices.pdf",
+        "source": ""
+      },
+      {
+        "title": "Health indices.pdf",
+        "fileName": "Health indices.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-indices.pdf",
+        "source": ""
+      },
+      {
+        "title": "Spatial indices.pdf",
+        "fileName": "Spatial indices.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spatial-indices.pdf",
+        "source": ""
+      },
+      {
+        "title": "Street profile indices.pdf",
+        "fileName": "Street profile indices.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/street-profile-indices.pdf",
+        "source": ""
+      },
+      {
+        "title": "Third place indices.pdf",
+        "fileName": "Third place indices.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-place-indices.pdf",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "indicators",
     "title": "Indicators.xlsx",
     "bucket": "Research",
@@ -651,65 +710,6 @@ const examples = [
         "title": "Pitch week 6.pdf",
         "fileName": "Pitch week 6.pdf",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-week-6.pdf",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "r-iw-g3",
-    "title": "R_IW_G3",
-    "bucket": "Research",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Environment",
-      "Diagram",
-      "Meso",
-      "Author",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Group 3: Health Islands",
-      "Demographics",
-      "Mobility",
-      "Land use"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Green space indices.pdf",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-space-indices.pdf",
-    "group": "R_IW_G3",
-    "files": [
-      {
-        "title": "Green space indices.pdf",
-        "fileName": "Green space indices.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-space-indices.pdf",
-        "source": ""
-      },
-      {
-        "title": "Health indices.pdf",
-        "fileName": "Health indices.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-indices.pdf",
-        "source": ""
-      },
-      {
-        "title": "Spatial indices.pdf",
-        "fileName": "Spatial indices.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spatial-indices.pdf",
-        "source": ""
-      },
-      {
-        "title": "Street profile indices.pdf",
-        "fileName": "Street profile indices.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/street-profile-indices.pdf",
-        "source": ""
-      },
-      {
-        "title": "Third place indices.pdf",
-        "fileName": "Third place indices.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-place-indices.pdf",
         "source": ""
       }
     ]
@@ -1151,86 +1151,6 @@ const examples = [
         "title": "sport weekly.jpg",
         "fileName": "sport weekly.jpg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/sport-weekly.jpg",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "a-ns-g3",
-    "title": "A_NS_G3",
-    "bucket": "Analysis",
-    "description": "",
-    "tags": [
-      "Land use",
-      "Map",
-      "Meso",
-      "Author",
-      "Vera",
-      "Group 3: Health Islands",
-      "Public space",
-      "Environment",
-      "Mobility",
-      "Historical development",
-      "Morphology"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Facilities.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilities.png",
-    "group": "A_NS_G3",
-    "files": [
-      {
-        "title": "Facilities.png",
-        "fileName": "Facilities.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilities.png",
-        "source": ""
-      },
-      {
-        "title": "Greenery 300m catchment.png",
-        "fileName": "Greenery 300m catchment.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/greenery-300m-catchment.png",
-        "source": ""
-      },
-      {
-        "title": "Road hierarchy.png",
-        "fileName": "Road hierarchy.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/road-hierarchy.png",
-        "source": ""
-      },
-      {
-        "title": "Stamps and typologies.png",
-        "fileName": "Stamps and typologies.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stamps-and-typologies.png",
-        "source": ""
-      },
-      {
-        "title": "Stamps.png",
-        "fileName": "Stamps.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stamps.png",
-        "source": ""
-      },
-      {
-        "title": "Streets to be redesigned.png",
-        "fileName": "Streets to be redesigned.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/streets-to-be-redesigned.png",
-        "source": ""
-      },
-      {
-        "title": "Strengthen green connections.png",
-        "fileName": "Strengthen green connections.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/strengthen-green-connections.png",
-        "source": ""
-      },
-      {
-        "title": "Typologies.png",
-        "fileName": "Typologies.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/typologies.png",
-        "source": ""
-      },
-      {
-        "title": "Walking catchment area.png",
-        "fileName": "Walking catchment area.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walking-catchment-area.png",
         "source": ""
       }
     ]
@@ -3027,6 +2947,53 @@ const examples = [
     ]
   },
   {
+    "id": "health-simulation-tool",
+    "title": "Health simulation tool",
+    "bucket": "Analysis",
+    "description": "",
+    "tags": [
+      "Demographics",
+      "Dataset",
+      "Author",
+      "Cas",
+      "Milana",
+      "Vera",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Group 3: Health Islands",
+      "Environment",
+      "Code",
+      "AI-assisted"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "data_health.xlsx",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-health.xlsx",
+    "group": "Health simulation tool",
+    "files": [
+      {
+        "title": "data_health.xlsx",
+        "fileName": "data_health.xlsx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-health.xlsx",
+        "source": ""
+      },
+      {
+        "title": "data_spatial_domain.xlsx",
+        "fileName": "data_spatial_domain.xlsx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-spatial-domain.xlsx",
+        "source": ""
+      },
+      {
+        "title": "Health_simulation_tool_final.ipynb",
+        "fileName": "Health_simulation_tool_final.ipynb",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-simulation-tool-final.ipynb",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "healthcare-access-context",
     "title": "healthcare_access_context.png",
     "bucket": "Analysis",
@@ -4296,71 +4263,6 @@ const examples = [
     ]
   },
   {
-    "id": "s-da-g3",
-    "title": "S_DA_G3",
-    "bucket": "Analysis",
-    "description": "",
-    "tags": [
-      "Demographics",
-      "Dataset",
-      "Author",
-      "Cas",
-      "Milana",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "data_health.xlsx",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-health.xlsx",
-    "group": "S_DA_G3",
-    "files": [
-      {
-        "title": "data_health.xlsx",
-        "fileName": "data_health.xlsx",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-health.xlsx",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-da-g4",
-    "title": "S_DA_G4",
-    "bucket": "Analysis",
-    "description": "",
-    "tags": [
-      "Demographics",
-      "Environment",
-      "Dataset",
-      "Author",
-      "Cas",
-      "Milana",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "data_spatial_domain.xlsx",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-spatial-domain.xlsx",
-    "group": "S_DA_G4",
-    "files": [
-      {
-        "title": "data_spatial_domain.xlsx",
-        "fileName": "data_spatial_domain.xlsx",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/data-spatial-domain.xlsx",
-        "source": ""
-      }
-    ]
-  },
-  {
     "id": "safety-context",
     "title": "Safety_context.png",
     "bucket": "Analysis",
@@ -5351,6 +5253,86 @@ const examples = [
     ]
   },
   {
+    "id": "urban-analysis-neighbourhood-scale",
+    "title": "Urban analysis neighbourhood scale",
+    "bucket": "Analysis",
+    "description": "",
+    "tags": [
+      "Land use",
+      "Map",
+      "Meso",
+      "Author",
+      "Vera",
+      "Group 3: Health Islands",
+      "Public space",
+      "Environment",
+      "Mobility",
+      "Historical development",
+      "Morphology"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Facilities.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilities.png",
+    "group": "Urban analysis neighbourhood scale",
+    "files": [
+      {
+        "title": "Facilities.png",
+        "fileName": "Facilities.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilities.png",
+        "source": ""
+      },
+      {
+        "title": "Greenery 300m catchment.png",
+        "fileName": "Greenery 300m catchment.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/greenery-300m-catchment.png",
+        "source": ""
+      },
+      {
+        "title": "Road hierarchy.png",
+        "fileName": "Road hierarchy.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/road-hierarchy.png",
+        "source": ""
+      },
+      {
+        "title": "Stamps and typologies.png",
+        "fileName": "Stamps and typologies.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stamps-and-typologies.png",
+        "source": ""
+      },
+      {
+        "title": "Stamps.png",
+        "fileName": "Stamps.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stamps.png",
+        "source": ""
+      },
+      {
+        "title": "Streets to be redesigned.png",
+        "fileName": "Streets to be redesigned.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/streets-to-be-redesigned.png",
+        "source": ""
+      },
+      {
+        "title": "Strengthen green connections.png",
+        "fileName": "Strengthen green connections.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/strengthen-green-connections.png",
+        "source": ""
+      },
+      {
+        "title": "Typologies.png",
+        "fileName": "Typologies.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/typologies.png",
+        "source": ""
+      },
+      {
+        "title": "Walking catchment area.png",
+        "fileName": "Walking catchment area.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walking-catchment-area.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "video-analysis-who-indicators-website",
     "title": "Video Analysis WHO indicators website",
     "bucket": "Analysis",
@@ -5571,6 +5553,56 @@ const examples = [
     ]
   },
   {
+    "id": "bad-health-diagrams",
+    "title": "Bad health diagrams",
+    "bucket": "Conclusion",
+    "description": "",
+    "tags": [
+      "Demographics",
+      "Diagram",
+      "Meso",
+      "Author",
+      "AI-assisted",
+      "Vera",
+      "Social",
+      "Group 3: Health Islands",
+      "Mental",
+      "Physical",
+      "Economic"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "1. Bad social health.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-bad-social-health.png",
+    "group": "Bad health diagrams",
+    "files": [
+      {
+        "title": "1. Bad social health.png",
+        "fileName": "1. Bad social health.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-bad-social-health.png",
+        "source": ""
+      },
+      {
+        "title": "2. Bad mental health.png",
+        "fileName": "2. Bad mental health.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/2-bad-mental-health.png",
+        "source": ""
+      },
+      {
+        "title": "3. Bad physical health.png",
+        "fileName": "3. Bad physical health.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/3-bad-physical-health.png",
+        "source": ""
+      },
+      {
+        "title": "4. Trouble making ends meet.png",
+        "fileName": "4. Trouble making ends meet.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/4-trouble-making-ends-meet.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "before-conclusion-picture",
     "title": "Before conclusion picture.png",
     "bucket": "Conclusion",
@@ -5631,58 +5663,64 @@ const examples = [
     ]
   },
   {
-    "id": "c-bhd-g3",
-    "title": "C_BHD_G3",
+    "id": "city-conclusions",
+    "title": "City conclusions.png",
     "bucket": "Conclusion",
     "description": "",
     "tags": [
-      "Demographics",
-      "Diagram",
-      "Meso",
+      "Mobility",
+      "Environment",
+      "Map",
+      "Macro",
       "Author",
-      "AI-assisted",
       "Vera",
-      "Social",
-      "Group 3: Health Islands",
-      "Mental",
-      "Physical",
-      "Economic"
+      "Group 3: Health Islands"
     ],
     "date": "",
     "source": "",
-    "fileName": "1. Bad social health.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-bad-social-health.png",
-    "group": "C_BHD_G3",
+    "fileName": "City conclusions.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-conclusions.png",
+    "group": "",
     "files": [
       {
-        "title": "1. Bad social health.png",
-        "fileName": "1. Bad social health.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-bad-social-health.png",
-        "source": ""
-      },
-      {
-        "title": "2. Bad mental health.png",
-        "fileName": "2. Bad mental health.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/2-bad-mental-health.png",
-        "source": ""
-      },
-      {
-        "title": "3. Bad physical health.png",
-        "fileName": "3. Bad physical health.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/3-bad-physical-health.png",
-        "source": ""
-      },
-      {
-        "title": "4. Trouble making ends meet.png",
-        "fileName": "4. Trouble making ends meet.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/4-trouble-making-ends-meet.png",
+        "title": "City conclusions.png",
+        "fileName": "City conclusions.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-conclusions.png",
         "source": ""
       }
     ]
   },
   {
-    "id": "c-cd-g3",
-    "title": "C_CD_G3",
+    "id": "city-opportunities",
+    "title": "City opportunities.png",
+    "bucket": "Conclusion",
+    "description": "",
+    "tags": [
+      "Mobility",
+      "Environment",
+      "Map",
+      "Macro",
+      "Author",
+      "Vera",
+      "Group 3: Health Islands"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "City opportunities.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-opportunities.png",
+    "group": "",
+    "files": [
+      {
+        "title": "City opportunities.png",
+        "fileName": "City opportunities.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-opportunities.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "conclusion-diagrams",
+    "title": "Conclusion diagrams",
     "bucket": "Conclusion",
     "description": "",
     "tags": [
@@ -5703,7 +5741,7 @@ const examples = [
     "source": "",
     "fileName": "1. Car-dominated.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-car-dominated.png",
-    "group": "C_CD_G3",
+    "group": "Conclusion diagrams",
     "files": [
       {
         "title": "1. Car-dominated.png",
@@ -5738,8 +5776,8 @@ const examples = [
     ]
   },
   {
-    "id": "c-cm-g3",
-    "title": "C_CM_G3",
+    "id": "conclusion-maps",
+    "title": "Conclusion maps",
     "bucket": "Conclusion",
     "description": "",
     "tags": [
@@ -5759,7 +5797,7 @@ const examples = [
     "source": "",
     "fileName": "1. Base map.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-base-map.png",
-    "group": "C_CM_G3",
+    "group": "Conclusion maps",
     "files": [
       {
         "title": "1. Base map.png",
@@ -5855,62 +5893,6 @@ const examples = [
         "title": "16. Appropriation of space.png",
         "fileName": "16. Appropriation of space.png",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/16-appropriation-of-space.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "city-conclusions",
-    "title": "City conclusions.png",
-    "bucket": "Conclusion",
-    "description": "",
-    "tags": [
-      "Mobility",
-      "Environment",
-      "Map",
-      "Macro",
-      "Author",
-      "Vera",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "City conclusions.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-conclusions.png",
-    "group": "",
-    "files": [
-      {
-        "title": "City conclusions.png",
-        "fileName": "City conclusions.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-conclusions.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "city-opportunities",
-    "title": "City opportunities.png",
-    "bucket": "Conclusion",
-    "description": "",
-    "tags": [
-      "Mobility",
-      "Environment",
-      "Map",
-      "Macro",
-      "Author",
-      "Vera",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "City opportunities.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-opportunities.png",
-    "group": "",
-    "files": [
-      {
-        "title": "City opportunities.png",
-        "fileName": "City opportunities.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/city-opportunities.png",
         "source": ""
       }
     ]
@@ -6707,77 +6689,50 @@ const examples = [
     ]
   },
   {
-    "id": "midterm-group-3",
-    "title": "Midterm group 3.pdf",
+    "id": "impact-effort-matrices-per-health-domain",
+    "title": "Impact-effort matrices per health domain",
     "bucket": "Simulation",
     "description": "",
     "tags": [
-      "Historical development",
       "Demographics",
-      "Mobility",
-      "Morphology",
-      "Land use",
-      "Public space",
-      "Environment",
-      "Presentation",
+      "Diagram",
       "Meso",
       "Author",
-      "Cas",
-      "Milana",
       "Vera",
-      "Physical",
-      "Mental",
       "Social",
-      "Group 3: Health Islands"
+      "Group 3: Health Islands",
+      "Mental",
+      "Physical"
     ],
     "date": "",
     "source": "",
-    "fileName": "Midterm group 3.pdf",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
-    "group": "",
+    "fileName": "1. Matrix social health positive 0.2.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-matrix-social-health-positive-0-2.png",
+    "group": "Impact-effort matrices per health domain",
     "files": [
       {
-        "title": "Midterm group 3.pdf",
-        "fileName": "Midterm group 3.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
+        "title": "1. Matrix social health positive 0.2.png",
+        "fileName": "1. Matrix social health positive 0.2.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-matrix-social-health-positive-0-2.png",
+        "source": ""
+      },
+      {
+        "title": "2. Matrix mental health positive 0.2.png",
+        "fileName": "2. Matrix mental health positive 0.2.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/2-matrix-mental-health-positive-0-2.png",
+        "source": ""
+      },
+      {
+        "title": "3. Matrix physical health positive 0.2.png",
+        "fileName": "3. Matrix physical health positive 0.2.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/3-matrix-physical-health-positive-0-2.png",
         "source": ""
       }
     ]
   },
   {
-    "id": "s-da-g5",
-    "title": "S_DA_G5",
-    "bucket": "Simulation",
-    "description": "",
-    "tags": [
-      "Code",
-      "AI-assisted",
-      "Cas",
-      "Milana",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Health_simulation_tool_final.ipynb",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-simulation-tool-final.ipynb",
-    "group": "S_DA_G5",
-    "files": [
-      {
-        "title": "Health_simulation_tool_final.ipynb",
-        "fileName": "Health_simulation_tool_final.ipynb",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-simulation-tool-final.ipynb",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-id-g3",
-    "title": "S_ID_G3",
+    "id": "indicator-diagrams",
+    "title": "Indicator diagrams",
     "bucket": "Simulation",
     "description": "",
     "tags": [
@@ -6800,7 +6755,7 @@ const examples = [
     "source": "",
     "fileName": "Biodiversity.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/biodiversity.png",
-    "group": "S_ID_G3",
+    "group": "Indicator diagrams",
     "files": [
       {
         "title": "Biodiversity.png",
@@ -6847,43 +6802,39 @@ const examples = [
     ]
   },
   {
-    "id": "s-m-g3",
-    "title": "S_M_G3",
+    "id": "midterm-group-3",
+    "title": "Midterm group 3.pdf",
     "bucket": "Simulation",
     "description": "",
     "tags": [
+      "Historical development",
       "Demographics",
-      "Diagram",
+      "Mobility",
+      "Morphology",
+      "Land use",
+      "Public space",
+      "Environment",
+      "Presentation",
       "Meso",
       "Author",
+      "Cas",
+      "Milana",
       "Vera",
-      "Social",
-      "Group 3: Health Islands",
+      "Physical",
       "Mental",
-      "Physical"
+      "Social",
+      "Group 3: Health Islands"
     ],
     "date": "",
     "source": "",
-    "fileName": "1. Matrix social health positive 0.2.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-matrix-social-health-positive-0-2.png",
-    "group": "S_M_G3",
+    "fileName": "Midterm group 3.pdf",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
+    "group": "",
     "files": [
       {
-        "title": "1. Matrix social health positive 0.2.png",
-        "fileName": "1. Matrix social health positive 0.2.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-matrix-social-health-positive-0-2.png",
-        "source": ""
-      },
-      {
-        "title": "2. Matrix mental health positive 0.2.png",
-        "fileName": "2. Matrix mental health positive 0.2.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/2-matrix-mental-health-positive-0-2.png",
-        "source": ""
-      },
-      {
-        "title": "3. Matrix physical health positive 0.2.png",
-        "fileName": "3. Matrix physical health positive 0.2.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/3-matrix-physical-health-positive-0-2.png",
+        "title": "Midterm group 3.pdf",
+        "fileName": "Midterm group 3.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/midterm-group-3.pdf",
         "source": ""
       }
     ]
@@ -7033,8 +6984,112 @@ const examples = [
     ]
   },
   {
-    "id": "d-id-c",
-    "title": "D_ID_C",
+    "id": "facilitation-who-indicators-table",
+    "title": "Facilitation WHO indicators table.png",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Dataset",
+      "Diagram",
+      "Macro",
+      "Author",
+      "Lara",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Economic",
+      "Promotion",
+      "Facilitation",
+      "Protection",
+      "Group 1: Responsive Neighbourhood"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Facilitation WHO indicators table.jpg",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-who-indicators-table.jpg",
+    "group": "",
+    "files": [
+      {
+        "title": "Facilitation WHO indicators table.png",
+        "fileName": "Facilitation WHO indicators table.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-who-indicators-table.jpg",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "final-concept-of-health",
+    "title": "Final concept of health.png",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Dataset",
+      "Diagram",
+      "Macro",
+      "Author",
+      "Lara",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Economic",
+      "Promotion",
+      "Facilitation",
+      "Protection",
+      "Group 1: Responsive Neighbourhood"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Final concept of health.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/final-concept-of-health.png",
+    "group": "",
+    "files": [
+      {
+        "title": "Final concept of health.png",
+        "fileName": "Final concept of health.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/final-concept-of-health.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "health-equation-talbe",
+    "title": "Health equation talbe.png",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Diagram",
+      "Macro",
+      "Author",
+      "Lara",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Economic",
+      "Promotion",
+      "Facilitation",
+      "Protection",
+      "Group 1: Responsive Neighbourhood"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Health equation table.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-equation-table.png",
+    "group": "",
+    "files": [
+      {
+        "title": "Health equation talbe.png",
+        "fileName": "Health equation table.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-equation-table.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "individual-design-cas-protection",
+    "title": "Individual design Cas - Protection",
     "bucket": "Strategy",
     "description": "",
     "tags": [
@@ -7063,7 +7118,7 @@ const examples = [
     "source": "",
     "fileName": "pitch_individual_design_protection.pptx",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/pitch-individual-design-protection.pptx",
-    "group": "D_ID_C",
+    "group": "Individual design Cas - Protection",
     "files": [
       {
         "title": "design_base_protection_cas.docx",
@@ -7170,110 +7225,6 @@ const examples = [
     ]
   },
   {
-    "id": "facilitation-who-indicators-table",
-    "title": "Facilitation WHO indicators table.png",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Dataset",
-      "Diagram",
-      "Macro",
-      "Author",
-      "Lara",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Economic",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 1: Responsive Neighbourhood"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Facilitation WHO indicators table.jpg",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-who-indicators-table.jpg",
-    "group": "",
-    "files": [
-      {
-        "title": "Facilitation WHO indicators table.png",
-        "fileName": "Facilitation WHO indicators table.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-who-indicators-table.jpg",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "final-concept-of-health",
-    "title": "Final concept of health.png",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Dataset",
-      "Diagram",
-      "Macro",
-      "Author",
-      "Lara",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Economic",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 1: Responsive Neighbourhood"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Final concept of health.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/final-concept-of-health.png",
-    "group": "",
-    "files": [
-      {
-        "title": "Final concept of health.png",
-        "fileName": "Final concept of health.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/final-concept-of-health.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "health-equation-talbe",
-    "title": "Health equation talbe.png",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Diagram",
-      "Macro",
-      "Author",
-      "Lara",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Economic",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 1: Responsive Neighbourhood"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Health equation table.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-equation-table.png",
-    "group": "",
-    "files": [
-      {
-        "title": "Health equation talbe.png",
-        "fileName": "Health equation table.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-equation-table.png",
-        "source": ""
-      }
-    ]
-  },
-  {
     "id": "integrated-process-diagram",
     "title": "Integrated process diagram.png",
     "bucket": "Strategy",
@@ -7294,6 +7245,64 @@ const examples = [
         "title": "Integrated process diagram.png",
         "fileName": "Integrated process diagram.png",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/integrated-process-diagram.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "interactive-stakeholder-diagram",
+    "title": "Interactive stakeholder diagram",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Public space",
+      "Environment",
+      "Diagram",
+      "Meso",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Vera",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Promotion",
+      "Facilitation",
+      "Protection",
+      "Group 3: Health Islands",
+      "Mobility",
+      "Micro",
+      "Land use"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Stakeholders ecological network.svg",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-ecological-network.svg",
+    "group": "Interactive stakeholder diagram",
+    "files": [
+      {
+        "title": "Stakeholder diagram ecologial network.svg",
+        "fileName": "Stakeholders ecological network.svg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-ecological-network.svg",
+        "source": ""
+      },
+      {
+        "title": "Stakeholder diagram health spine and islands.svg",
+        "fileName": "Stakeholders health spine and islands.svg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-health-spine-and-islands.svg",
+        "source": ""
+      },
+      {
+        "title": "Stakeholder diagram WellWay.svg",
+        "fileName": "Stakeholders WellWay.svg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-wellway.svg",
+        "source": ""
+      },
+      {
+        "title": "Stakeholder diagram.svg",
+        "fileName": "Stakeholder diagram.svg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholder-diagram.svg",
         "source": ""
       }
     ]
@@ -7426,6 +7435,50 @@ const examples = [
     ]
   },
   {
+    "id": "prioritized-intervention-locations",
+    "title": "Prioritized intervention locations",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Environment",
+      "Map",
+      "Meso",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Physical",
+      "Mental",
+      "Group 3: Health Islands",
+      "Public space",
+      "Social"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "green_accessibility_heatmap.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-accessibility-heatmap.png",
+    "group": "Prioritized intervention locations",
+    "files": [
+      {
+        "title": "green_accessibility_heatmap.png",
+        "fileName": "green_accessibility_heatmap.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-accessibility-heatmap.png",
+        "source": ""
+      },
+      {
+        "title": "heatmap third places attraction.pdf",
+        "fileName": "heatmap third places attraction.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/heatmap-third-places-attraction.pdf",
+        "source": ""
+      },
+      {
+        "title": "Location selection.jpg",
+        "fileName": "Location selection.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/location-selection.jpg",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "process-diagram",
     "title": "Process diagram.png",
     "bucket": "Strategy",
@@ -7512,181 +7565,6 @@ const examples = [
         "title": "Protection WHO indicators table.jpg",
         "fileName": "Protection WHO indicators table.jpg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/protection-who-indicators-table.jpg",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-did-g3",
-    "title": "S_DID_G3",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Environment",
-      "Image",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Vera",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Waterfront current.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/waterfront-current.png",
-    "group": "S_DID_G3",
-    "files": [
-      {
-        "title": "Waterfront current",
-        "fileName": "Waterfront current.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/waterfront-current.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-hsw-g3",
-    "title": "S_HSW_G3",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Environment",
-      "Image",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Vera",
-      "Mental",
-      "Group 3: Health Islands",
-      "Physical",
-      "Social"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Mental scenario.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/mental-scenario.png",
-    "group": "S_HSW_G3",
-    "files": [
-      {
-        "title": "Mental scenario.png",
-        "fileName": "Mental scenario.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/mental-scenario.png",
-        "source": ""
-      },
-      {
-        "title": "Physical scenario.png",
-        "fileName": "Physical scenario.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/physical-scenario.png",
-        "source": ""
-      },
-      {
-        "title": "Social scenario.png",
-        "fileName": "Social scenario.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/social-scenario.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-la-g3",
-    "title": "S_LA_G3",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Environment",
-      "Map",
-      "Meso",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Physical",
-      "Mental",
-      "Group 3: Health Islands",
-      "Public space",
-      "Social"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "green_accessibility_heatmap.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-accessibility-heatmap.png",
-    "group": "S_LA_G3",
-    "files": [
-      {
-        "title": "green_accessibility_heatmap.png",
-        "fileName": "green_accessibility_heatmap.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/green-accessibility-heatmap.png",
-        "source": ""
-      },
-      {
-        "title": "heatmap third places attraction.pdf",
-        "fileName": "heatmap third places attraction.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/heatmap-third-places-attraction.pdf",
-        "source": ""
-      },
-      {
-        "title": "Location selection.jpg",
-        "fileName": "Location selection.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/location-selection.jpg",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "s-sd-g3",
-    "title": "S_SD_G3",
-    "bucket": "Strategy",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Environment",
-      "Diagram",
-      "Meso",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 3: Health Islands",
-      "Mobility",
-      "Micro",
-      "Land use"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Stakeholders ecological network.svg",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-ecological-network.svg",
-    "group": "S_SD_G3",
-    "files": [
-      {
-        "title": "Stakeholder diagram ecologial network.svg",
-        "fileName": "Stakeholders ecological network.svg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-ecological-network.svg",
-        "source": ""
-      },
-      {
-        "title": "Stakeholder diagram health spine and islands.svg",
-        "fileName": "Stakeholders health spine and islands.svg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-health-spine-and-islands.svg",
-        "source": ""
-      },
-      {
-        "title": "Stakeholder diagram WellWay.svg",
-        "fileName": "Stakeholders WellWay.svg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-wellway.svg",
-        "source": ""
-      },
-      {
-        "title": "Stakeholder diagram.svg",
-        "fileName": "Stakeholder diagram.svg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholder-diagram.svg",
         "source": ""
       }
     ]
@@ -7943,6 +7821,56 @@ const examples = [
     ]
   },
   {
+    "id": "waterfront-scenarios-per-health-domain",
+    "title": "Waterfront scenarios per health domain",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Public space",
+      "Environment",
+      "Image",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Vera",
+      "Mental",
+      "Group 3: Health Islands",
+      "Physical",
+      "Social"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Mental scenario.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/mental-scenario.png",
+    "group": "Waterfront scenarios per health domain",
+    "files": [
+      {
+        "title": "Mental scenario.png",
+        "fileName": "Mental scenario.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/mental-scenario.png",
+        "source": ""
+      },
+      {
+        "title": "Physical scenario.png",
+        "fileName": "Physical scenario.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/physical-scenario.png",
+        "source": ""
+      },
+      {
+        "title": "Social scenario.png",
+        "fileName": "Social scenario.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/social-scenario.png",
+        "source": ""
+      },
+      {
+        "title": "Waterfront current",
+        "fileName": "Waterfront current.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/waterfront-current.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "who-indicators-and-framework-principles",
     "title": "Who indicators and framework principles.png",
     "bucket": "Strategy",
@@ -8007,6 +7935,93 @@ const examples = [
         "title": "WHO indocators promotion protection faciliation table.jpg",
         "fileName": "WHO indicators promotion protection facilitation table.jpg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/who-indicators-promotion-protection-facilitation-table.jpg",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "atmospheres-health-island",
+    "title": "Atmospheres health island",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Public space",
+      "Image",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Physical",
+      "Mental",
+      "Social",
+      "Group 3: Health Islands",
+      "Environment",
+      "Environmental"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "atmo_1_cafe.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-cafe.png",
+    "group": "Atmospheres health island",
+    "files": [
+      {
+        "title": "atmo_1_cafe.png",
+        "fileName": "atmo_1_cafe.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-cafe.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_1_community kitchen.png",
+        "fileName": "atmo_1_community kitchen.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-community-kitchen.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_2_art gallery event.jpg",
+        "fileName": "atmo_2_art gallery event.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-2-art-gallery-event.jpg",
+        "source": ""
+      },
+      {
+        "title": "atmo_2_co-working.png",
+        "fileName": "atmo_2_co-working.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-2-co-working.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_3_amphitheater event.png",
+        "fileName": "atmo_3_amphitheater event.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-3-amphitheater-event.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_3_amphitheater.png",
+        "fileName": "atmo_3_amphitheater.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-3-amphitheater.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_4_competition.jpg",
+        "fileName": "atmo_4_competition.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-4-competition.jpg",
+        "source": ""
+      },
+      {
+        "title": "atmo_4_outdoor gym.png",
+        "fileName": "atmo_4_outdoor gym.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-4-outdoor-gym.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_5_art object_biodiversity.png",
+        "fileName": "atmo_5_art object_biodiversity.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-5-art-object-biodiversity.png",
+        "source": ""
+      },
+      {
+        "title": "atmo_5_art object_light.png",
+        "fileName": "atmo_5_art object_light.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-5-art-object-light.png",
         "source": ""
       }
     ]
@@ -8200,8 +8215,8 @@ const examples = [
     ]
   },
   {
-    "id": "d-did-g3",
-    "title": "D_DID_G3",
+    "id": "design-intervention-diagrams",
+    "title": "Design intervention diagrams",
     "bucket": "Design",
     "description": "",
     "tags": [
@@ -8228,7 +8243,7 @@ const examples = [
     "source": "",
     "fileName": "1. Prioritizing active mobility.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-prioritizing-active-mobility.png",
-    "group": "D_DID_G3",
+    "group": "Design intervention diagrams",
     "files": [
       {
         "title": "1. Prioritizing active mobility.png",
@@ -8263,499 +8278,42 @@ const examples = [
     ]
   },
   {
-    "id": "d-hi-g3",
-    "title": "D_HI_G3",
+    "id": "design-video",
+    "title": "Design video.mp4",
     "bucket": "Design",
     "description": "",
     "tags": [
-      "Mobility",
-      "Morphology",
-      "Land use",
-      "Public space",
-      "Environment",
-      "Drawing",
+      "Video",
       "Micro",
       "Author",
-      "Milana",
+      "Niels",
       "Physical",
       "Mental",
       "Social",
       "Environmental",
-      "Group 3: Health Islands",
-      "AI-assisted"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "plan_health island 500_dry scenario.jpg",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-dry-scenario.jpg",
-    "group": "D_HI_G3",
-    "files": [
-      {
-        "title": "plan_health island 500_dry scenario.jpg",
-        "fileName": "plan_health island 500_dry scenario.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-dry-scenario.jpg",
-        "source": ""
-      },
-      {
-        "title": "plan_health island 500_interventions.jpg",
-        "fileName": "plan_health island 500_interventions.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-interventions.jpg",
-        "source": ""
-      },
-      {
-        "title": "plan_health island 500_rain scenario.jpg",
-        "fileName": "plan_health island 500_rain scenario.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-rain-scenario.jpg",
-        "source": ""
-      },
-      {
-        "title": "section_courtyards.png",
-        "fileName": "section_courtyards.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/section-courtyards.png",
-        "source": ""
-      },
-      {
-        "title": "section_health spine.png",
-        "fileName": "section_health spine.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/section-health-spine.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-i-m",
-    "title": "D_I_M",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Land use",
-      "Public space",
-      "Environment",
-      "Map",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Facilitation",
-      "Group 3: Health Islands",
-      "Presentation",
-      "Image",
-      "Morphology"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "ambience patterns.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
-    "group": "D_I_M",
-    "files": [
-      {
-        "title": "ambience patterns.png",
-        "fileName": "ambience patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "ambience.png",
-        "fileName": "ambience.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience.png",
-        "source": ""
-      },
-      {
-        "title": "Attraction points_current analysis.png",
-        "fileName": "Attraction points_current analysis.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-current-analysis.png",
-        "source": ""
-      },
-      {
-        "title": "Attraction points_third places.png",
-        "fileName": "Attraction points_third places.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-third-places.png",
-        "source": ""
-      },
-      {
-        "title": "daily destinations connection patterns.png",
-        "fileName": "daily destinations connection patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations-connection-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "daily destinations.png",
-        "fileName": "daily destinations.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations.png",
-        "source": ""
-      },
-      {
-        "title": "Facilitation presentation.pdf",
-        "fileName": "Facilitation presentation.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pdf",
-        "source": ""
-      },
-      {
-        "title": "Facilitation scheme.jpg",
-        "fileName": "Facilitation scheme.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-scheme.jpg",
-        "source": ""
-      },
-      {
-        "title": "intervention toolbox.png",
-        "fileName": "intervention toolbox.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/intervention-toolbox.png",
-        "source": ""
-      },
-      {
-        "title": "scale third places patterns.png",
-        "fileName": "scale third places patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "scale third places.png",
-        "fileName": "scale third places.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places.png",
-        "source": ""
-      },
-      {
-        "title": "Third places hierarchy current.html",
-        "fileName": "Third places hierarchy current.html",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-places-hierarchy-current.html",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-ia-g3",
-    "title": "D_IA_G3",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Image",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Physical",
-      "Mental",
-      "Social",
-      "Group 3: Health Islands",
-      "Environment",
-      "Environmental"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "atmo_1_cafe.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-cafe.png",
-    "group": "D_IA_G3",
-    "files": [
-      {
-        "title": "atmo_1_cafe.png",
-        "fileName": "atmo_1_cafe.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-cafe.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_1_community kitchen.png",
-        "fileName": "atmo_1_community kitchen.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-1-community-kitchen.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_2_art gallery event.jpg",
-        "fileName": "atmo_2_art gallery event.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-2-art-gallery-event.jpg",
-        "source": ""
-      },
-      {
-        "title": "atmo_2_co-working.png",
-        "fileName": "atmo_2_co-working.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-2-co-working.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_3_amphitheater event.png",
-        "fileName": "atmo_3_amphitheater event.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-3-amphitheater-event.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_3_amphitheater.png",
-        "fileName": "atmo_3_amphitheater.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-3-amphitheater.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_4_competition.jpg",
-        "fileName": "atmo_4_competition.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-4-competition.jpg",
-        "source": ""
-      },
-      {
-        "title": "atmo_4_outdoor gym.png",
-        "fileName": "atmo_4_outdoor gym.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-4-outdoor-gym.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_5_art object_biodiversity.png",
-        "fileName": "atmo_5_art object_biodiversity.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-5-art-object-biodiversity.png",
-        "source": ""
-      },
-      {
-        "title": "atmo_5_art object_light.png",
-        "fileName": "atmo_5_art object_light.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/atmo-5-art-object-light.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-id-v",
-    "title": "D_ID_V",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Mobility",
-      "Land use",
-      "Map",
-      "Meso",
-      "Author",
-      "AI-assisted",
-      "Vera",
+      "Economic",
       "Promotion",
-      "Group 3: Health Islands",
-      "Public space",
-      "Image",
-      "Micro",
-      "Physical",
-      "Mental",
-      "Social",
-      "Diagram",
-      "Presentation",
-      "Environmental",
-      "Video"
+      "Facilitation",
+      "Protection",
+      "Group 1: Responsive Neighbourhood"
     ],
     "date": "",
     "source": "",
-    "fileName": "All walk routines overlay.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
-    "group": "D_ID_V",
+    "fileName": "Design video.mp4",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/design-video.mp4",
+    "group": "",
     "files": [
       {
-        "title": "All walk routines overlay.png",
-        "fileName": "All walk routines overlay.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
-        "source": ""
-      },
-      {
-        "title": "App events and volunteering.png",
-        "fileName": "App events and volunteering.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
-        "source": ""
-      },
-      {
-        "title": "App health insights.png",
-        "fileName": "App health insights.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-health-insights.png",
-        "source": ""
-      },
-      {
-        "title": "App on billboard along health spine.png",
-        "fileName": "App on billboard along health spine.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-on-billboard-along-health-spine.png",
-        "source": ""
-      },
-      {
-        "title": "App planning routes.png",
-        "fileName": "App planning routes.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-planning-routes.png",
-        "source": ""
-      },
-      {
-        "title": "App public space games.png",
-        "fileName": "App public space games.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-public-space-games.png",
-        "source": ""
-      },
-      {
-        "title": "App user.png",
-        "fileName": "App user.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-user.png",
-        "source": ""
-      },
-      {
-        "title": "Best 50% walking routines.png",
-        "fileName": "Best 50% walking routines.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/best-50-walking-routines.png",
-        "source": ""
-      },
-      {
-        "title": "Concept diagrams.png",
-        "fileName": "Concept diagrams.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/concept-diagrams.png",
-        "source": ""
-      },
-      {
-        "title": "Health spine intervention toolbox.png",
-        "fileName": "Health spine intervention toolbox.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-spine-intervention-toolbox.png",
-        "source": ""
-      },
-      {
-        "title": "Individual Design Promotion.pdf",
-        "fileName": "Individual Design Promotion.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pdf",
-        "source": ""
-      },
-      {
-        "title": "Living street plan.png",
-        "fileName": "Living street plan.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-plan.png",
-        "source": ""
-      },
-      {
-        "title": "Living street section.png",
-        "fileName": "Living street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-section.png",
-        "source": ""
-      },
-      {
-        "title": "Marco Polopark impression.mp4",
-        "fileName": "Marco Polopark impression.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
-        "source": ""
-      },
-      {
-        "title": "Marco Polopark impression.png",
-        "fileName": "Marco Polopark impression.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
-        "source": ""
-      },
-      {
-        "title": "Nudging principles diagrams.png",
-        "fileName": "Nudging principles diagrams.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/nudging-principles-diagrams.png",
-        "source": ""
-      },
-      {
-        "title": "Process diagram.png",
-        "fileName": "Process diagram.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/process-diagram-2.png",
-        "source": ""
-      },
-      {
-        "title": "Spine map.png",
-        "fileName": "Spine map.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spine-map.png",
-        "source": ""
-      },
-      {
-        "title": "Walk routines after school.png",
-        "fileName": "Walk routines youth after school.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-youth-after-school.png",
-        "source": ""
-      },
-      {
-        "title": "Walk routines community faith.png",
-        "fileName": "Walk routines community faith.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-community-faith.png",
+        "title": "Design video.mp4",
+        "fileName": "Design video.mp4",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/design-video.mp4",
         "source": ""
       }
     ]
   },
   {
-    "id": "d-ss-g3",
-    "title": "D_SS_G3",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Mobility",
-      "Land use",
-      "Public space",
-      "Environment",
-      "Drawing",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Cas",
-      "Milana",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Beneluxlaan.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/beneluxlaan.png",
-    "group": "D_SS_G3",
-    "files": [
-      {
-        "title": "Beneluxlaan.png",
-        "fileName": "Beneluxlaan.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/beneluxlaan.png",
-        "source": ""
-      },
-      {
-        "title": "Marshallaan.png",
-        "fileName": "Marshallaan.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marshallaan.png",
-        "source": ""
-      },
-      {
-        "title": "Rooseveltlaan.png",
-        "fileName": "Rooseveltlaan.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/rooseveltlaan.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-st-g3",
-    "title": "D_ST_G3",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Public space",
-      "Map",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Physical",
-      "Mental",
-      "Social",
-      "Group 3: Health Islands"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "adult_route.gif",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adult-route.gif",
-    "group": "D_ST_G3",
-    "files": [
-      {
-        "title": "adult_route.gif",
-        "fileName": "adult_route.gif",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adult-route.gif",
-        "source": ""
-      },
-      {
-        "title": "elderly_route.gif",
-        "fileName": "elderly_route.gif",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/elderly-route.gif",
-        "source": ""
-      },
-      {
-        "title": "kid_quest.gif",
-        "fileName": "kid_quest.gif",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/kid-quest.gif",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-vm-g3",
-    "title": "D_VM_G3",
+    "id": "design-vision-map",
+    "title": "Design vision map",
     "bucket": "Design",
     "description": "",
     "tags": [
@@ -8782,7 +8340,7 @@ const examples = [
     "source": "",
     "fileName": "1. Current situation.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/1-current-situation.png",
-    "group": "D_VM_G3",
+    "group": "Design vision map",
     "files": [
       {
         "title": "1. Current situation.png",
@@ -8908,97 +8466,6 @@ const examples = [
         "title": "19. Environmental sensors.png",
         "fileName": "19. Environmental sensors.png",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/19-environmental-sensors.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "d-wwi-g3",
-    "title": "D_WWI_G3",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Land use",
-      "Public space",
-      "Image",
-      "Meso",
-      "Micro",
-      "Author",
-      "AI-assisted",
-      "Vera",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Economic",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 3: Health Islands",
-      "Mobility"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "App events and volunteering.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
-    "group": "D_WWI_G3",
-    "files": [
-      {
-        "title": "Events and volunteering.png",
-        "fileName": "App events and volunteering.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
-        "source": ""
-      },
-      {
-        "title": "Health insights.png",
-        "fileName": "Health insights.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-insights.png",
-        "source": ""
-      },
-      {
-        "title": "Public space games.png",
-        "fileName": "Public space games.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/public-space-games.png",
-        "source": ""
-      },
-      {
-        "title": "Routeplanner.png",
-        "fileName": "Route planner.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/route-planner.png",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "design-video",
-    "title": "Design video.mp4",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Video",
-      "Micro",
-      "Author",
-      "Niels",
-      "Physical",
-      "Mental",
-      "Social",
-      "Environmental",
-      "Economic",
-      "Promotion",
-      "Facilitation",
-      "Protection",
-      "Group 1: Responsive Neighbourhood"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "Design video.mp4",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/design-video.mp4",
-    "group": "",
-    "files": [
-      {
-        "title": "Design video.mp4",
-        "fileName": "Design video.mp4",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/design-video.mp4",
         "source": ""
       }
     ]
@@ -9580,6 +9047,66 @@ const examples = [
     ]
   },
   {
+    "id": "health-island-pearsonhof-plan",
+    "title": "Health island Pearsonhof plan",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Mobility",
+      "Morphology",
+      "Land use",
+      "Public space",
+      "Environment",
+      "Drawing",
+      "Micro",
+      "Author",
+      "Milana",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Group 3: Health Islands",
+      "AI-assisted"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "plan_health island 500_dry scenario.jpg",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-dry-scenario.jpg",
+    "group": "Health island Pearsonhof plan",
+    "files": [
+      {
+        "title": "plan_health island 500_dry scenario.jpg",
+        "fileName": "plan_health island 500_dry scenario.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-dry-scenario.jpg",
+        "source": ""
+      },
+      {
+        "title": "plan_health island 500_interventions.jpg",
+        "fileName": "plan_health island 500_interventions.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-interventions.jpg",
+        "source": ""
+      },
+      {
+        "title": "plan_health island 500_rain scenario.jpg",
+        "fileName": "plan_health island 500_rain scenario.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/plan-health-island-500-rain-scenario.jpg",
+        "source": ""
+      },
+      {
+        "title": "section_courtyards.png",
+        "fileName": "section_courtyards.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/section-courtyards.png",
+        "source": ""
+      },
+      {
+        "title": "section_health spine.png",
+        "fileName": "section_health spine.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/section-health-spine.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "health-islands-final-presentation",
     "title": "Health Islands - final presentation.pdf",
     "bucket": "Design",
@@ -9642,6 +9169,259 @@ const examples = [
         "title": "Impression video.mp4",
         "fileName": "Impression video.mp4",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/impression-video.mp4",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "individual-design-milana-facilitation",
+    "title": "Individual design Milana - Facilitation",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Land use",
+      "Public space",
+      "Environment",
+      "Map",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Facilitation",
+      "Group 3: Health Islands",
+      "Presentation",
+      "Image",
+      "Morphology"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "ambience patterns.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
+    "group": "Individual design Milana - Facilitation",
+    "files": [
+      {
+        "title": "ambience patterns.png",
+        "fileName": "ambience patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "ambience.png",
+        "fileName": "ambience.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience.png",
+        "source": ""
+      },
+      {
+        "title": "Attraction points_current analysis.png",
+        "fileName": "Attraction points_current analysis.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-current-analysis.png",
+        "source": ""
+      },
+      {
+        "title": "Attraction points_third places.png",
+        "fileName": "Attraction points_third places.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-third-places.png",
+        "source": ""
+      },
+      {
+        "title": "daily destinations connection patterns.png",
+        "fileName": "daily destinations connection patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations-connection-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "daily destinations.png",
+        "fileName": "daily destinations.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations.png",
+        "source": ""
+      },
+      {
+        "title": "Facilitation presentation.pdf",
+        "fileName": "Facilitation presentation.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pdf",
+        "source": ""
+      },
+      {
+        "title": "Facilitation scheme.jpg",
+        "fileName": "Facilitation scheme.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-scheme.jpg",
+        "source": ""
+      },
+      {
+        "title": "intervention toolbox.png",
+        "fileName": "intervention toolbox.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/intervention-toolbox.png",
+        "source": ""
+      },
+      {
+        "title": "scale third places patterns.png",
+        "fileName": "scale third places patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "scale third places.png",
+        "fileName": "scale third places.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places.png",
+        "source": ""
+      },
+      {
+        "title": "Third places hierarchy current.html",
+        "fileName": "Third places hierarchy current.html",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-places-hierarchy-current.html",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "individual-design-vera-promotion",
+    "title": "Individual design Vera - Promotion",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Mobility",
+      "Land use",
+      "Map",
+      "Meso",
+      "Author",
+      "AI-assisted",
+      "Vera",
+      "Promotion",
+      "Group 3: Health Islands",
+      "Public space",
+      "Image",
+      "Micro",
+      "Physical",
+      "Mental",
+      "Social",
+      "Diagram",
+      "Presentation",
+      "Environmental",
+      "Video"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "All walk routines overlay.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
+    "group": "Individual design Vera - Promotion",
+    "files": [
+      {
+        "title": "All walk routines overlay.png",
+        "fileName": "All walk routines overlay.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
+        "source": ""
+      },
+      {
+        "title": "App events and volunteering.png",
+        "fileName": "App events and volunteering.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+        "source": ""
+      },
+      {
+        "title": "App health insights.png",
+        "fileName": "App health insights.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-health-insights.png",
+        "source": ""
+      },
+      {
+        "title": "App on billboard along health spine.png",
+        "fileName": "App on billboard along health spine.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-on-billboard-along-health-spine.png",
+        "source": ""
+      },
+      {
+        "title": "App planning routes.png",
+        "fileName": "App planning routes.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-planning-routes.png",
+        "source": ""
+      },
+      {
+        "title": "App public space games.png",
+        "fileName": "App public space games.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-public-space-games.png",
+        "source": ""
+      },
+      {
+        "title": "App user.png",
+        "fileName": "App user.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-user.png",
+        "source": ""
+      },
+      {
+        "title": "Best 50% walking routines.png",
+        "fileName": "Best 50% walking routines.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/best-50-walking-routines.png",
+        "source": ""
+      },
+      {
+        "title": "Concept diagrams.png",
+        "fileName": "Concept diagrams.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/concept-diagrams.png",
+        "source": ""
+      },
+      {
+        "title": "Health spine intervention toolbox.png",
+        "fileName": "Health spine intervention toolbox.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-spine-intervention-toolbox.png",
+        "source": ""
+      },
+      {
+        "title": "Individual Design Promotion.pdf",
+        "fileName": "Individual Design Promotion.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pdf",
+        "source": ""
+      },
+      {
+        "title": "Living street plan.png",
+        "fileName": "Living street plan.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-plan.png",
+        "source": ""
+      },
+      {
+        "title": "Living street section.png",
+        "fileName": "Living street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-section.png",
+        "source": ""
+      },
+      {
+        "title": "Marco Polopark impression.mp4",
+        "fileName": "Marco Polopark impression.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
+        "source": ""
+      },
+      {
+        "title": "Marco Polopark impression.png",
+        "fileName": "Marco Polopark impression.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
+        "source": ""
+      },
+      {
+        "title": "Nudging principles diagrams.png",
+        "fileName": "Nudging principles diagrams.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/nudging-principles-diagrams.png",
+        "source": ""
+      },
+      {
+        "title": "Process diagram.png",
+        "fileName": "Process diagram.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/process-diagram-2.png",
+        "source": ""
+      },
+      {
+        "title": "Spine map.png",
+        "fileName": "Spine map.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spine-map.png",
+        "source": ""
+      },
+      {
+        "title": "Walk routines after school.png",
+        "fileName": "Walk routines youth after school.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-youth-after-school.png",
+        "source": ""
+      },
+      {
+        "title": "Walk routines community faith.png",
+        "fileName": "Walk routines community faith.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-community-faith.png",
         "source": ""
       }
     ]
@@ -10556,6 +10336,49 @@ const examples = [
     ]
   },
   {
+    "id": "resident-scenarios",
+    "title": "Resident scenarios",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Public space",
+      "Map",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Physical",
+      "Mental",
+      "Social",
+      "Group 3: Health Islands"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "adult_route.gif",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adult-route.gif",
+    "group": "Resident scenarios",
+    "files": [
+      {
+        "title": "adult_route.gif",
+        "fileName": "adult_route.gif",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/adult-route.gif",
+        "source": ""
+      },
+      {
+        "title": "elderly_route.gif",
+        "fileName": "elderly_route.gif",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/elderly-route.gif",
+        "source": ""
+      },
+      {
+        "title": "kid_quest.gif",
+        "fileName": "kid_quest.gif",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/kid-quest.gif",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "route-explanation-video",
     "title": "Route explanation video.mp4",
     "bucket": "Design",
@@ -10863,6 +10686,54 @@ const examples = [
     ]
   },
   {
+    "id": "street-sections",
+    "title": "Street sections",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Mobility",
+      "Land use",
+      "Public space",
+      "Environment",
+      "Drawing",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Cas",
+      "Milana",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Group 3: Health Islands"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "Beneluxlaan.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/beneluxlaan.png",
+    "group": "Street sections",
+    "files": [
+      {
+        "title": "Beneluxlaan.png",
+        "fileName": "Beneluxlaan.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/beneluxlaan.png",
+        "source": ""
+      },
+      {
+        "title": "Marshallaan.png",
+        "fileName": "Marshallaan.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marshallaan.png",
+        "source": ""
+      },
+      {
+        "title": "Rooseveltlaan.png",
+        "fileName": "Rooseveltlaan.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/rooseveltlaan.png",
+        "source": ""
+      }
+    ]
+  },
+  {
     "id": "sunny-day-in-kanaleneiland-park",
     "title": "Sunny day in Kanaleneiland park.png",
     "bucket": "Design",
@@ -11144,8 +11015,65 @@ const examples = [
     ]
   },
   {
-    "id": "e-ka-g3",
-    "title": "E_KA_G3",
+    "id": "wellway-health-interface-tabs",
+    "title": "WellWay health interface tabs",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Land use",
+      "Public space",
+      "Image",
+      "Meso",
+      "Micro",
+      "Author",
+      "AI-assisted",
+      "Vera",
+      "Physical",
+      "Mental",
+      "Social",
+      "Environmental",
+      "Economic",
+      "Promotion",
+      "Facilitation",
+      "Protection",
+      "Group 3: Health Islands",
+      "Mobility"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "App events and volunteering.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+    "group": "WellWay health interface tabs",
+    "files": [
+      {
+        "title": "Events and volunteering.png",
+        "fileName": "App events and volunteering.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+        "source": ""
+      },
+      {
+        "title": "Health insights.png",
+        "fileName": "Health insights.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-insights.png",
+        "source": ""
+      },
+      {
+        "title": "Public space games.png",
+        "fileName": "Public space games.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/public-space-games.png",
+        "source": ""
+      },
+      {
+        "title": "Routeplanner.png",
+        "fileName": "Route planner.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/route-planner.png",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "atmospheres-before-and-after",
+    "title": "Atmospheres before and after",
     "bucket": "Evaluation",
     "description": "",
     "tags": [
@@ -11165,7 +11093,7 @@ const examples = [
     "source": "",
     "fileName": "park after.png",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/park-after.png",
-    "group": "E_KA_G3",
+    "group": "Atmospheres before and after",
     "files": [
       {
         "title": "park after.png",
@@ -11224,8 +11152,8 @@ const examples = [
     ]
   },
   {
-    "id": "e-kr-g3",
-    "title": "E_KR_G3",
+    "id": "health-rating-map-kanaleneiland-before-and-after",
+    "title": "Health rating map Kanaleneiland before and after",
     "bucket": "Evaluation",
     "description": "",
     "tags": [
@@ -11243,7 +11171,7 @@ const examples = [
     "source": "",
     "fileName": "Kanaleneiland_ratings_after_48.jpg",
     "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/kanaleneiland-ratings-after-48.jpg",
-    "group": "E_KR_G3",
+    "group": "Health rating map Kanaleneiland before and after",
     "files": [
       {
         "title": "Kanaleneiland_ratings_after_48.jpg",
@@ -11478,7 +11406,9 @@ function cardHtml(item) {
   const meta = bucketMeta(item.bucket);
   const tags = visibleTags(item);
   const fileCount = filesFor(item).length;
-  return `<article class="evidence-card" style="--bucket:${meta.color};--bucket-text:${meta.color}"><button class="card-main" type="button" data-evidence-id="${item.id}"><span class="card-bucket">${escapeHtml(item.bucket)}</span><h2>${escapeHtml(displayTitle(item))}</h2>${item.description ? `<p class="card-description">${escapeHtml(item.description)}</p>` : ""}<div class="card-tags">${fileCount > 1 ? `<span class="tag-pill file-count-pill">${fileCount} files</span>` : ""}${tags.slice(0, 5).map((tag) => `<span class="tag-pill">${escapeHtml(tag)}</span>`).join("")}${tags.length > 5 ? `<span class="tag-pill">+${tags.length - 5}</span>` : ""}</div></button><div class="card-footer">${item.date ? `<span class="card-meta">${formatDate(item.date)}</span>` : ""}<span class="open-label">Open →</span></div></article>`;
+  const selected = state.selectedId === item.id;
+  const fileBadge = fileCount > 1 ? `<span class="file-count-badge" aria-label="${fileCount} files"><span class="file-stack-icon" aria-hidden="true"></span><span>${fileCount}</span></span>` : "";
+  return `<article class="evidence-card ${selected ? "is-selected" : ""}" style="--bucket:${meta.color};--bucket-text:${meta.color}" aria-current="${selected ? "true" : "false"}"><button class="card-main" type="button" data-evidence-id="${item.id}"><span class="card-topline"><span class="card-bucket">${escapeHtml(item.bucket)}</span>${fileBadge}</span><h2>${escapeHtml(displayTitle(item))}</h2>${item.description ? `<p class="card-description">${escapeHtml(item.description)}</p>` : ""}<div class="card-tags">${tags.slice(0, 5).map((tag) => `<span class="tag-pill">${escapeHtml(tag)}</span>`).join("")}${tags.length > 5 ? `<span class="tag-pill">+${tags.length - 5}</span>` : ""}</div></button><div class="card-footer">${item.date ? `<span class="card-meta">${formatDate(item.date)}</span>` : ""}<span class="open-label">${selected ? "Selected" : "Open →"}</span></div></article>`;
 }
 
 function filePreviewHtml(item) {
@@ -11524,7 +11454,7 @@ function renderDetail() {
   const fileControls = currentFile?.fileUrl ? `<div class="file-actions">${state.fileOpen ? "" : `<button class="primary-button" type="button" id="toggle-file-view">Open file</button>`}${state.fileOpen ? `<div class="zoom-controls" aria-label="Zoom controls"><button class="icon-button" type="button" id="zoom-out" aria-label="Zoom out">−</button><span>${state.fileZoom}%</span><button class="icon-button" type="button" id="zoom-in" aria-label="Zoom in">+</button></div>` : ""}</div>` : "";
   byId("detail-content").style.setProperty("--bucket", meta.color); byId("detail-content").style.setProperty("--bucket-text", meta.color); byId("detail-content").style.setProperty("--bucket-light", `${meta.color}22`);
   byId("detail-content").innerHTML = `<div class="detail-card"><div class="detail-topline"><span class="detail-bucket">${escapeHtml(item.bucket)}</span><button class="text-button" type="button" id="close-detail">Close</button></div><h2>${escapeHtml(displayTitle(item))}</h2>${item.description ? `<p class="detail-description">${escapeHtml(item.description)}</p>` : ""}<section class="detail-section file-section"><h3>${files.length > 1 ? "Files" : "File"}</h3>${fileNavigatorHtml(item)}${fileControls}${state.fileOpen ? filePreviewHtml(item) : ""}<div class="attachment-action">${file}</div></section><section class="detail-section"><h3>Assigned tags</h3><div class="detail-tags">${visibleTags(item).map((tag) => `<button type="button" class="detail-tag" data-detail-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("")}</div></section></div>`;
-  byId("close-detail").addEventListener("click", () => { state.selectedId = null; state.fileOpen = false; state.activeFileIndex = 0; render(); });
+  byId("close-detail").addEventListener("click", () => { if (state.fileOpen) { state.fileOpen = false; state.fileZoom = 100; render(); return; } state.selectedId = null; state.activeFileIndex = 0; render(); });
   const toggleFileView = byId("toggle-file-view"); if (toggleFileView) toggleFileView.addEventListener("click", () => { state.fileOpen = !state.fileOpen; render(); });
   const previousFile = byId("previous-file"); if (previousFile) previousFile.addEventListener("click", () => { state.activeFileIndex = Math.max(0, state.activeFileIndex - 1); state.fileZoom = 100; renderDetail(); });
   const nextFile = byId("next-file"); if (nextFile) nextFile.addEventListener("click", () => { state.activeFileIndex = Math.min(files.length - 1, state.activeFileIndex + 1); state.fileZoom = 100; renderDetail(); });
