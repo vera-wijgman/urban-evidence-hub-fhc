@@ -2,7 +2,7 @@
 
 Static prototype for the Future Healthy Cities Urban Evidence Hub.
 
-The website code is kept in this repository. Large evidence files are hosted on an existing Netlify deploy and referenced by absolute URLs in `app.js`, so the repository stays lightweight.
+The website code is kept in this repository. Large evidence files are hosted on a separate Netlify site and referenced by absolute URLs in `app.js`, so the repository stays lightweight.
 
 ## Files
 
@@ -11,8 +11,16 @@ The website code is kept in this repository. Large evidence files are hosted on 
 - `app.js` - evidence data and filtering logic
 - `home-*.png/jpeg` - home page project images
 
+## Evidence Files
+
+Large evidence files are hosted separately at:
+
+https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/
+
+The local `evidence-files/` folder is ignored by Git and is used only to prepare manual file-host deploys.
+
 ## Deployment
 
-Netlify can deploy this repository as a static site from the repository root.
+Netlify deploys this repository as a static site from the repository root. Future code/data changes pushed to `main` deploy automatically to:
 
-Last deployment setup: GitHub-connected code-only site.
+https://urban-evidence-hub-fhc.netlify.app
