@@ -7267,6 +7267,385 @@ const examples = [
     ]
   },
   {
+    "id": "individual-design-milana-facilitation",
+    "title": "Individual design Milana - Facilitation",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Land use",
+      "Public space",
+      "Environment",
+      "Map",
+      "Author",
+      "AI-assisted",
+      "Milana",
+      "Facilitation",
+      "Group 3: Health Islands",
+      "Presentation",
+      "Image",
+      "Morphology"
+    ],
+    "date": "",
+    "source": "",
+    "fileName": "ambience patterns.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
+    "group": "Individual design Milana - Facilitation",
+    "files": [
+      {
+        "title": "ambience patterns.png",
+        "fileName": "ambience patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "ambience.png",
+        "fileName": "ambience.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience.png",
+        "source": ""
+      },
+      {
+        "title": "Attraction points_current analysis.png",
+        "fileName": "Attraction points_current analysis.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-current-analysis.png",
+        "source": ""
+      },
+      {
+        "title": "Attraction points_third places.png",
+        "fileName": "Attraction points_third places.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-third-places.png",
+        "source": ""
+      },
+      {
+        "title": "daily destinations connection patterns.png",
+        "fileName": "daily destinations connection patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations-connection-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "daily destinations.png",
+        "fileName": "daily destinations.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations.png",
+        "source": ""
+      },
+      {
+        "title": "Facilitation presentation.pdf",
+        "fileName": "Facilitation presentation.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pdf",
+        "source": ""
+      },
+      {
+        "title": "Facilitation presentation.pptx",
+        "fileName": "Facilitation presentation.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pptx",
+        "source": ""
+      },
+      {
+        "title": "Facilitation scheme.jpg",
+        "fileName": "Facilitation scheme.jpg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-scheme.jpg",
+        "source": ""
+      },
+      {
+        "title": "intervention toolbox.png",
+        "fileName": "intervention toolbox.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/intervention-toolbox.png",
+        "source": ""
+      },
+      {
+        "title": "scale third places patterns.png",
+        "fileName": "scale third places patterns.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places-patterns.png",
+        "source": ""
+      },
+      {
+        "title": "scale third places.png",
+        "fileName": "scale third places.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places.png",
+        "source": ""
+      },
+      {
+        "title": "Third places hierarchy current.html",
+        "fileName": "Third places hierarchy current.html",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-places-hierarchy-current.html",
+        "source": ""
+      }
+    ]
+  },
+  {
+    "id": "individual-design-vera-promotion",
+    "title": "Individual design Vera - Promotion",
+    "bucket": "Strategy",
+    "description": "",
+    "tags": [
+      "Mobility",
+      "Land use",
+      "Map",
+      "Meso",
+      "Author",
+      "AI-assisted",
+      "Vera",
+      "Promotion",
+      "Group 3: Health Islands",
+      "Public space",
+      "Image",
+      "Micro",
+      "Physical",
+      "Mental",
+      "Social",
+      "Presentation",
+      "Environmental",
+      "Diagram",
+      "Video"
+    ],
+    "date": "",
+    "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_community_faith.png",
+    "fileName": "All walk routines overlay.png",
+    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
+    "group": "Individual design Vera - Promotion",
+    "files": [
+      {
+        "title": "All walk routines overlay.png",
+        "fileName": "All walk routines overlay.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
+        "source": ""
+      },
+      {
+        "title": "App events and volunteering.png",
+        "fileName": "App events and volunteering.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
+        "source": ""
+      },
+      {
+        "title": "App health insights.png",
+        "fileName": "App health insights.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-health-insights.png",
+        "source": ""
+      },
+      {
+        "title": "App on billboard along health spine.png",
+        "fileName": "App on billboard along health spine.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-on-billboard-along-health-spine.png",
+        "source": ""
+      },
+      {
+        "title": "App planning routes.png",
+        "fileName": "App planning routes.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-planning-routes.png",
+        "source": ""
+      },
+      {
+        "title": "App public space games.png",
+        "fileName": "App public space games.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-public-space-games.png",
+        "source": ""
+      },
+      {
+        "title": "App user.png",
+        "fileName": "App user.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-user.png",
+        "source": ""
+      },
+      {
+        "title": "Best 50% walking routines.png",
+        "fileName": "Best 50% walking routines.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/best-50-walking-routines.png",
+        "source": ""
+      },
+      {
+        "title": "Bike routine community faith.png",
+        "fileName": "bike_community_faith.png",
+        "fileUrl": "evidence-files/bike-community-faith.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_community_faith.png"
+      },
+      {
+        "title": "Bike routine commuter evening.png",
+        "fileName": "bike_commuter_evening.png",
+        "fileUrl": "evidence-files/bike-commuter-evening.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_commuter_evening.png"
+      },
+      {
+        "title": "Bike routine elderly loop.png",
+        "fileName": "bike_elderly_loop.png",
+        "fileUrl": "evidence-files/bike-elderly-loop.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_elderly_loop.png"
+      },
+      {
+        "title": "Bike routine food shopping.png",
+        "fileName": "bike_food_shopping.png",
+        "fileUrl": "evidence-files/bike-food-shopping.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_food_shopping.png"
+      },
+      {
+        "title": "Bike routine overlap map.png",
+        "fileName": "bike_overlap_map.png",
+        "fileUrl": "evidence-files/bike-overlap-map.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_overlap_map.png"
+      },
+      {
+        "title": "Bike routine park restorative.png",
+        "fileName": "bike_park_restorative.png",
+        "fileUrl": "evidence-files/bike-park-restorative.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_park_restorative.png"
+      },
+      {
+        "title": "Bike routine school care.png",
+        "fileName": "bike_school_care.png",
+        "fileUrl": "evidence-files/bike-school-care.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_school_care.png"
+      },
+      {
+        "title": "Bike routine youth after school.png",
+        "fileName": "bike_youth_after_school.png",
+        "fileUrl": "evidence-files/bike-youth-after-school.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\bike_youth_after_school.png"
+      },
+      {
+        "title": "Concept diagrams.png",
+        "fileName": "Concept diagrams.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/concept-diagrams.png",
+        "source": ""
+      },
+      {
+        "title": "Daily routine simulator",
+        "fileName": "Daily routine simulator",
+        "fileUrl": "https://daily-routine-routes.pages.dev",
+        "source": "https://daily-routine-routes.pages.dev"
+      },
+      {
+        "title": "Health island planner",
+        "fileName": "Health island planner",
+        "fileUrl": "https://health-island-planner.pages.dev/",
+        "source": "https://health-island-planner.pages.dev/"
+      },
+      {
+        "title": "Health spine intervention toolbox.png",
+        "fileName": "Health spine intervention toolbox.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-spine-intervention-toolbox.png",
+        "source": ""
+      },
+      {
+        "title": "Individual Design Promotion.pdf",
+        "fileName": "Individual Design Promotion.pdf",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pdf",
+        "source": ""
+      },
+      {
+        "title": "Individual Design Promotion.pptx",
+        "fileName": "Individual Design Promotion.pptx",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pptx",
+        "source": ""
+      },
+      {
+        "title": "Intervention prioritizer tool",
+        "fileName": "Intervention prioritizer tool",
+        "fileUrl": "https://intervention-prioritizer-map.pages.dev",
+        "source": "https://intervention-prioritizer-map.pages.dev"
+      },
+      {
+        "title": "Living street plan.png",
+        "fileName": "Living street plan.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-plan.png",
+        "source": ""
+      },
+      {
+        "title": "Living street section.png",
+        "fileName": "Living street section.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-section.png",
+        "source": ""
+      },
+      {
+        "title": "Marco Polopark impression.mp4",
+        "fileName": "Marco Polopark impression.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
+        "source": ""
+      },
+      {
+        "title": "Marco Polopark impression.png",
+        "fileName": "Marco Polopark impression.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
+        "source": ""
+      },
+      {
+        "title": "Nudging principles diagrams.png",
+        "fileName": "Nudging principles diagrams.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/nudging-principles-diagrams.png",
+        "source": ""
+      },
+      {
+        "title": "Process diagram.png",
+        "fileName": "Process diagram.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/process-diagram.png",
+        "source": ""
+      },
+      {
+        "title": "Spatial nudging principles literature review.xlsx",
+        "fileName": "Spatial nudging principles literature review.xlsx",
+        "fileUrl": "evidence-files/spatial-nudging-principles-literature-review.xlsx",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Literature reviews\\Spatial nudging principles literature review.xlsx"
+      },
+      {
+        "title": "Spatial variable correlation strength literature review.xlsx",
+        "fileName": "Spatial variable correlation strength literature review.xlsx",
+        "fileUrl": "evidence-files/spatial-variable-correlation-strength-literature-review.xlsx",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Literature reviews\\Spatial variable correlation strength literature review.xlsx"
+      },
+      {
+        "title": "Spine map.png",
+        "fileName": "Spine map.png",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spine-map.png",
+        "source": ""
+      },
+      {
+        "title": "Walk routine community faith.png",
+        "fileName": "walk_community_faith.png",
+        "fileUrl": "evidence-files/walk-community-faith.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_community_faith.png"
+      },
+      {
+        "title": "Walk routine commuter evening.png",
+        "fileName": "walk_commuter_evening.png",
+        "fileUrl": "evidence-files/walk-commuter-evening.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_commuter_evening.png"
+      },
+      {
+        "title": "Walk routine elderly loop.png",
+        "fileName": "walk_elderly_loop.png",
+        "fileUrl": "evidence-files/walk-elderly-loop.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_elderly_loop.png"
+      },
+      {
+        "title": "Walk routine food shopping.png",
+        "fileName": "walk_food_shopping.png",
+        "fileUrl": "evidence-files/walk-food-shopping.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_food_shopping.png"
+      },
+      {
+        "title": "Walk routine overlap map.png",
+        "fileName": "walk_overlap_map.png",
+        "fileUrl": "evidence-files/walk-overlap-map.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_overlap_map.png"
+      },
+      {
+        "title": "Walk routine park restorative.png",
+        "fileName": "walk_park_restorative.png",
+        "fileUrl": "evidence-files/walk-park-restorative.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_park_restorative.png"
+      },
+      {
+        "title": "Walk routine school care.png",
+        "fileName": "walk_school_care.png",
+        "fileUrl": "evidence-files/walk-school-care.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_school_care.png"
+      },
+      {
+        "title": "Walk routine youth after school.png",
+        "fileName": "walk_youth_after_school.png",
+        "fileUrl": "evidence-files/walk-youth-after-school.png",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\daily routine routes_outputs\\kanaleneiland_routine_outputs_v3\\static_maps\\walk_youth_after_school.png"
+      }
+    ]
+  },
+  {
     "id": "integrated-process-diagram",
     "title": "Integrated process diagram.png",
     "bucket": "Strategy",
@@ -7297,14 +7676,17 @@ const examples = [
     "bucket": "Strategy",
     "description": "",
     "tags": [
+      "Mobility",
+      "Land use",
       "Public space",
       "Environment",
-      "Diagram",
       "Meso",
       "Author",
       "AI-assisted",
       "Milana",
       "Vera",
+      "Group 3: Health Islands",
+      "Diagram",
       "Physical",
       "Mental",
       "Social",
@@ -7312,17 +7694,20 @@ const examples = [
       "Promotion",
       "Facilitation",
       "Protection",
-      "Group 3: Health Islands",
-      "Mobility",
-      "Micro",
-      "Land use"
+      "Micro"
     ],
     "date": "",
-    "source": "",
-    "fileName": "Stakeholders ecological network.svg",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-ecological-network.svg",
+    "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\Intervention diagram.html",
+    "fileName": "Intervention diagram.html",
+    "fileUrl": "evidence-files/intervention-diagram.html",
     "group": "Interactive stakeholder diagram",
     "files": [
+      {
+        "title": "Interactive stakeholder diagram.html",
+        "fileName": "Intervention diagram.html",
+        "fileUrl": "evidence-files/intervention-diagram.html",
+        "source": "C:\\Users\\Gebruiker\\OneDrive - TU Eindhoven\\MSc2 - Future Healthy Cities\\Phase 3\\Codex dashboard\\Intervention diagram.html"
+      },
       {
         "title": "Stakeholder diagram ecologial network.svg",
         "fileName": "Stakeholders ecological network.svg",
@@ -7336,15 +7721,15 @@ const examples = [
         "source": ""
       },
       {
+        "title": "Stakeholder diagram overview.svg",
+        "fileName": "Stakeholder diagram.svg",
+        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholder-diagram.svg",
+        "source": "Group 3 - Health Islands/06 Strategy/Stakeholder diagram/Stakeholder diagram.svg"
+      },
+      {
         "title": "Stakeholder diagram WellWay.svg",
         "fileName": "Stakeholders WellWay.svg",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholders-wellway.svg",
-        "source": ""
-      },
-      {
-        "title": "Stakeholder diagram.svg",
-        "fileName": "Stakeholder diagram.svg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/stakeholder-diagram.svg",
         "source": ""
       }
     ]
@@ -9148,6 +9533,32 @@ const examples = [
     ]
   },
   {
+    "id": "health-islands-video",
+    "title": "Health Islands video.mp4",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Map",
+      "Meso",
+      "Author",
+      "Cas",
+      "Group 3: Health Islands"
+    ],
+    "date": "",
+    "source": "C:\\Users\\Gebruiker\\Downloads\\Health Islands video.mp4",
+    "fileName": "Health Islands video.mp4",
+    "fileUrl": "evidence-files/health-islands-video.mp4",
+    "group": "",
+    "files": [
+      {
+        "title": "Health Islands video.mp4",
+        "fileName": "Health Islands video.mp4",
+        "fileUrl": "evidence-files/health-islands-video.mp4",
+        "source": "C:\\Users\\Gebruiker\\Downloads\\Health Islands video.mp4"
+      }
+    ]
+  },
+  {
     "id": "healthier-main-traffic-corridors",
     "title": "Healthier main traffic corridors",
     "bucket": "Design",
@@ -9206,271 +9617,6 @@ const examples = [
         "title": "Impression video.mp4",
         "fileName": "Impression video.mp4",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/impression-video.mp4",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "individual-design-milana-facilitation",
-    "title": "Individual design Milana - Facilitation",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Land use",
-      "Public space",
-      "Environment",
-      "Map",
-      "Author",
-      "AI-assisted",
-      "Milana",
-      "Facilitation",
-      "Group 3: Health Islands",
-      "Presentation",
-      "Image",
-      "Morphology"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "ambience patterns.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
-    "group": "Individual design Milana - Facilitation",
-    "files": [
-      {
-        "title": "ambience patterns.png",
-        "fileName": "ambience patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "ambience.png",
-        "fileName": "ambience.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/ambience.png",
-        "source": ""
-      },
-      {
-        "title": "Attraction points_current analysis.png",
-        "fileName": "Attraction points_current analysis.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-current-analysis.png",
-        "source": ""
-      },
-      {
-        "title": "Attraction points_third places.png",
-        "fileName": "Attraction points_third places.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/attraction-points-third-places.png",
-        "source": ""
-      },
-      {
-        "title": "daily destinations connection patterns.png",
-        "fileName": "daily destinations connection patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations-connection-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "daily destinations.png",
-        "fileName": "daily destinations.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/daily-destinations.png",
-        "source": ""
-      },
-      {
-        "title": "Facilitation presentation.pdf",
-        "fileName": "Facilitation presentation.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pdf",
-        "source": ""
-      },
-      {
-        "title": "Facilitation presentation.pptx",
-        "fileName": "Facilitation presentation.pptx",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-presentation.pptx",
-        "source": ""
-      },
-      {
-        "title": "Facilitation scheme.jpg",
-        "fileName": "Facilitation scheme.jpg",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/facilitation-scheme.jpg",
-        "source": ""
-      },
-      {
-        "title": "intervention toolbox.png",
-        "fileName": "intervention toolbox.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/intervention-toolbox.png",
-        "source": ""
-      },
-      {
-        "title": "scale third places patterns.png",
-        "fileName": "scale third places patterns.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places-patterns.png",
-        "source": ""
-      },
-      {
-        "title": "scale third places.png",
-        "fileName": "scale third places.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/scale-third-places.png",
-        "source": ""
-      },
-      {
-        "title": "Third places hierarchy current.html",
-        "fileName": "Third places hierarchy current.html",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/third-places-hierarchy-current.html",
-        "source": ""
-      }
-    ]
-  },
-  {
-    "id": "individual-design-vera-promotion",
-    "title": "Individual design Vera - Promotion",
-    "bucket": "Design",
-    "description": "",
-    "tags": [
-      "Mobility",
-      "Land use",
-      "Map",
-      "Meso",
-      "Author",
-      "AI-assisted",
-      "Vera",
-      "Promotion",
-      "Group 3: Health Islands",
-      "Public space",
-      "Image",
-      "Micro",
-      "Physical",
-      "Mental",
-      "Social",
-      "Diagram",
-      "Presentation",
-      "Environmental",
-      "Video"
-    ],
-    "date": "",
-    "source": "",
-    "fileName": "All walk routines overlay.png",
-    "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
-    "group": "Individual design Vera - Promotion",
-    "files": [
-      {
-        "title": "All walk routines overlay.png",
-        "fileName": "All walk routines overlay.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/all-walk-routines-overlay.png",
-        "source": ""
-      },
-      {
-        "title": "App events and volunteering.png",
-        "fileName": "App events and volunteering.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-events-and-volunteering.png",
-        "source": ""
-      },
-      {
-        "title": "App health insights.png",
-        "fileName": "App health insights.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-health-insights.png",
-        "source": ""
-      },
-      {
-        "title": "App on billboard along health spine.png",
-        "fileName": "App on billboard along health spine.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-on-billboard-along-health-spine.png",
-        "source": ""
-      },
-      {
-        "title": "App planning routes.png",
-        "fileName": "App planning routes.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-planning-routes.png",
-        "source": ""
-      },
-      {
-        "title": "App public space games.png",
-        "fileName": "App public space games.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-public-space-games.png",
-        "source": ""
-      },
-      {
-        "title": "App user.png",
-        "fileName": "App user.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/app-user.png",
-        "source": ""
-      },
-      {
-        "title": "Best 50% walking routines.png",
-        "fileName": "Best 50% walking routines.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/best-50-walking-routines.png",
-        "source": ""
-      },
-      {
-        "title": "Concept diagrams.png",
-        "fileName": "Concept diagrams.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/concept-diagrams.png",
-        "source": ""
-      },
-      {
-        "title": "Health spine intervention toolbox.png",
-        "fileName": "Health spine intervention toolbox.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/health-spine-intervention-toolbox.png",
-        "source": ""
-      },
-      {
-        "title": "Individual Design Promotion.pdf",
-        "fileName": "Individual Design Promotion.pdf",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pdf",
-        "source": ""
-      },
-      {
-        "title": "Individual Design Promotion.pptx",
-        "fileName": "Individual Design Promotion.pptx",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/individual-design-promotion.pptx",
-        "source": ""
-      },
-      {
-        "title": "Living street plan.png",
-        "fileName": "Living street plan.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-plan.png",
-        "source": ""
-      },
-      {
-        "title": "Living street section.png",
-        "fileName": "Living street section.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/living-street-section.png",
-        "source": ""
-      },
-      {
-        "title": "Marco Polopark impression.mp4",
-        "fileName": "Marco Polopark impression.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
-        "source": ""
-      },
-      {
-        "title": "Marco Polopark impression.png",
-        "fileName": "Marco Polopark impression.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/marco-polopark-impression.png",
-        "source": ""
-      },
-      {
-        "title": "Nudging principles diagrams.png",
-        "fileName": "Nudging principles diagrams.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/nudging-principles-diagrams.png",
-        "source": ""
-      },
-      {
-        "title": "Process diagram.png",
-        "fileName": "Process diagram.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/process-diagram-2.png",
-        "source": ""
-      },
-      {
-        "title": "Spine map.png",
-        "fileName": "Spine map.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/spine-map.png",
-        "source": ""
-      },
-      {
-        "title": "Walk routines after school.png",
-        "fileName": "Walk routines youth after school.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-youth-after-school.png",
-        "source": ""
-      },
-      {
-        "title": "Walk routines community faith.png",
-        "fileName": "Walk routines community faith.png",
-        "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/walk-routines-community-faith.png",
         "source": ""
       }
     ]
@@ -9635,6 +9781,32 @@ const examples = [
         "fileName": "Crossing Bike-Pedestrian-Car before V2.png",
         "fileUrl": "https://urban-evidence-hub-fhc-files.netlify.app/evidence-files/crossing-bike-pedestrian-car-before-v2.png",
         "source": ""
+      }
+    ]
+  },
+  {
+    "id": "masterplan",
+    "title": "Masterplan.jpg",
+    "bucket": "Design",
+    "description": "",
+    "tags": [
+      "Map",
+      "Meso",
+      "Author",
+      "Cas",
+      "Group 3: Health Islands"
+    ],
+    "date": "",
+    "source": "C:\\Users\\Gebruiker\\Downloads\\Masterplan.jpg",
+    "fileName": "Masterplan.jpg",
+    "fileUrl": "evidence-files/masterplan.jpg",
+    "group": "",
+    "files": [
+      {
+        "title": "Masterplan.jpg",
+        "fileName": "Masterplan.jpg",
+        "fileUrl": "evidence-files/masterplan.jpg",
+        "source": "C:\\Users\\Gebruiker\\Downloads\\Masterplan.jpg"
       }
     ]
   },
@@ -11405,7 +11577,14 @@ const displayTitle = (item) => String(item.title || item.fileName || "Untitled e
 const stripExtension = (value) => String(value || "Attached file").replace(/\.[^.]+$/, "");
 const filesFor = (item) => item.files && item.files.length ? item.files : [{ title: item.title, fileName: item.fileName, fileUrl: item.fileUrl, source: item.source }];
 const activeFile = (item) => filesFor(item)[Math.min(state.activeFileIndex, filesFor(item).length - 1)] || filesFor(item)[0];
-const displayFileName = (file) => stripExtension(file?.fileName || file?.title);
+const displayFileName = (file) => stripExtension(file?.title || file?.fileName);
+const isLinkAttachment = (file) => {
+  const url = String(file?.fileUrl || "");
+  const source = String(file?.source || "");
+  const name = String(file?.fileName || file?.title || "");
+  return /^https?:\/\//i.test(url) && (/^https?:\/\//i.test(source) || !/\.[a-z0-9]{2,5}$/i.test(name));
+};
+const fileIconHtml = (file) => isLinkAttachment(file) ? `<span class="attachment-icon attachment-icon-link" aria-hidden="true"></span>` : "";
 const visibleTags = (item) => [...derivedProjectGroups(item), ...item.tags.filter((tag) => !derivedProjectGroups(item).includes(tag))];
 const itemHasTag = (item, tag) => item.tags.includes(tag) || (projectGroups[tag] || []).some((member) => item.tags.includes(member));
 const derivedProjectGroups = (item) => Object.keys(projectGroups).filter((group) => itemHasTag(item, group));
@@ -11481,7 +11660,7 @@ function filePreviewHtml(item) {
   const name = escapeHtml(displayFileName(file));
   const zoom = Math.max(50, Math.min(250, state.fileZoom));
   if (["png", "jpg", "jpeg", "gif", "webp", "svg"].includes(extension)) return `<div class="file-preview ${state.fileOpen ? "is-expanded" : ""}"><img src="${url}" alt="${name}" loading="lazy" style="width:${zoom}%;" /></div>`;
-  if (extension === "pdf") return `<div class="file-preview file-preview-document ${state.fileOpen ? "is-expanded" : ""}"><iframe src="${url}#zoom=${zoom}" title="${name}"></iframe></div>`;
+  if (["pdf", "html", "htm"].includes(extension)) { const frameUrl = extension === "pdf" ? `${url}#zoom=${zoom}` : url; return `<div class="file-preview file-preview-document ${state.fileOpen ? "is-expanded" : ""}"><iframe src="${frameUrl}" title="${name}"></iframe></div>`; }
   return `<p class="file-preview-note">This file type opens in a new tab or downloads, depending on your browser.</p>`;
 }
 
@@ -11489,8 +11668,9 @@ function fileNavigatorHtml(item) {
   const files = filesFor(item);
   const file = activeFile(item);
   if (!files.length) return "";
-  const options = files.map((entry, index) => `<button type="button" class="file-step ${index === state.activeFileIndex ? "is-active" : ""}" data-file-index="${index}">${escapeHtml(displayFileName(entry))}</button>`).join("");
-  return `<div class="file-navigator"><div class="file-nav-top"><button class="icon-button" type="button" id="previous-file" aria-label="Previous file" ${state.activeFileIndex === 0 ? "disabled" : ""}>‹</button><div><strong>${escapeHtml(displayFileName(file))}</strong><span>${state.activeFileIndex + 1} of ${files.length}</span></div><button class="icon-button" type="button" id="next-file" aria-label="Next file" ${state.activeFileIndex >= files.length - 1 ? "disabled" : ""}>›</button></div>${files.length > 1 ? `<div class="file-steps">${options}</div>` : ""}</div>`;
+  const options = files.map((entry, index) => `<button type="button" class="file-step ${isLinkAttachment(entry) ? "is-link" : ""} ${index === state.activeFileIndex ? "is-active" : ""}" data-file-index="${index}">${fileIconHtml(entry)}<span>${escapeHtml(displayFileName(entry))}</span></button>`).join("");
+  const currentTitle = isLinkAttachment(file) && file.fileUrl ? `<a class="file-current-link is-link" href="${escapeHtml(file.fileUrl)}" target="_blank" rel="noreferrer">${fileIconHtml(file)}<span>${escapeHtml(displayFileName(file))}</span></a>` : `<strong>${escapeHtml(displayFileName(file))}</strong>`;
+  return `<div class="file-navigator"><div class="file-nav-top"><button class="icon-button" type="button" id="previous-file" aria-label="Previous file" ${state.activeFileIndex === 0 ? "disabled" : ""}>‹</button><div>${currentTitle}<span>${state.activeFileIndex + 1} of ${files.length}</span></div><button class="icon-button" type="button" id="next-file" aria-label="Next file" ${state.activeFileIndex >= files.length - 1 ? "disabled" : ""}>›</button></div>${files.length > 1 ? `<div class="file-steps">${options}</div>` : ""}</div>`;
 }
 
 function updateViewerBounds() {
@@ -11512,15 +11692,16 @@ function renderDetail() {
   const currentFile = activeFile(item);
   const meta = bucketMeta(item.bucket);
   const fileName = escapeHtml(displayFileName(currentFile));
-  const file = currentFile?.fileUrl ? `<a class="file-link" href="${escapeHtml(currentFile.fileUrl)}" target="_blank" rel="noreferrer">Open in new tab<span>${fileName}</span></a>` : "No file attached yet";
-  const fileControls = currentFile?.fileUrl ? `<div class="file-actions">${state.fileOpen ? "" : `<button class="primary-button" type="button" id="toggle-file-view">Open file</button>`}${state.fileOpen ? `<div class="zoom-controls" aria-label="Zoom controls"><button class="icon-button" type="button" id="zoom-out" aria-label="Zoom out">−</button><span>${state.fileZoom}%</span><button class="icon-button" type="button" id="zoom-in" aria-label="Zoom in">+</button></div>` : ""}</div>` : "";
+  const currentIcon = fileIconHtml(currentFile);
+  const file = currentFile?.fileUrl ? `<a class="file-link ${isLinkAttachment(currentFile) ? "is-link" : ""}" href="${escapeHtml(currentFile.fileUrl)}" target="_blank" rel="noreferrer">${currentIcon}Open in new tab<span>${fileName}</span></a>` : "No file attached yet";
+  const fileControls = currentFile?.fileUrl ? `<div class="file-actions">${state.fileOpen || isLinkAttachment(currentFile) ? "" : `<button class="file-link file-link-button" type="button" id="toggle-file-view">Open file within website</button>`}${state.fileOpen ? `<div class="zoom-controls" aria-label="Zoom controls"><button class="icon-button" type="button" id="zoom-out" aria-label="Zoom out">−</button><span>${state.fileZoom}%</span><button class="icon-button" type="button" id="zoom-in" aria-label="Zoom in">+</button></div>` : ""}</div>` : "";
   byId("detail-content").style.setProperty("--bucket", meta.color); byId("detail-content").style.setProperty("--bucket-text", meta.color); byId("detail-content").style.setProperty("--bucket-light", `${meta.color}22`);
   byId("detail-content").innerHTML = `<div class="detail-card"><div class="detail-topline"><span class="detail-bucket">${escapeHtml(item.bucket)}</span><button class="text-button" type="button" id="close-detail">Close</button></div><h2>${escapeHtml(displayTitle(item))}</h2>${item.description ? `<p class="detail-description">${escapeHtml(item.description)}</p>` : ""}<section class="detail-section file-section"><h3>${files.length > 1 ? "Files" : "File"}</h3>${fileNavigatorHtml(item)}${fileControls}${state.fileOpen ? filePreviewHtml(item) : ""}<div class="attachment-action">${file}</div></section><section class="detail-section"><h3>Assigned tags</h3><div class="detail-tags">${visibleTags(item).map((tag) => `<button type="button" class="detail-tag" data-detail-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("")}</div></section></div>`;
   byId("close-detail").addEventListener("click", () => { if (state.fileOpen) { state.fileOpen = false; state.fileZoom = 100; render(); return; } state.selectedId = null; state.activeFileIndex = 0; render(); });
   const toggleFileView = byId("toggle-file-view"); if (toggleFileView) toggleFileView.addEventListener("click", () => { state.fileOpen = !state.fileOpen; render(); });
   const previousFile = byId("previous-file"); if (previousFile) previousFile.addEventListener("click", () => { state.activeFileIndex = Math.max(0, state.activeFileIndex - 1); state.fileZoom = 100; renderDetail(); });
   const nextFile = byId("next-file"); if (nextFile) nextFile.addEventListener("click", () => { state.activeFileIndex = Math.min(files.length - 1, state.activeFileIndex + 1); state.fileZoom = 100; renderDetail(); });
-  document.querySelectorAll("[data-file-index]").forEach((button) => button.addEventListener("click", () => { state.activeFileIndex = Number(button.dataset.fileIndex); state.fileZoom = 100; renderDetail(); }));
+  document.querySelectorAll("[data-file-index]").forEach((button) => button.addEventListener("click", () => { const index = Number(button.dataset.fileIndex); const selectedFile = files[index]; if (isLinkAttachment(selectedFile) && selectedFile?.fileUrl) { window.open(selectedFile.fileUrl, "_blank", "noopener,noreferrer"); return; } state.activeFileIndex = index; state.fileZoom = 100; renderDetail(); }));
   const zoomOut = byId("zoom-out"); if (zoomOut) zoomOut.addEventListener("click", () => { state.fileZoom = Math.max(50, state.fileZoom - 25); renderDetail(); });
   const zoomIn = byId("zoom-in"); if (zoomIn) zoomIn.addEventListener("click", () => { state.fileZoom = Math.min(250, state.fileZoom + 25); renderDetail(); });
   document.querySelectorAll("[data-detail-tag]").forEach((button) => button.addEventListener("click", () => toggleTag(button.dataset.detailTag)));
@@ -11540,3 +11721,4 @@ byId("search").addEventListener("input", (event) => { state.search = event.targe
 document.querySelectorAll("[data-project-group]").forEach((button) => button.addEventListener("click", () => { state.view = "library"; state.selectedBucket = null; state.includeTags.clear(); state.excludeTags.clear(); state.includeTags.add(button.dataset.projectGroup); render(); }));
 window.addEventListener("resize", updateViewerBounds);
 setupUpload(); render();
+
