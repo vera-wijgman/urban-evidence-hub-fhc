@@ -7,8 +7,8 @@ version is developed on `codex/website-v2`.
 
 ## Run and publish
 
-Checked hosted preview with the refined Hub and project file viewer:
-[Open version 2](https://6ad7d367272be27c6cd9dce5--urban-evidence-hub-fhc.netlify.app/).
+Checked hosted preview with collapsible buckets and shared evidence details:
+[Open version 2](https://6ad7da5502598c654daf95a9--urban-evidence-hub-fhc.netlify.app/).
 This preview does not change the production domain or holding page.
 
 Requires Node.js 20 or later.
@@ -43,7 +43,7 @@ part of the website they implement, so the next student group can maintain it.
 | `assets/theme.css` | All palette colours, font, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
-| `app.js` | Seven labelled sections for page rendering (including the project viewer), filters, drawer, routing, events and loading |
+| `app.js` | Seven labelled sections for page rendering, project bucket controls, shared evidence details, filters, routing, events and loading |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
 | `js/graph.js` | Empty graph renderer, ready for the graph being developed separately |
 | `data/evidence.json` | Published framework snapshot, attachment URLs and directed relationships |
@@ -63,8 +63,13 @@ section. Project cards show only their image, title and studio year.
 Project pages show a large file preview, project information on the right and a
 scrollable thumbnail strip underneath. The strip includes every attachment,
 ordered by the eight evidence buckets and then alphabetically by filename.
-Selecting a file updates its preview, details and shareable URL. Previous/next
-controls follow the same order; Project overview restores the project image.
+Click a bucket heading to collapse or expand its thumbnails. Selecting a file
+replaces the project introduction with the same evidence details used in the
+Hub: selected attachment, description, metadata, tags and backward/forward links.
+Both sidebars use `evidenceDetails` in `app.js`, so their content stays consistent.
+The large preview and shareable URL update with the selection. Previous/next
+controls follow the same order and expand a collapsed bucket when necessary;
+Project overview or closing the evidence details restores the project image.
 The layout stacks on mobile. Cached PDF first pages provide mobile previews,
 with links to open the original PDFs. A link also opens the project's filtered
 Hub view.
@@ -122,10 +127,11 @@ host, update those URLs and `FILE_BASE_URL` in the importer together.
 Tags use **OR within a category, AND between categories**. Excluded tags always
 remove matching evidence. Bucket checkboxes support any combination, including
 none. Filters, sorting and selected evidence are stored in the URL and survive
-switches between List, Grid and Graph in the Hub navigation dropdown. Hover or
-keyboard focus opens it on desktop; its disclosure button supports touch.
-Clicking Hub itself opens Graph. The list and grid share the same filter
-function and details drawer. Grid cards show their bucket on hover or focus.
+switches between Graph, Grid and List in the horizontal Hub submenu. Hover or
+keyboard focus reveals it; clicking Hub opens Graph and keeps the view links
+visible while browsing any Hub view, including on touch screens. The list and
+grid share the same filter function and details drawer. Grid cards show their
+bucket, project name and tags on hover or keyboard focus.
 
 To regenerate previews from an available local `evidence-files` archive, install
 Pillow and pypdfium2 and run `python scripts/create-thumbnails.py`. It reuses
@@ -165,5 +171,6 @@ ones. Invalid row references stop the import before it overwrites the snapshot.
 project attachment coverage and ordering, unique evidence IDs, framework row coverage, tags, safe file URLs, thumbnail
 paths and relationship integrity. The local browser flow additionally checks
 navigation, filters across views, direct evidence links, drawer controls,
-project file selection and direct links, example collections, global search and
-mobile overflow.
+project file selection, collapsible buckets, direct links, shared metadata and
+relationship navigation, persistent Hub tabs, grid hover tags, example
+collections, global search and mobile overflow.

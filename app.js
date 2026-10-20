@@ -7,7 +7,7 @@ const main = document.querySelector('#main');
 const detail = document.querySelector('#evidence-detail');
 const mobileViewport = matchMedia('(max-width: 680px)');
 const hubNav = document.querySelector('.hub-nav');
-const hubToggle = document.querySelector('.hub-menu-toggle');
+const hubLink = document.querySelector('[data-page="hub"]');
 const escape = (value = '') => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const safeUrl = value => {
   if (!value) return '';
@@ -79,17 +79,16 @@ function renderProject(id) {
   activeProject = project;
   document.title = `${project.title} | ${site.title}`;
   projectFiles = projectAttachments(evidence, project.tag);
-  const query = new URLSearchParams({ include: project.tag });
-  main.innerHTML = `<article class="project-viewer" aria-labelledby="project-title">
+  main.innerHTML = `<article class="project-viewer" aria-label="${escape(project.title)}">
     <div class="project-toolbar"><a href="#/projects" class="text-link">← All projects</a><div class="project-controls"><button type="button" data-project-cover>Project overview</button><button type="button" data-project-step="-1" aria-label="Previous file">←</button><span id="project-position" role="status" aria-live="polite"></span><button type="button" data-project-step="1" aria-label="Next file">→</button></div></div>
     <div id="project-stage" class="project-stage"></div>
-    <aside class="project-info"><img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(escape).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', query)}">Browse in the Hub →</a><div id="project-file-info"></div></aside>
+    <aside id="project-info" class="project-info" aria-label="Project information"></aside>
     <nav class="project-filmstrip" aria-label="Project files by evidence bucket">${buckets.map(bucket => {
       const files = projectFiles.map((entry, index) => ({ ...entry, index })).filter(entry => entry.item.bucket === bucket);
-      return files.length ? `<section class="filmstrip-group" aria-label="${bucket}"><h2>${bucket} <span>(${files.length})</span></h2><div class="filmstrip-files">${files.map(({ item, file, index }) => {
+      return files.length ? `<details class="filmstrip-group" open><summary><h2>${bucket} <span>(${files.length})</span></h2></summary><div class="filmstrip-files">${files.map(({ item, file, index }) => {
         const thumbnail = file.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : item.thumbnail);
         return `<button type="button" class="project-thumbnail" style="${bucketStyle(item)}" data-project-file="${index}" aria-pressed="false" aria-label="Preview ${escape(file.fileName)}" title="${escape(file.fileName)}">${thumbnail ? `<img src="${safeUrl(thumbnail)}" alt="" loading="lazy" width="120" height="78" />` : `<span class="file-placeholder">${escape(extensionOf(file).toUpperCase())}</span>`}<span>${escape(file.fileName)}</span></button>`;
-      }).join('')}</div></section>` : '';
+      }).join('')}</div></details>` : '';
     }).join('') || '<p class="muted">No project files have been added yet.</p>'}</nav>
   </article>`;
   const selected = projectFiles.findIndex(entry => entry.item.id === route.params.get('evidence') && entry.fileIndex === Number(route.params.get('file') || 0));
@@ -99,13 +98,23 @@ function renderProject(id) {
 function selectProjectFile(index, syncUrl = true) {
   const entry = projectFiles[index];
   const { item, file, fileIndex } = entry || {};
+  const project = activeProject;
+  const panel = document.querySelector('#project-info');
   document.querySelector('#project-stage').innerHTML = entry ? renderPreview(file, file === previewFile(item) ? item.thumbnail : '') : `<img class="project-overview" src="${safeUrl(activeProject.image)}" alt="${escape(activeProject.title)} project overview" />`;
-  document.querySelector('#project-file-info').innerHTML = entry ? `<section class="detail-section">${bucketLabel(item)}<h2>${escape(file.fileName)}</h2><p>${escape(item.description || '')}</p><div class="detail-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).map(pill).join('')}</div>${file.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : ''}</section>` : '';
+  selectedId = item?.id || null;
+  panel.classList.toggle('evidence-info', Boolean(entry));
+  panel.setAttribute('aria-label', entry ? 'Evidence details' : 'Project information');
+  panel.innerHTML = entry ? evidenceDetails(item, file) : `<img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(escape).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', new URLSearchParams({ include: project.tag }))}">Browse in the Hub →</a>`;
+  panel.scrollTop = 0;
   document.querySelector('#project-position').textContent = entry ? `${index + 1} of ${projectFiles.length}` : `${projectFiles.length} files`;
   document.querySelector('[data-project-step="-1"]').disabled = index < 1;
   document.querySelector('[data-project-step="1"]').disabled = index >= projectFiles.length - 1;
   document.querySelectorAll('[data-project-file]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.projectFile) === index)));
-  if (entry) document.querySelector(`[data-project-file="${index}"]`).scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  if (entry) {
+    const thumbnail = document.querySelector(`[data-project-file="${index}"]`);
+    thumbnail.closest('details').open = true;
+    thumbnail.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
   route.params = entry ? new URLSearchParams({ evidence: item.id, file: fileIndex }) : new URLSearchParams();
   if (syncUrl) history.replaceState(null, '', `#/projects/${activeProject.id}${route.params.size ? '?' + route.params : ''}`);
 }
@@ -162,7 +171,7 @@ function evidenceCard(item, view) {
   const format = file ? extensionOf(file).toUpperCase() : 'FILE';
   const image = item.thumbnail || file?.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : '');
   return `<button type="button" class="evidence-card ${view}-card" style="${bucketStyle(item)}" data-evidence="${escape(item.id)}" aria-haspopup="dialog" aria-label="View details: ${escape(titleOf(item))}">
-    ${view === 'grid' ? `<span class="evidence-thumbnail">${image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />` : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`}<span class="thumbnail-details" aria-hidden="true">${bucketLabel(item)}</span></span>` : ''}
+    ${view === 'grid' ? `<span class="evidence-thumbnail">${image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />` : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`}<span class="thumbnail-details">${bucketLabel(item)}<span class="hover-project">${escape(item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(' · '))}</span><span class="detail-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).map(pill).join('')}</span></span></span>` : ''}
     <span class="evidence-card-copy">${view === 'list' ? bucketLabel(item) : ''}<span class="evidence-title">${escape(titleOf(item))}</span>${view === 'list' ? `<span class="evidence-description">${escape(item.description || item.tags.filter(tag => tag.startsWith('Group ')).join(' · ').replace(/Group \d: /g, '') || site.studio)}</span><span class="card-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).slice(0, 4).map(pill).join('')}</span><span class="card-open" aria-hidden="true">↗</span>` : ''}</span>
   </button>`;
 }
@@ -205,27 +214,35 @@ function linkedSection(item, direction) {
   return `<section class="detail-section"><h3>${direction} linked <span class="muted">(${related.length})</span></h3>${related.length ? `<div class="linked-items">${related.map(({ item: linked, link }) => `<button type="button" data-evidence="${escape(linked.id)}">${bucketLabel(linked)}<strong>${escape(titleOf(linked))}</strong><span class="muted">${link.type === 'supports' ? 'Supports' : 'Links to'} ${backward ? 'this evidence' : 'from this evidence'}</span>${arrow}</button>`).join('')}</div>` : '<p class="muted">No links recorded yet.</p>'}</section>`;
 }
 
-function openDetail(id, focus = true) {
-  const item = evidence.find(entry => entry.id === id);
-  if (!item) return;
-  if (detail.hidden) returnFocus = document.activeElement;
-  selectedId = id;
-  const params = new URLSearchParams(route.params);
-  params.set('evidence', id);
-  route.params = params;
-  history.replaceState(null, '', hubUrl(route.view, params));
-  syncHubLinks();
+// Both the Hub drawer and project sidebar render this same evidence content.
+function evidenceDetails(item, file = previewFile(item)) {
   const files = item.files;
-  const file = previewFile(item);
-  const metadata = [['Bucket', item.bucket], ['Project', item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(', ') || '—'], ['Content type', item.tags.filter(tag => tagGroups['Content type'].includes(tag)).join(', ') || '—'], ['Date', item.date || '—'], ['Source', item.source || 'Not recorded'], ['Framework rows', (item.frameworkRows || []).join(', ') || '—']];
-  detail.innerHTML = `<div class="detail-top"><span class="eyebrow">Evidence details</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div>
-    <h2 id="detail-title" tabindex="-1">${escape(titleOf(item))}</h2><div id="file-preview">${renderPreview(file, item.thumbnail)}</div>
+  const metadata = [['File', file?.fileName || '—'], ['Bucket', item.bucket], ['Project', item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(', ') || '—'], ['Content type', item.tags.filter(tag => tagGroups['Content type'].includes(tag)).join(', ') || '—'], ['Date', item.date || '—'], ['Source', file?.source || item.source || 'Not recorded'], ['Framework rows', (item.frameworkRows || []).join(', ') || '—']];
+  return `<div class="detail-top"><span class="eyebrow">Evidence details</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div>
+    <h2 id="detail-title" tabindex="-1">${escape(titleOf(item))}</h2><div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>
     ${files.length > 1 ? `<label class="file-select-label">Attached files<select id="file-select">${files.map((attached, index) => `<option value="${index}"${attached === file ? ' selected' : ''}>${escape(attached.fileName || attached.title)}</option>`).join('')}</select></label>` : ''}
     <div id="file-action">${file?.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : ''}</div>
     <section class="detail-section"><h3>Description</h3><p>${escape(item.description || 'No description has been added yet.')}</p></section>
     <section class="detail-section"><h3>Metadata</h3><dl class="metadata">${metadata.map(([label, value]) => `<div><dt>${label}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl></section>
     <section class="detail-section"><h3>Tags</h3><div class="detail-tags">${item.tags.map(pill).join('') || '<p class="muted">No tags recorded.</p>'}</div></section>
     ${linkedSection(item, 'Backward')}${linkedSection(item, 'Forward')}`;
+}
+
+function openDetail(id, focus = true) {
+  const item = evidence.find(entry => entry.id === id);
+  if (!item) return;
+  if (route.page === 'projects') {
+    const index = projectFiles.findIndex(entry => entry.item.id === id && entry.file === previewFile(item));
+    if (index >= 0) selectProjectFile(index);
+    else location.hash = hubUrl('grid', new URLSearchParams({ evidence: id }));
+    return;
+  }
+  if (detail.hidden) returnFocus = document.activeElement;
+  selectedId = id;
+  route.params.set('evidence', id);
+  history.replaceState(null, '', hubUrl(route.view, route.params));
+  syncHubLinks();
+  detail.innerHTML = evidenceDetails(item);
   detail.setAttribute('aria-labelledby', 'detail-title');
   detail.hidden = false;
   document.body.classList.add('detail-open');
@@ -283,8 +300,9 @@ function syncHubLinks() {
 }
 
 function setHubMenu(open) {
+  open = open || route?.page === 'hub';
   hubNav.classList.toggle('is-open', open);
-  hubToggle.setAttribute('aria-expanded', String(open));
+  hubLink.setAttribute('aria-expanded', String(open));
 }
 
 function renderRoute() {
@@ -301,8 +319,9 @@ function renderRoute() {
   });
   syncHubLinks();
   setHubMenu(hubNav.matches(':hover') && !mobileViewport.matches);
-  document.querySelector('#main-nav').classList.remove('is-open');
-  document.querySelector('.menu-button').setAttribute('aria-expanded', 'false');
+  const mobileHub = mobileViewport.matches && route.page === 'hub';
+  document.querySelector('#main-nav').classList.toggle('is-open', mobileHub);
+  document.querySelector('.menu-button').setAttribute('aria-expanded', String(mobileHub));
   document.querySelector('#global-search').value = params.get('q') || '';
   document.title = `${route.page === 'home' ? 'Trace evidence into design' : (collections[route.page]?.title || (route.page === 'hub' ? 'Hub' : 'Search'))} | ${site.title}`;
   if (route.page === 'home') renderHome();
@@ -329,15 +348,20 @@ document.addEventListener('click', event => {
     const open = button.getAttribute('aria-expanded') !== 'true';
     button.setAttribute('aria-expanded', String(open));
     document.querySelector('#main-nav').classList.toggle('is-open', open);
-  } else if (button === hubToggle) setHubMenu(hubToggle.getAttribute('aria-expanded') !== 'true');
-  else if (button.hasAttribute('data-project-file')) selectProjectFile(Number(button.dataset.projectFile));
+  } else if (button.hasAttribute('data-project-file')) selectProjectFile(Number(button.dataset.projectFile));
   else if (button.hasAttribute('data-project-cover')) selectProjectFile(-1);
   else if (button.hasAttribute('data-project-step')) {
     const current = document.querySelector('[data-project-file][aria-pressed="true"]');
     selectProjectFile((current ? Number(current.dataset.projectFile) : -1) + Number(button.dataset.projectStep));
   } else if (button.hasAttribute('data-evidence')) openDetail(button.dataset.evidence);
-  else if (button.hasAttribute('data-close')) closeDetail();
-  else if (button.hasAttribute('data-more')) {
+  else if (button.hasAttribute('data-close')) {
+    if (route.page === 'projects') {
+      const thumbnail = document.querySelector('[data-project-file][aria-pressed="true"]');
+      selectProjectFile(-1);
+      thumbnail?.focus({ preventScroll: true });
+    }
+    else closeDetail();
+  } else if (button.hasAttribute('data-more')) {
     visibleCount += 36;
     renderResults();
     document.querySelectorAll('.evidence-card')[visibleCount - 36]?.focus({ preventScroll: true });
@@ -358,13 +382,13 @@ document.addEventListener('click', event => {
   }
 });
 
-// Hover on desktop, a disclosure on touch screens, and native links for keyboard use.
+// Hover reveals the view links; Hub pages keep them open, including on touch screens.
 hubNav.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse' && !mobileViewport.matches) setHubMenu(true); });
 hubNav.addEventListener('pointerleave', () => { if (!hubNav.querySelector(':focus-visible')) setHubMenu(false); });
-hubNav.addEventListener('focusin', event => { if (event.target !== hubToggle) setHubMenu(true); });
+hubNav.addEventListener('focusin', () => setHubMenu(true));
 hubNav.addEventListener('focusout', event => { if (!hubNav.contains(event.relatedTarget)) setHubMenu(false); });
 hubNav.addEventListener('keydown', event => {
-  if (event.key === 'ArrowDown' && (event.target === hubToggle || event.target.matches('[data-page="hub"]'))) {
+  if (event.key === 'ArrowDown' && event.target === hubLink) {
     event.preventDefault();
     setHubMenu(true);
     document.querySelector('#hub-subnav a').focus();
@@ -393,10 +417,17 @@ document.addEventListener('change', event => {
     route.filters.sort = event.target.value;
     updateFilters();
   } else if (event.target.id === 'file-select') {
+    if (route.page === 'projects') {
+      selectProjectFile(projectFiles.findIndex(entry => entry.item.id === selectedId && entry.fileIndex === Number(event.target.value)));
+      document.querySelector('#file-select')?.focus({ preventScroll: true });
+      return;
+    }
     const item = evidence.find(item => item.id === selectedId);
     const file = item.files[Number(event.target.value)];
-    document.querySelector('#file-preview').innerHTML = renderPreview(file, file === previewFile(item) ? item.thumbnail : '');
-    document.querySelector('#file-action').innerHTML = file.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : '';
+    const scrollTop = detail.scrollTop;
+    detail.innerHTML = evidenceDetails(item, file);
+    detail.scrollTop = scrollTop;
+    document.querySelector('#file-select')?.focus({ preventScroll: true });
   }
 });
 
@@ -411,10 +442,15 @@ document.addEventListener('error', event => {
   image.parentElement.append(note);
 }, true);
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && hubNav.classList.contains('is-open')) {
+  if (event.key === 'Escape' && hubNav.classList.contains('is-open') && route.page !== 'hub') {
+    hubLink.focus();
     setHubMenu(false);
-    hubToggle.focus();
     return;
+  }
+  if (event.key === 'Escape' && route.page === 'projects' && selectedId) {
+    const thumbnail = document.querySelector('[data-project-file][aria-pressed="true"]');
+    selectProjectFile(-1);
+    thumbnail?.focus({ preventScroll: true });
   }
   if (detail.hidden) return;
   if (event.key === 'Escape') closeDetail();
