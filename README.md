@@ -7,6 +7,10 @@ version is developed on `codex/website-v2`.
 
 ## Run and publish
 
+Checked hosted preview with the restored evidence:
+[Open version 2](https://6ad7c857191837f3fa18422f--urban-evidence-hub-fhc.netlify.app/).
+This preview does not change the production domain or holding page.
+
 Requires Node.js 20 or later.
 
 ```sh
@@ -76,12 +80,15 @@ updated.xlsx`, matched to the existing **300 evidence groups / 660 attachments**
 Named evidence groups keep their multiple files together in the detail drawer.
 There are 236 local WebP thumbnails; other file types have a format placeholder.
 
-File-host checks found 21 older originals absent from both existing Netlify
-hosts. These remain in the catalogue with `available: false`, without a broken
-download action. Seventeen have local image previews. The remaining four
-(two literature spreadsheets, an HTML diagram and a video) show a publication
-notice. The import report lists them. After publishing an original, verify its
-URL and remove `available: false` from its attachment record.
+The 21 previously unavailable Health Islands originals were restored on
+20 October 2026, including the route maps, two literature spreadsheets,
+stakeholder diagram, video and masterplan. Their public file links are enabled;
+17 local image previews are retained. Originals are also saved in the shared
+`03 Workfolder/03.4 Urban Evidence Hub/Group 3 - Health Islands` archive:
+route maps and literature in `07 Design/Individual/Promotion`, the diagram in
+`06 Strategy/Stakeholder diagram`, the video in `07 Design`, and the masterplan
+in `07 Design/Vision map`. Each restored attachment records its archive path in
+its `source` field. Older differing website copies were backed up locally.
 
 With Python and `openpyxl` installed, refresh metadata with:
 
