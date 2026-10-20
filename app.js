@@ -383,6 +383,12 @@ document.addEventListener('click', event => {
 });
 
 // Hover reveals the view links; Hub pages keep them open, including on touch screens.
+// Keep the three links centred under Hub while their background spans the header.
+new ResizeObserver(() => {
+  const header = document.querySelector('.site-header').getBoundingClientRect();
+  const hub = hubLink.getBoundingClientRect();
+  hubNav.style.setProperty('--hub-centre', `${hub.left - header.left + hub.width / 2}px`);
+}).observe(document.querySelector('.site-header'));
 hubNav.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse' && !mobileViewport.matches) setHubMenu(true); });
 hubNav.addEventListener('pointerleave', () => { if (!hubNav.querySelector(':focus-visible')) setHubMenu(false); });
 hubNav.addEventListener('focusin', () => setHubMenu(true));

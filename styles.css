@@ -38,23 +38,24 @@ p { margin-bottom: 16px; }
 .loading { padding: 80px var(--gutter); color: var(--muted); }
 
 /* 2. Global header, navigation, search and footer. */
-.site-header { min-height: var(--header-height); display: flex; align-items: center; gap: clamp(20px, 3vw, 48px); padding: 0 var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
-.brand { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; font-size: 20px; font-weight: 650; letter-spacing: -.035em; }
-.logo-space { display: block; width: 32px; height: 36px; flex: 0 0 32px; }
-#main-nav { display: flex; align-self: stretch; gap: clamp(18px, 2.2vw, 36px); align-items: stretch; }
+.site-header { position: relative; min-height: var(--header-height); display: grid; grid-template-columns: minmax(0, 1fr) clamp(160px, 18vw, 250px); grid-template-rows: 44px 48px; grid-template-areas: "brand search" "nav search"; align-items: center; column-gap: 24px; padding: 14px var(--gutter) 0; border-bottom: 1px solid var(--line); background: var(--paper); }
+.brand { grid-area: brand; justify-self: center; position: relative; white-space: nowrap; font-size: 20px; font-weight: 650; letter-spacing: -.035em; }
+.logo-space { position: absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); width: 32px; height: 36px; }
+#main-nav { grid-area: nav; display: flex; align-self: stretch; justify-content: center; gap: clamp(18px, 2.2vw, 36px); align-items: stretch; }
 #main-nav a { display: flex; align-items: center; border-bottom: 2px solid transparent; padding-top: 2px; color: var(--muted); font-size: 13px; }
 #main-nav a:hover { color: var(--ink); }
 #main-nav a[aria-current] { color: var(--accent); border-color: var(--accent); }
-.hub-nav { position: relative; display: flex; align-items: stretch; }
-.hub-subnav { display: none; position: absolute; z-index: 10; top: 100%; left: -12px; width: max-content; gap: 4px; padding: 6px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: 0 8px 22px color-mix(in srgb, var(--ink) 8%, transparent); }
-.hub-nav.is-open .hub-subnav { display: flex; }
+.hub-nav { display: flex; align-items: stretch; }
+.hub-subnav { display: none; position: absolute; z-index: 10; top: calc(100% - 1px); left: 0; width: 100%; height: var(--hub-bar-height); padding: 8px 0; border-block: 1px solid var(--line); background: var(--paper); }
+.hub-nav.is-open .hub-subnav { display: block; }
+.hub-subnav-links { display: flex; gap: 4px; width: max-content; margin-left: var(--hub-centre, 50%); transform: translateX(-50%); }
 #main-nav .hub-subnav a { padding: 9px 12px; border: 0; border-radius: 3px; }
 #main-nav .hub-subnav a:hover, #main-nav .hub-subnav a[aria-current] { color: var(--accent); background: var(--surface); }
 .search-field { min-width: 0; display: flex; align-items: center; gap: 10px; }
 .search-field svg { width: 19px; height: 19px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .search-field input { width: 100%; border: 0; background: transparent; padding: 8px 0; outline-offset: 1px; color: var(--ink); font-size: 13px; }
 .search-field input::placeholder { color: var(--muted); }
-#site-search { margin-left: auto; width: clamp(150px, 17vw, 250px); border-bottom: 1px solid var(--line); }
+#site-search { grid-area: search; width: 100%; border-bottom: 1px solid var(--line); }
 .menu-button { display: none; padding: 8px 10px; background: var(--surface); font-size: 12px; }
 .site-footer { min-height: 108px; margin-top: 64px; border-top: 1px solid var(--line); padding: 32px var(--gutter); display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 12px; color: var(--muted); }
 .site-footer a:first-child { color: var(--ink); font-weight: 600; }
@@ -92,7 +93,7 @@ a.collection-card:hover h3 { color: var(--accent); }
 
 /* 4. Collection subpages, studio years, project details and site search. */
 .page-heading { padding: 58px 0 42px; max-width: 800px; }
-.page-heading h1 { margin-bottom: 18px; }
+.page-heading h1 { margin-bottom: 18px; font-size: var(--page-title-size); }
 .page-heading > p:last-child { margin: 0; color: var(--muted); font-size: 17px; }
 .year-section { padding-top: 30px; margin-bottom: 50px; border-top: 1px solid var(--line); }
 .year-section h2 { font-size: 22px; }
@@ -138,7 +139,7 @@ a.collection-card:hover h3 { color: var(--accent); }
 
 /* 5. Hub introduction, collapsible filters and search toolbar. */
 .hub-header { padding: 38px var(--gutter) 30px; border-bottom: 1px solid var(--line); }
-.hub-header h1 { font-size: 36px; margin: 0 0 14px; }
+.hub-header h1 { font-size: var(--page-title-size); margin: 0 0 14px; }
 .hub-header > p { margin: 0; max-width: 800px; color: var(--muted); font-size: 17px; }
 .hub-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 70vh; }
 .filters { padding: 28px 20px 40px var(--gutter); border-right: 1px solid var(--line); }
@@ -243,19 +244,13 @@ a.collection-card:hover h3 { color: var(--accent); }
 .linked-items button > span:last-child { position: absolute; right: 12px; top: 12px; }
 
 /* 8. Responsive layouts and reduced-motion preferences. */
-@media (min-width: 681px) {
-  .site-header:has([data-page="hub"][aria-current]) { margin-bottom: 46px; }
-}
+.site-header:has([data-page="hub"][aria-current]) { margin-bottom: var(--hub-bar-height); }
 @media (min-width: 1450px) {
   .detail-open .hub-page { margin-right: 420px; }
   .detail-open .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 1200px) {
-  .site-header { gap: 22px; }
-  .brand { font-size: 18px; gap: 8px; }
-  .logo-space { width: 20px; flex-basis: 20px; }
   #main-nav { gap: 20px; }
-  #site-search { width: 170px; }
   .home-hero { gap: 30px; }
   .hero-copy h1 { white-space: normal; }
   .hub-layout { grid-template-columns: 220px minmax(0, 1fr); }
@@ -264,12 +259,7 @@ a.collection-card:hover h3 { color: var(--accent); }
   .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 960px) {
-  :root { --header-height: 110px; }
-  .site-header { flex-wrap: wrap; gap: 0 24px; padding-top: 12px; }
-  .brand { order: 0; }
   .project-viewer { grid-template-columns: minmax(0, 1fr) 320px; }
-  #site-search { order: 1; }
-  #main-nav { order: 2; width: 100%; height: 48px; gap: 30px; }
   .home-hero { padding-top: 40px; }
   .hero-copy h1 { font-size: 38px; }
   .hero-description { font-size: 14px; }
@@ -280,17 +270,15 @@ a.collection-card:hover h3 { color: var(--accent); }
   .sort-label { justify-content: flex-end; }
 }
 @media (max-width: 680px) {
-  :root { --header-height: 112px; }
-  .site-header { padding: 16px 20px 10px; gap: 12px; }
-  .brand { font-size: 18px; flex: 1; }
-  .logo-space { width: 22px; flex-basis: 22px; }
-  .menu-button { display: block; order: 1; }
-  #site-search { order: 2; width: 100%; margin: 0; }
-  #main-nav { display: none; order: 3; height: auto; gap: 0; width: 100%; }
+  :root { --header-height: 112px; --page-title-size: 30px; }
+  .site-header { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; grid-template-areas: "brand menu" "search search" "nav nav"; padding: 16px 20px 0; gap: 12px; }
+  .brand { font-size: 18px; }
+  .logo-space { width: 22px; right: calc(100% + 8px); }
+  .menu-button { display: block; grid-area: menu; }
+  #main-nav { display: none; height: auto; gap: 0; width: 100%; }
   #main-nav.is-open { display: grid; grid-template-columns: repeat(3, 1fr); }
-  #main-nav a { padding: 12px 4px; font-size: 13px; }
+  #main-nav a { justify-content: center; padding: 12px 4px; font-size: 13px; }
   .hub-nav { display: contents; }
-  .hub-subnav { position: static; grid-column: 1 / -1; grid-row: 3; width: 100%; justify-content: center; border: 0; border-top: 1px solid var(--line); box-shadow: none; }
   .home-hero { grid-template-columns: 1fr; padding: 36px 0; gap: 26px; }
   .hero-copy h1 { font-size: clamp(32px, 8vw, 44px); }
   .hero-subtitle { font-size: 24px; }
@@ -317,7 +305,6 @@ a.collection-card:hover h3 { color: var(--accent); }
   .project-info-image { max-width: 400px; }
   .project-filmstrip { padding-inline: 20px; gap: 16px; }
   .hub-header { padding: 28px 20px; }
-  .hub-header h1 { font-size: 30px; }
   .hub-header > p { font-size: 15px; }
   .hub-layout { display: block; }
   .filters { padding: 0 20px; border-right: 0; border-bottom: 1px solid var(--line); }

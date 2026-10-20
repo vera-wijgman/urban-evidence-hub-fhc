@@ -7,9 +7,10 @@ version is developed on `codex/website-v2`.
 
 ## Run and publish
 
-Checked hosted preview with collapsible buckets and shared evidence details:
+Earlier hosted preview with collapsible buckets and shared evidence details:
 [Open version 2](https://6ad7da5502598c654daf95a9--urban-evidence-hub-fhc.netlify.app/).
-This preview does not change the production domain or holding page.
+The latest header and page-heading refinements are saved on GitHub and checked
+locally; they have not been deployed to Netlify.
 
 Requires Node.js 20 or later.
 
@@ -19,12 +20,34 @@ npm test          # Evidence filtering and data integrity
 npm run build     # Public website only, written to dist/
 ```
 
-Connect a static host to this GitHub repository, select `codex/website-v2`, use
-`npm run build` as its build command and `dist` as its output directory. The
-included Netlify configuration uses these same settings. For Cloudflare, use
-these build settings when connecting this repository to the website project.
-The custom domain belongs to the hosting project; committing this branch does
-not change the existing holding page or DNS.
+### Connect GitHub to UrbanEvidenceHub.com through Cloudflare Pages
+
+1. In Cloudflare, open **Workers & Pages → Create application → Pages → Connect
+   to Git**. Authorize GitHub and select
+   [`vera-wijgman/urban-evidence-hub-fhc`](https://github.com/vera-wijgman/urban-evidence-hub-fhc).
+2. Use these settings, then select **Save and Deploy**:
+
+   | Setting | Value |
+   | --- | --- |
+   | Production branch | `codex/website-v2` |
+   | Framework preset | None |
+   | Build command | `npm run build` |
+   | Build output directory | `dist` |
+   | Root directory | Repository root (leave the override blank) |
+
+3. Check the generated `pages.dev` address. In the Pages project, select
+   **Custom domains → Set up a domain** and enter `urbanevidencehub.com`.
+   Confirm the Cloudflare DNS setup; add `www.urbanevidencehub.com` there too if
+   you want both addresses. The root domain must be in the same Cloudflare
+   account as this Pages project, using Cloudflare nameservers.
+4. If the domain is attached to the existing holding-page project, move that
+   domain connection to the new Pages project when you are ready to replace it.
+
+Future pushes to `codex/website-v2` will automatically build and publish to this
+Pages project. GitHub stores the source; Cloudflare Pages hosts the website and
+connects it to the domain. These instructions do not modify the live domain.
+See Cloudflare's [Git integration guide](https://developers.cloudflare.com/pages/get-started/git-integration/)
+and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
 Only the allowlisted public files are copied into `dist`. Local spreadsheets,
 archives, prototypes, working documents and evidence originals are excluded.
@@ -39,8 +62,8 @@ part of the website they implement, so the next student group can maintain it.
 
 | File | Owns |
 | --- | --- |
-| `index.html` | Shared header, Hub view dropdown, logo space, search, main area, detail drawer and footer |
-| `assets/theme.css` | All palette colours, font, content width, spacing and corner radius |
+| `index.html` | Centred brand and navigation, full-width Hub bar, logo space, search, main area, detail drawer and footer |
+| `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
 | `app.js` | Seven labelled sections for page rendering, project bucket controls, shared evidence details, filters, routing, events and loading |

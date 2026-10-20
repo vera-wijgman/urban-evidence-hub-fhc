@@ -20,6 +20,8 @@
   --font: "Segoe UI", Arial, sans-serif;
   --content-width: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
-  --header-height: 80px;
+  --header-height: 108px;
+  --hub-bar-height: 56px;
+  --page-title-size: 36px;
   --radius: 5px;
 }
