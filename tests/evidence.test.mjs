@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
-import { filterEvidence, readFilters, extensionOf } from '../js/evidence.js';
+import { filterEvidence, readFilters, extensionOf, projectAttachments } from '../js/evidence.js';
 import { buckets, tagGroups } from '../js/content.js';
 
 const fixture = [
@@ -31,6 +31,19 @@ test('unchecking every bucket survives a shared URL instead of resetting to all'
 test('external app attachments and ordinary files have usable format labels', () => {
   assert.equal(extensionOf({ fileName: 'Urban map.PNG' }), 'png');
   assert.equal(extensionOf({ fileName: 'WellWay interface app' }), 'link');
+});
+
+test('project files include every attachment in bucket order, then alphabetical filename order', () => {
+  const records = [
+    { id: 'design', bucket: 'Design', tags: ['Project A'], files: [{ fileName: 'A.png' }] },
+    { id: 'methods', bucket: 'Methods', tags: ['Project A'], files: [{ fileName: 'Z.pdf' }, { fileName: 'B.png' }] },
+    { id: 'research', bucket: 'Research', tags: ['Project A'], files: [{ fileName: 'Z.png' }] },
+    { id: 'other', bucket: 'Methods', tags: ['Project B'], files: [{ fileName: 'A.png' }] },
+  ];
+  const result = projectAttachments(records, 'Project A');
+  assert.deepEqual(result.map(entry => entry.file.fileName), ['B.png', 'Z.pdf', 'Z.png', 'A.png']);
+  assert.deepEqual(result.map(entry => [entry.item.id, entry.fileIndex]), [['methods', 1], ['methods', 0], ['research', 0], ['design', 0]]);
+  assert.deepEqual(projectAttachments(records, 'Empty project'), []);
 });
 
 test('published evidence has unique IDs, valid metadata, safe files and existing thumbnails', async () => {

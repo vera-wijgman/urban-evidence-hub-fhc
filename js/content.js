@@ -3,9 +3,10 @@
 export const site = {
   title: 'Urban Evidence Hub',
   subtitle: 'Trace evidence into design',
-  description: 'Explore how research, analysis and design decisions connect across the Future Healthy Cities studio.',
+  description: 'Explore how research and analysis inform design decisions across the Future Healthy Cities master studio.',
   heroImage: 'assets/healthy-cities.jpg',
-  studio: 'Future Healthy Cities studio',
+  studio: 'Future Healthy Cities master studio',
+  hubDescription: 'Explore the evidence and the connections between research, analysis and design.',
 };
 
 export const projects = [
@@ -23,16 +24,27 @@ export const projects = [
     members: ['Cas Prinsze', 'Milana Romanova', 'Vera'] },
 ];
 
-// Publication: { id, title, year, description, image?, url }.
-export const publications = [];
-// Partner: { id, title, year, description, image?, url }.
-export const partners = [];
+// Clearly labelled layout examples; replace with real publications when available.
+// Publication: { id, title, year, date, image?, url? }.
+export const publications = [
+  { id: 'example-publication-01', title: 'Example publication 01', year: 2026,
+    date: '2026-10-15', image: 'assets/healthy-cities.jpg' },
+  { id: 'example-publication-02', title: 'Example publication 02', year: 2026,
+    date: '2026-10-01', image: 'home-living-superblocks.png' },
+];
+// Partner: { id, title, year, image?, url? }.
+export const partners = [
+  { id: 'example-partner-01', title: 'Example partner 01', year: 2026,
+    image: 'home-responsive-neighbourhood.jpeg' },
+  { id: 'example-partner-02', title: 'Example partner 02', year: 2026,
+    image: 'home-health-islands.png' },
+];
 
 export const collections = {
   projects: { title: 'Projects', description: 'Explore the projects, and the evidence behind them.', items: projects },
-  publications: { title: 'Publications', description: 'Research and reflections from the Future Healthy Cities studio.',
+  publications: { title: 'Publications', description: 'Research and reflections from the Future Healthy Cities master studio.',
     empty: 'Publications will be collected here as the studio’s work is published.', items: publications },
-  partners: { title: 'Partners', description: 'People and organisations connected to the Future Healthy Cities studio.',
+  partners: { title: 'Partners', description: 'People and organisations connected to the Future Healthy Cities master studio.',
     empty: 'Our studio partners will be introduced here.', items: partners },
 };
 

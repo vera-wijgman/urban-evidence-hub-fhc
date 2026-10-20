@@ -1,14 +1,14 @@
 # Urban Evidence Hub · Version 2
 
-A static website for the TU/e Future Healthy Cities studio. Plain HTML, CSS and
+A static website for the Future Healthy Cities master studio. Plain HTML, CSS and
 JavaScript, with no framework, runtime packages, external fonts or installation
 step. The original website is preserved in Git history and on `main`; this
 version is developed on `codex/website-v2`.
 
 ## Run and publish
 
-Checked hosted preview with the restored evidence:
-[Open version 2](https://6ad7c857191837f3fa18422f--urban-evidence-hub-fhc.netlify.app/).
+Checked hosted preview with the refined Hub and project file viewer:
+[Open version 2](https://6ad7d367272be27c6cd9dce5--urban-evidence-hub-fhc.netlify.app/).
 This preview does not change the production domain or holding page.
 
 Requires Node.js 20 or later.
@@ -39,12 +39,12 @@ part of the website they implement, so the next student group can maintain it.
 
 | File | Owns |
 | --- | --- |
-| `index.html` | Shared header, logo space, search, main area, detail drawer and footer |
+| `index.html` | Shared header, Hub view dropdown, logo space, search, main area, detail drawer and footer |
 | `assets/theme.css` | All palette colours, font, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
-| `app.js` | Seven labelled sections for page rendering, filters, drawer, routing, events and loading |
-| `js/evidence.js` | Shared evidence filtering and file helpers |
+| `app.js` | Seven labelled sections for page rendering (including the project viewer), filters, drawer, routing, events and loading |
+| `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
 | `js/graph.js` | Empty graph renderer, ready for the graph being developed separately |
 | `data/evidence.json` | Published framework snapshot, attachment URLs and directed relationships |
 | `scripts/` | Small build, preview, framework-import and thumbnail tools |
@@ -58,19 +58,29 @@ latest-evidence section or decision-chain interface are included.
 Edit `js/content.js`. Homepage previews and the corresponding subpages use the
 same collections. Add a project with an `id`, `title`, `year`, `image`, `tag`,
 `description` and `members`. A new year automatically creates a new Studio year
-section. Project cards open a project page with a link to its filtered evidence.
+section. Project cards show only their image, title and studio year.
 
-Publications and Partners start empty. Add entries to their arrays, for example:
+Project pages show a large file preview, project information on the right and a
+scrollable thumbnail strip underneath. The strip includes every attachment,
+ordered by the eight evidence buckets and then alphabetically by filename.
+Selecting a file updates its preview, details and shareable URL. Previous/next
+controls follow the same order; Project overview restores the project image.
+The layout stacks on mobile. Cached PDF first pages provide mobile previews,
+with links to open the original PDFs. A link also opens the project's filtered
+Hub view.
+
+Publications and Partners contain two clearly named layout examples each.
+Replace those entries with real content when available, for example:
 
 ```js
 { id: 'publication-id', title: 'Publication title', year: 2027,
-  description: 'A short introduction.', image: 'assets/publication-cover.webp',
+  date: '2027-06-15', image: 'assets/publication-cover.webp',
   url: 'https://example.org/publication' }
 ```
 
-The image is optional. Entries with a URL open their source in a new tab; entries
-without a URL remain informational cards. No example publication or partner has
-been inserted into the actual site data.
+Publication cards show an image, title and publication date; partner cards show
+an image and title. The image is optional. Entries with a URL open their source
+in a new tab; entries without a URL remain informational cards.
 
 ## Updating evidence from the framework table
 
@@ -112,8 +122,10 @@ host, update those URLs and `FILE_BASE_URL` in the importer together.
 Tags use **OR within a category, AND between categories**. Excluded tags always
 remove matching evidence. Bucket checkboxes support any combination, including
 none. Filters, sorting and selected evidence are stored in the URL and survive
-switches between List, Grid and Graph. The list and grid share the same filter
-function and details drawer.
+switches between List, Grid and Graph in the Hub navigation dropdown. Hover or
+keyboard focus opens it on desktop; its disclosure button supports touch.
+Clicking Hub itself opens Graph. The list and grid share the same filter
+function and details drawer. Grid cards show their bucket on hover or focus.
 
 To regenerate previews from an available local `evidence-files` archive, install
 Pillow and pypdfium2 and run `python scripts/create-thumbnails.py`. It reuses
@@ -130,8 +142,8 @@ mountGraph(container, { evidence, links, filters, onSelect })
 `evidence` is the filtered collection. Use each record's stable `id`; its
 `frameworkRows` array maps spreadsheet rows to that record. Call `onSelect(id)`
 to open the existing preview drawer. Return a cleanup function for graph
-listeners or observers. The homepage preview is one clickable element in
-`renderHome`; replace its empty centre with a graph preview when available.
+listeners or observers. The homepage preview in `renderHome` has a centre link
+and a bottom link; replace its empty centre with a graph preview when available.
 
 The shared relationship format is:
 
@@ -150,7 +162,8 @@ ones. Invalid row references stop the import before it overwrites the snapshot.
 ## Verification
 
 `npm test` checks filter semantics, search, bucket selection, file labels,
-unique evidence IDs, framework row coverage, tags, safe file URLs, thumbnail
+project attachment coverage and ordering, unique evidence IDs, framework row coverage, tags, safe file URLs, thumbnail
 paths and relationship integrity. The local browser flow additionally checks
 navigation, filters across views, direct evidence links, drawer controls,
-project evidence, collection empty states, global search and mobile overflow.
+project file selection and direct links, example collections, global search and
+mobile overflow.

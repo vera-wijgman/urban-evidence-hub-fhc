@@ -7,6 +7,14 @@ export const extensionOf = file => (file?.fileName || file?.fileUrl || '').split
 export const isImage = file => ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'].includes(extensionOf(file));
 export const previewFile = item => item.files.find(isImage) || item.files.find(file => extensionOf(file) === 'pdf') || item.files[0];
 
+// Project filmstrip: retain every attachment and its original index for direct links.
+export function projectAttachments(items, tag) {
+  return items.filter(item => item.tags.includes(tag))
+    .flatMap(item => item.files.map((file, fileIndex) => ({ item, file, fileIndex })))
+    .sort((a, b) => buckets.indexOf(a.item.bucket) - buckets.indexOf(b.item.bucket)
+      || a.file.fileName.localeCompare(b.file.fileName, undefined, { numeric: true }));
+}
+
 // Inclusive tags use OR within a category and AND between categories.
 // Exclusions always remove matching items. Both catalogue views use this function.
 export function filterEvidence(items, filters) {
