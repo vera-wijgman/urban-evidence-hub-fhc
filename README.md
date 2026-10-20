@@ -29,6 +29,10 @@ server rewrite rules or a backend.
 
 ## Where to change things
 
+The standing code requirements are in [AGENTS.md](AGENTS.md). Every change must
+stay minimal, readable and organised into labelled sections that explain which
+part of the website they implement, so the next student group can maintain it.
+
 | File | Owns |
 | --- | --- |
 | `index.html` | Shared header, logo space, search, main area, detail drawer and footer |
