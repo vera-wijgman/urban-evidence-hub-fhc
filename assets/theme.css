@@ -1,0 +1,25 @@
+/* Theme: edit this file to change the whole site's graphic palette. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --surface: #f7f8f9;
+  --ink: #192534;
+  --muted: #65717d;
+  --line: #e2e6e9;
+  --accent: #1761aa;
+  --accent-soft: #eef5fc;
+  --exclude: #a33f4d;
+  --methods: #70b8af;
+  --research: #78acd5;
+  --analysis: #929cd5;
+  --conclusion: #bc9bd4;
+  --simulation: #d69bb9;
+  --strategy: #e1a37e;
+  --design: #d8b062;
+  --evaluation: #9bbd78;
+  --font: "Segoe UI", Arial, sans-serif;
+  --content-width: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --header-height: 80px;
+  --radius: 5px;
+}

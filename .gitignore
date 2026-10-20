@@ -18,3 +18,8 @@
 
 # Cloudflare Wrangler local cache
 .wrangler/
+
+# Website build and browser QA artifacts
+/dist/
+/.playwright-cli/
+__pycache__/
