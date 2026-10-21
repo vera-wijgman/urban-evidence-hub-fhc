@@ -39,8 +39,9 @@ p { margin-bottom: 16px; }
 
 /* 2. Global header, navigation, search and footer. */
 .site-header { position: relative; min-height: var(--header-height); display: grid; grid-template-columns: minmax(0, 1fr) clamp(160px, 18vw, 250px); grid-template-rows: 44px 48px; grid-template-areas: "brand search" "nav search"; align-items: center; column-gap: 24px; padding: 14px var(--gutter) 0; border-bottom: 1px solid var(--line); background: var(--paper); }
-.brand { grid-area: brand; justify-self: center; position: relative; white-space: nowrap; font-size: 20px; font-weight: 650; letter-spacing: -.035em; }
-.logo-space { position: absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); width: 32px; height: 36px; }
+/* Center the logo/title as one unit; the SVG frame excludes the PNG's white margins. */
+.brand { grid-area: brand; justify-self: center; display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 20px; font-weight: 650; letter-spacing: -.035em; }
+.brand-logo { width: 36px; height: 36px; flex-shrink: 0; }
 #main-nav { grid-area: nav; display: flex; align-self: stretch; justify-content: center; gap: clamp(18px, 2.2vw, 36px); align-items: stretch; }
 #main-nav a { display: flex; align-items: center; border-bottom: 2px solid transparent; padding-top: 2px; color: var(--muted); font-size: 13px; }
 #main-nav a:hover { color: var(--ink); }
@@ -276,8 +277,8 @@ a.collection-card:hover h3 { color: var(--accent); }
 @media (max-width: 680px) {
   :root { --header-height: 112px; --page-title-size: 30px; --page-heading-top: 68px; }
   .site-header { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; grid-template-areas: "brand menu" "search search" "nav nav"; padding: 16px 20px 0; gap: 12px; }
-  .brand { font-size: 18px; }
-  .logo-space { width: 22px; right: calc(100% + 8px); }
+  .brand { font-size: 18px; gap: 8px; }
+  .brand-logo { width: 28px; height: 28px; }
   .menu-button { display: block; grid-area: menu; }
   #main-nav { display: none; height: auto; gap: 0; width: 100%; }
   #main-nav.is-open { display: grid; grid-template-columns: repeat(3, 1fr); }

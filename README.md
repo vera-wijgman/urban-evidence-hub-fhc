@@ -62,7 +62,8 @@ part of the website they implement, so the next student group can maintain it.
 
 | File | Owns |
 | --- | --- |
-| `index.html` | Centred brand and navigation, full-width Hub bar, logo space, search, main area, detail drawer and footer |
+| `index.html` | Centred logo/title and navigation, full-width Hub bar, search, main area, detail drawer and footer |
+| `assets/ueh-logo.png` | Original supplied logo; its header SVG frame removes surrounding whitespace |
 | `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
@@ -78,8 +79,9 @@ part of the website they implement, so the next student group can maintain it.
 | `scripts/import-framework.py` | Imports Studio 2026 and resolves Informs/Supports/Evaluates through fixed Evidence IDs; also supports the earlier row-reference format |
 | `tests/graph.test.mjs`, `tests/test_framework_import.py`, `tests/browser/graph-flow.js` | Integrated model/data, workbook identity and mounted website checks |
 
-The empty `.logo-space` in the header reserves room for the eventual logo. Add
-an image there when available. No annotation marks, paper textures, About page,
+The header's `.brand` centres the logo and title together above the tabs.
+Adjust `.brand-logo` in `styles.css` for its size; the SVG viewBox in `index.html`
+frames the artwork while preserving the original PNG. No annotation marks, paper textures, About page,
 latest-evidence section or separate decision-chain strip are included.
 
 ## Adding studio content
