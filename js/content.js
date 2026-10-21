@@ -32,16 +32,19 @@ export const publications = [
     date: '2026-10-15', image: 'assets/healthy-cities.jpg',
     description: 'Example publication 01 introduces research and design insights from the Future Healthy Cities master studio.' },
   { id: 'example-publication-02', title: 'Example publication 02', year: 2026,
-    date: '2026-10-01', image: 'home-living-superblocks.png',
+    date: '2026-10-01', image: 'assets/healthy-cities.jpg',
     description: 'Example publication 02 explores how urban evidence can inform healthier cities.' },
 ];
-// Partner: { id, title, year, description, image? }.
+// Partner: { id, title, year, description, image?, imageFrame? }.
+// imageFrame excludes built-in white margins without changing the original logo.
 export const partners = [
   { id: 'rivm', title: 'RIVM — Rijksinstituut voor Volksgezondheid en Milieu', year: 2026,
     image: 'assets/partners/rivm.jpg',
+    imageFrame: { viewBox: '36 0 402 151', width: 474, height: 180 },
     description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities master studio.' },
   { id: 'gemeente-eindhoven', title: 'Gemeente Eindhoven', year: 2026,
     image: 'assets/partners/gemeente-eindhoven.jpg',
+    imageFrame: { viewBox: '44 188 413 124', width: 500, height: 500 },
     description: 'This page introduces Gemeente Eindhoven, a partner of the Future Healthy Cities master studio.' },
 ];
 

@@ -1,5 +1,6 @@
-// Graph integration point. Replace this renderer with the graph from the other chat.
-// Use the same evidence IDs and links; call onSelect(id) to open the shared drawer.
+// Graph integration point. Implementation and data migration: GRAPH-INTEGRATION.md.
+// Map fixed workbook file IDs to catalogue attachments before replacing this renderer.
+// Call onSelect(id) to open the shared drawer; exact-file selection still needs an adapter.
 // Return a cleanup function if the future graph adds observers or event listeners.
 export function mountGraph(container, { evidence, links, filters, onSelect }) {
   const query = location.hash.includes('?') ? '?' + location.hash.split('?')[1] : '';

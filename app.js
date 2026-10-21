@@ -36,7 +36,11 @@ function collectionCard(item, type) {
   const date = item.date ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(item.date)) : '';
   const metadata = type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
     : type === 'publications' && date ? `<time class="card-year" datetime="${escape(item.date)}">${date}</time>` : '';
-  const contents = `${item.image ? `<div class="collection-image${type === 'partners' ? ' partner-logo' : ''}"><img src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" /></div>` : ''}
+  // Frame padded logos in SVG so the visible artwork aligns with the card title.
+  const artwork = item.imageFrame
+    ? `<svg class="collection-artwork" viewBox="${escape(item.imageFrame.viewBox)}" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><image href="${safeUrl(item.image)}" width="${item.imageFrame.width}" height="${item.imageFrame.height}" /></svg>`
+    : `<img class="collection-artwork" src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" />`;
+  const contents = `${item.image ? `<div class="collection-image${type === 'partners' ? ' partner-logo' : ''}">${artwork}</div>` : ''}
     <div class="collection-card-copy"><h3>${escape(item.title)}</h3>${metadata}</div>`;
   return `<a class="collection-card" href="${href}">${contents}</a>`;
 }
