@@ -17,6 +17,10 @@
   --strategy: #e1a37e;
   --design: #d8b062;
   --evaluation: #9bbd78;
+  --graph-arrow: #909090;
+  --graph-focus: #777777;
+  --graph-faded-bubble: .18;
+  --graph-faded-arrow: .16;
   --font: "Segoe UI", Arial, sans-serif;
   --content-width: 1440px;
   --gutter: clamp(20px, 4vw, 64px);

@@ -2,7 +2,8 @@
 
 Usage: python scripts/import-framework.py "path/to/Framework Table.xlsx"
 Requires openpyxl. The existing JSON snapshot is the published-file registry.
-Supporting links and Direct links contain Excel row numbers, separated by commas.
+Informs, Supports and Evaluates contain stable target Evidence IDs. Older tables
+with Supporting links and Direct links containing Excel row numbers also work.
 """
 import argparse
 from collections import defaultdict
@@ -52,7 +53,36 @@ def key(value):
     return re.sub(r'[^a-z0-9]', '', unicodedata.normalize('NFKD', text(value)).encode('ascii', 'ignore').decode().lower())
 
 
-def refresh(workbook):
+def framework_links(rows, row_ids):
+    """Resolve stable IDs before mapping file relationships to website records."""
+    stable_rows = {}
+    for number, row in rows:
+        stable_id = text(row.get('Evidence ID'))
+        if stable_id:
+            if stable_id in stable_rows:
+                raise ValueError(f'Duplicate Evidence ID: {stable_id}')
+            stable_rows[stable_id] = number
+    links, seen, invalid = [], set(), []
+    for number, row in rows:
+        modern = 'Evidence ID' in row
+        columns = [('Informs', 'informs'), ('Supports', 'supports'), ('Evaluates', 'evaluates')] if modern else [('Supporting links', 'supports'), ('Direct links', 'links-to')]
+        for column, kind in columns:
+            targets = [part.strip() for part in text(row.get(column)).split(';') if part.strip()] if modern else re.findall(r'\d+', text(row.get(column)))
+            for target in targets:
+                target_row = stable_rows.get(target) if modern else int(target)
+                if target_row not in row_ids:
+                    invalid.append({'row': number, 'column': column, 'target': target})
+                    continue
+                edge = (row_ids[number], row_ids[target_row], kind)
+                if edge[0] != edge[1] and edge not in seen:
+                    links.append(dict(zip(['source', 'target', 'type'], edge)))
+                    seen.add(edge)
+    if invalid:
+        raise ValueError(f'Invalid relationship references: {invalid}')
+    return links
+
+
+def refresh(workbook, output=None, previews=None):
     # 1. Read the current published files and the workbook without modifying it.
     previous = json.loads(DATA.read_text(encoding='utf-8'))
     items = previous if isinstance(previous, list) else previous['items']
@@ -60,11 +90,13 @@ def refresh(workbook):
         for file in item['files']:
             if file.get('fileUrl', '').startswith('evidence-files/'):
                 file['fileUrl'] = FILE_BASE_URL + file['fileUrl']
-    sheet = openpyxl.load_workbook(workbook, data_only=True).active
+    book = openpyxl.load_workbook(workbook, data_only=True)
+    sheet = book['Studio 2026'] if 'Studio 2026' in book.sheetnames else book.active
     values = list(sheet.values)
     headers = list(values[1])
     by_name, by_group = defaultdict(set), defaultdict(set)
     by_id = {item['id']: item for item in items}
+    by_evidence_id = {identity: item['id'] for item in items for identity in item.get('frameworkEvidenceIds', [])}
     for item in items:
         by_group[key(item.get('group') or item['title'])].add(item['id'])
         by_name[key(item['title'])].add(item['id'])
@@ -84,7 +116,8 @@ def refresh(workbook):
             project_tags = [list(PROJECTS)[int(group_number[1]) - 1]]
         tags += project_tags
         title = text(row['Title'])
-        candidates = by_name[key(FILE_ALIASES.get(title, title))]
+        fixed_id = text(row.get('Evidence ID'))
+        candidates = {by_evidence_id[fixed_id]} if fixed_id in by_evidence_id else by_name[key(FILE_ALIASES.get(title, title))]
         group_id = GROUP_ITEMS.get(text(row.get('Item group name')))
         if len(candidates) != 1 and group_id in by_id:
             candidates = {group_id}
@@ -117,6 +150,7 @@ def refresh(workbook):
         if not matched:
             continue
         item['frameworkRows'] = [number for number, _, _ in matched]
+        item['frameworkEvidenceIds'] = [text(row['Evidence ID']) for _, row, _ in matched if row.get('Evidence ID')]
         previous_projects = [tag for tag in item['tags'] if tag in PROJECTS]
         item['tags'] = list(dict.fromkeys(tag for _, _, tags in matched for tag in tags))
         if not any(tag in PROJECTS for tag in item['tags']):
@@ -132,36 +166,77 @@ def refresh(workbook):
         if not item['files'] and re.match(r'^https?://', item.get('source', '')):
             item['files'] = [{'title': item['title'], 'fileName': item['title'], 'fileUrl': item['source']}]
 
-    # 4. Build real directed links; never infer links from coincident tags.
-    links, invalid_links = [], []
-    seen = set()
-    for item_rows in rows_by_id.values():
-        for number, row, _ in item_rows:
-            for column, kind in [('Supporting links', 'supports'), ('Direct links', 'links-to')]:
-                for value in re.findall(r'\d+', text(row.get(column))):
-                    target_row = int(value)
-                    if target_row not in row_ids:
-                        invalid_links.append({'row': number, 'column': column, 'target': target_row})
-                        continue
-                    edge = (row_ids[number], row_ids[target_row], kind)
-                    if edge[0] != edge[1] and edge not in seen:
-                        links.append(dict(zip(['source', 'target', 'type'], edge)))
-                        seen.add(edge)
-    if invalid_links:
-        raise ValueError(f'Invalid link row references: {invalid_links}')
+    # 4. Preserve exact file identity/metadata alongside the grouped catalogue.
+    # Preview excerpts are optional and read once from the completed prototype.
+    preview_nodes = {}
+    if previews:
+        content = Path(previews).read_text(encoding='utf-8').strip()
+        if content.startswith('window.HEALTH_ISLANDS_DATA = '):
+            content = content.removeprefix('window.HEALTH_ISLANDS_DATA = ').removesuffix(';')
+        preview_nodes = {node['id']: node for node in json.loads(content)['nodes']}
+    file_ids, mapping_errors = {}, []
+    for item in items:
+        used = set()
+        for number, row, tags in rows_by_id.get(item['id'], []):
+            stable_id = text(row.get('Evidence ID'))
+            if not stable_id:
+                continue
+            preview_node = preview_nodes.get(stable_id, {})
+            names = {key(FILE_ALIASES.get(text(row['Title']), text(row['Title']))),
+                     key(preview_node.get('preview', {}).get('filename')),
+                     key(text(row.get('Source')).replace('\\', '/').split('/')[-1])} - {''}
+            candidates = [index for index, file in enumerate(item['files'])
+                          if index not in used and key(file.get('fileName')) in names]
+            previous_match = [index for index, file in enumerate(item['files'])
+                              if index not in used and file.get('framework', {}).get('id') == stable_id]
+            if previous_match:
+                candidates = previous_match
+            if not candidates or len({item['files'][index]['fileUrl'] for index in candidates}) > 1:
+                mapping_errors.append({'id': stable_id, 'title': row['Title'], 'item': item['id']})
+                continue
+            # Verified aliases can share an identical published file; retain each row.
+            index = candidates[0]
+            used.add(index)
+            file = item['files'][index]
+            marked = [bucket for bucket in headers[2:10] if row.get(bucket) == 1]
+            preview = preview_node.get('preview') or file.get('framework', {}).get('preview', {})
+            file['framework'] = {
+                'id': stable_id, 'row': number, 'title': text(row['Title']), 'group': text(row.get('Item group name')),
+                'bucket': marked[0] if marked else item['bucket'], 'buckets': marked,
+                'authors': [tag for tag in tags if tag in set().union(*PROJECTS.values())],
+                'projects': [tag for tag in tags if tag in PROJECTS],
+                'tags': list(dict.fromkeys(marked + tags)),
+                'description': text(row.get('Description/caption')), 'date': text(row.get('Date')), 'source': text(row.get('Source')),
+                'preview': {name: value for name, value in preview.items() if name not in ['url', 'fileUrl', 'filename']},
+            }
+            file_ids[number] = stable_id
+    if mapping_errors:
+        raise ValueError(f'Files need exact attachment mapping: {mapping_errors}')
+    if 'Evidence ID' in headers and len(file_ids) != len(row_ids):
+        raise ValueError('Every framework file requires a fixed Evidence ID.')
 
-    # 5. Save an auditable snapshot, ready for any static host.
-    payload = {'source': Path(workbook).name, 'rowCount': len(row_ids), 'items': items, 'links': links}
-    DATA.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    # 5. Keep file relationships intact; catalogue links aggregate the same rows.
+    rows = [(number, row) for item_rows in rows_by_id.values() for number, row, _ in item_rows]
+    links = framework_links(rows, row_ids)
+    file_links = framework_links(rows, file_ids) if file_ids else []
+
+    # 6. Validate before replacing the public snapshot; --output supports review.
+    payload = {'source': Path(workbook).name, 'rowCount': len(row_ids), 'items': items, 'links': links, 'fileLinks': file_links}
+    output = Path(output or DATA)
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
     unpublished = [{'item': item['id'], 'file': file['fileName']} for item in items for file in item['files'] if file.get('available') is False]
     report = {'source': Path(workbook).name, 'frameworkRows': len(row_ids), 'evidenceItems': len(items),
-        'links': len(links), 'unresolvedFiles': unresolved, 'unpublishedFiles': unpublished}
-    (ROOT / 'data' / 'import-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'Imported {len(row_ids)} framework rows into {len(items)} evidence items; {len(links)} directed links.')
-    print(f'{len(unresolved)} rows need published-file matching. See data/import-report.json.')
+        'links': len(links), 'fileLinks': len(file_links), 'mappedFiles': len(file_ids), 'unresolvedFiles': unresolved, 'unpublishedFiles': unpublished}
+    report_path = output.with_name('import-report.json')
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    print(f'Imported {len(row_ids)} rows into {len(items)} catalogue records; {len(file_links)} file relationships.')
+    print(f'{len(unresolved)} rows need published-file matching. See {report_path}.')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('workbook', type=Path)
-    refresh(parser.parse_args().workbook)
+    parser.add_argument('--output', type=Path, help='Review snapshot before replacing data/evidence.json')
+    parser.add_argument('--previews', type=Path, help='Optional completed prototype snapshot for text/table excerpts')
+    args = parser.parse_args()
+    refresh(args.workbook, args.output, args.previews)

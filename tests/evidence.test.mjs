@@ -69,6 +69,6 @@ test('published evidence has unique IDs, valid metadata, safe files and existing
   for (const link of data.links) {
     assert.ok(ids.has(link.source) && ids.has(link.target));
     assert.notEqual(link.source, link.target);
-    assert.ok(['supports', 'links-to'].includes(link.type));
+    assert.ok(['informs', 'supports', 'evaluates', 'links-to'].includes(link.type));
   }
 });

@@ -1,0 +1,128 @@
+async (page) => {
+  const base = `http://127.0.0.1:4174/?v=graph-integration-${Date.now()}`;
+  const checks = [];
+  const check = (value, message) => { if (!value) throw new Error(message); checks.push(message); };
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => {
+    if (window.trackingGraphListeners) return;
+    window.trackingGraphListeners = true;
+    window.graphListeners = 0;
+    const original = document.addEventListener.bind(document);
+    document.addEventListener = (type, handler, options) => {
+      if (options?.signal && ['pointerdown','keydown'].includes(type)) {
+        window.graphListeners++;
+        options.signal.addEventListener('abort', () => { window.graphListeners--; }, { once: true });
+      }
+      return original(type, handler, options);
+    };
+  });
+  await page.setViewportSize({ width: 1600, height: 1050 });
+  await page.goto(`${base}#/hub/graph`);
+  await page.locator('.graph-view .node').last().waitFor();
+  const data = await page.evaluate(() => fetch('data/evidence.json').then(response => response.json()));
+  const files = data.items.flatMap(item => item.files.map(file => ({ ...file.framework, file, item })));
+  const byId = new Map(files.map(file => [file.id, file]));
+  const drawer = page.locator('#evidence-detail');
+  const graph = page.locator('.graph-view');
+  check(await graph.locator('.node').count() === 660, 'All 660 exact framework files render');
+  check(await graph.locator('.cluster').count() === 296, 'The 296 compact project-scoped bubbles render');
+  check(await graph.locator('.relationship-arrow').count() === 48, 'All 48 typed group arrows render');
+  check(await page.locator('#result-count').textContent() === '660 pieces of evidence', 'Graph count uses individual files');
+  check(await page.locator('[data-graph="tag-controls"] input:checked').count() === 0, 'Tag overlays start unchecked');
+  const bubble = graph.locator('.cluster').filter({ hasText: /^Integration/ }).first();
+  await bubble.hover({ force: true });
+  check(await graph.locator('.cluster.previewed').count() === 1 && await graph.locator('.cluster.unrelated').count() > 0, 'Hover traces the chain and fades unrelated bubbles');
+  check(await drawer.isHidden(), 'Hover leaves the shared drawer closed');
+  await bubble.click({ force: true });
+  await drawer.locator('#detail-title').waitFor();
+  check(await drawer.locator('#detail-title').textContent() === 'Integration', 'Click pins the bubble and opens the shared drawer');
+  check(await drawer.locator('.metadata, #file-preview, .detail-tags').count() === 0, 'Bubble drawer has no file preview, metadata or tags');
+  check(await drawer.locator('[data-evidence]').count() > 0, 'Bubble drawer lists its member files');
+  const member = drawer.locator('[data-evidence]').first();
+  const memberId = await member.getAttribute('data-evidence');
+  await member.click();
+  await page.waitForFunction(id => location.hash.includes(id), memberId);
+  const expected = byId.get(memberId);
+  check(await drawer.locator('.file-open').getAttribute('href') === expected.file.fileUrl, 'Member selection opens the exact attachment');
+  check(await drawer.locator('.detail-tags .tag').allTextContents().then(tags => JSON.stringify(tags) === JSON.stringify(expected.tags)), 'File drawer shows this file’s own tags');
+  const labels = await drawer.locator('.metadata dt').allTextContents();
+  check(JSON.stringify(labels) === JSON.stringify(['Bucket','Project','Evidence group','Content type','Source']), 'File drawer uses the five simplified metadata fields');
+  check(!/UEH-|Framework row|No links recorded yet/.test(await drawer.textContent()), 'IDs, row numbers and empty relationship placeholders stay hidden');
+  const related = data.fileLinks.filter(link => link.source === memberId || link.target === memberId);
+  const actualTargets = await drawer.locator('.linked-items [data-evidence]').evaluateAll(buttons => buttons.map(button => button.dataset.evidence));
+  check(actualTargets.length === related.length, 'File relationship lists contain exactly the recorded incoming/outgoing links');
+  if (actualTargets.length) {
+    const targetId = actualTargets[0];
+    await drawer.locator('.linked-items [data-evidence]').first().click();
+    await page.waitForFunction(id => location.hash.includes(id), targetId);
+    check(await drawer.locator('.file-open').getAttribute('href') === byId.get(targetId).file.fileUrl, 'Following a relationship opens that exact linked file');
+  }
+  await drawer.locator('[data-close]').click();
+  check(await drawer.isHidden() && await graph.locator('.cluster.selected').count() === 0, 'Closing the shared drawer clears the pinned chain');
+  await bubble.focus();
+  await bubble.press('Enter');
+  await page.keyboard.press('Escape');
+  check(await drawer.isHidden() && await graph.locator('.cluster.selected').count() === 0, 'Escape clears keyboard-pinned selection');
+  const zoom = page.locator('[data-graph="zoom"]');
+  const initialZoom = await zoom.textContent();
+  await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
+  check(await zoom.textContent() !== initialZoom, 'Zoom controls remain usable');
+  await page.getByRole('button', { name: 'Fit all', exact: true }).click();
+  const svg = page.locator('[data-graph="knowledge-graph"]');
+  const bounds = await svg.boundingBox();
+  const beforePan = await page.locator('[data-graph="world"]').getAttribute('transform');
+  await page.mouse.move(bounds.x + bounds.width - 14, Math.min(bounds.y + bounds.height - 80, 900));
+  await page.mouse.down();
+  await page.mouse.move(bounds.x + bounds.width - 50, Math.min(bounds.y + bounds.height - 120, 860));
+  await page.mouse.up();
+  check(await page.locator('[data-graph="world"]').getAttribute('transform') !== beforePan, 'Dragging the blank canvas pans the graph');
+  await page.getByRole('switch', { name: 'Show unconnected evidence' }).uncheck();
+  check(await graph.locator('.cluster[style*="display: none"]').count() > 0, 'Unconnected switch hides disconnected bubbles');
+  await page.getByRole('switch', { name: 'Show unconnected evidence' }).check();
+  check(await graph.locator('.cluster[style*="display: none"]').count() === 0, 'Unconnected switch restores them');
+  await page.getByRole('checkbox', { name: 'Show Mobility in graph', exact: true }).check();
+  check(await graph.locator('.tag-node').count() === 1 && await graph.locator('.tag-membership').count() > 0, 'A checked tag creates its node and membership overlay');
+  await page.getByRole('button', { name: 'Include Mobility', exact: true }).click();
+  const count = Number((await page.locator('#result-count').textContent()).split(' ')[0]);
+  check(count === files.filter(file => file.tags.includes('Mobility')).length, 'Shared include filters use exact file metadata');
+  check(await graph.locator('.tag-node').count() === 1, 'Filter updates preserve the mounted tag overlay');
+  await page.getByRole('button', { name: 'Reset', exact: true }).click();
+  check(await page.locator('#result-count').textContent() === '660 pieces of evidence' && await graph.locator('.tag-node').count() === 0, 'Reset restores the graph and clears tag overlays');
+  check(await page.evaluate(() => graphListeners) === 2, 'One mounted graph owns exactly its two document listeners');
+  await page.screenshot({ path: 'output/playwright/integrated-graph-desktop.png', fullPage: true });
+  for (const view of ['grid','list','graph','grid','graph']) {
+    await page.locator(`#hub-subnav a[data-view="${view}"]`).click();
+    await page.locator(view === 'graph' ? '.graph-view .node' : '.evidence-card').first().waitFor();
+    check(await page.evaluate(() => graphListeners) === (view === 'graph' ? 2 : 0), `${view}: route teardown/remount leaves no graph listener duplicates`);
+    if (view !== 'graph') {
+      await page.locator('.evidence-card').first().click();
+      await drawer.locator('#detail-title').waitFor();
+      check(await drawer.locator('.metadata dt').count() === 5, `${view}: catalogue cards use the shared exact-file drawer`);
+      await drawer.locator('[data-close]').click();
+    }
+  }
+  await page.goto(`${base}#/projects/health-islands`);
+  await page.locator('#project-info h1').waitFor();
+  check(await page.locator('#project-info').getAttribute('aria-label') === 'Project information', 'Project opens with its overview');
+  await page.locator('[data-project-file]').first().click();
+  check(await page.locator('#project-info .metadata dt').count() === 5, 'Project file selection reuses the same simplified metadata');
+  const group = page.locator('.filmstrip-group').first();
+  await group.locator('summary').click();
+  check(!await group.evaluate(element => element.open), 'Project buckets remain collapsible');
+  const outsideFilter = files.find(file => !file.tags.includes('Mobility'));
+  await page.goto(`${base}#/hub/graph?include=Mobility&evidence=${outsideFilter.id}`);
+  await drawer.locator('#detail-title').waitFor();
+  check(await drawer.locator('.file-open').getAttribute('href') === outsideFilter.file.fileUrl, 'Exact file links can be inspected outside the active filter');
+  check(page.url().includes('include=Mobility'), 'Inspecting a linked file preserves the active filters');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${base}#/hub/graph?evidence=${memberId}`);
+  await drawer.locator('#detail-title').waitFor();
+  check(await page.locator('#main').getAttribute('inert') !== null, 'Mobile graph selection uses the shared modal drawer');
+  check(await drawer.locator('.file-open').getAttribute('href') === expected.file.fileUrl, 'Direct file links restore exact mobile selections');
+  await drawer.locator('[data-close]').click();
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile Graph has no horizontal page overflow');
+  await page.screenshot({ path: 'output/playwright/integrated-graph-mobile.png', fullPage: true });
+  check(errors.length === 0, `No JavaScript errors: ${errors.join('; ')}`);
+  return { passed: checks.length, checks };
+}

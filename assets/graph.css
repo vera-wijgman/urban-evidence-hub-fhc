@@ -1,0 +1,66 @@
+/* 1. Graph options inside the shared Hub filter sidebar. */
+.graph-hub .filters { max-height: 760px; overflow-y: auto; }
+.hub-page .graph-filter-header { align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.hub-page .connection-toggle { position: relative; display: flex; gap: 6px; align-items: center; cursor: pointer; color: var(--muted); font-size: 10px; }
+.hub-page .connection-toggle input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.hub-page .switch-track { width: 28px; height: 16px; background: var(--line); border-radius: 10px; pointer-events: none; }
+.hub-page .switch-track::after { content: ''; display: block; width: 12px; height: 12px; margin: 2px; border-radius: 50%; background: var(--paper); }
+.hub-page .connection-toggle input:checked + .switch-track { background: var(--accent); }
+.hub-page .connection-toggle input:checked + .switch-track::after { transform: translateX(12px); }
+.hub-page .connection-toggle input:focus-visible + .switch-track { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hub-page .tag-checkbox { display: flex; gap: 8px; align-items: center; padding: 7px 0; font-size: 11px; cursor: pointer; }
+.hub-page .tag-checkbox small { margin-left: auto; color: var(--muted); }
+.hub-page .tag-checkbox input { accent-color: var(--accent); width: 14px; height: 14px; margin: 0; }
+
+/* 2. Plain graph canvas and compact round evidence groups. */
+.graph-view.canvas-panel { position: relative; height: max(540px, 65svh); min-width: 0; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+.graph-view .canvas-title { position: absolute; top: 20px; left: 22px; z-index: 1; pointer-events: none; }
+.graph-view .canvas-title strong { display: block; font-size: 13px; font-weight: 600; }
+.graph-view .canvas-title span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+.graph-view [data-graph="knowledge-graph"] { width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.graph-view [data-graph="knowledge-graph"].dragging { cursor: grabbing; }
+.graph-view .cluster, .graph-view .node { cursor: pointer; outline: none; }
+.graph-view .cluster:focus-visible, .graph-view .node:focus-visible { outline: none; }
+.graph-view .cluster-boundary { fill-opacity: .16; stroke: none; }
+.graph-view .cluster-title { font: 600 14px var(--font); fill: var(--ink); pointer-events: none; }
+.graph-view .cluster-count { font: 11px var(--font); fill: var(--muted); pointer-events: none; }
+.graph-view .cluster.selected .cluster-boundary, .graph-view .cluster.previewed .cluster-boundary { fill-opacity: .25; stroke: var(--graph-focus); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.graph-view .node circle { stroke: none; }
+.graph-view .node:hover circle, .graph-view .node:focus circle { opacity: .8; }
+.graph-view .node text { font: 12px var(--font); fill: var(--ink); text-anchor: middle; pointer-events: none; }
+.graph-view .node .member-label { opacity: 0; paint-order: stroke; stroke: var(--paper); stroke-width: 4px; }
+.graph-view .node:hover .member-label, .graph-view .node:focus .member-label { opacity: 1; }
+.graph-view .relationship-arrow { stroke-width: 1.7; opacity: .8; pointer-events: none; vector-effect: non-scaling-stroke; }
+.graph-view .cluster.unrelated, .graph-view .node.unrelated { opacity: var(--graph-faded-bubble); }
+.graph-view .relationship-arrow.unrelated { opacity: var(--graph-faded-arrow); }
+.graph-view .cluster.dim, .graph-view .node.dim { opacity: .07; }
+.graph-view .tag-node, .graph-view .tag-membership { pointer-events: none; }
+.graph-view .tag-node circle { fill: var(--surface); stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.graph-view .tag-node text { fill: var(--muted); font: 12px var(--font); text-anchor: middle; }
+.graph-view .tag-membership { stroke: var(--muted); stroke-width: 1; opacity: .3; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
+.graph-view .tag-node.unrelated { opacity: var(--graph-faded-bubble); }
+.graph-view .tag-membership.unrelated { opacity: .08; }
+
+/* 3. Lower-left zoom controls and relationship legend. */
+.graph-view .graph-tools { position: absolute; bottom: 15px; left: 18px; z-index: 2; }
+.graph-view .controls { display: flex; gap: 3px; align-items: center; padding: 5px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.graph-view .controls button, .graph-view .graph-legend summary { padding: 7px 10px; background: transparent; color: var(--muted); font-size: 11px; }
+.graph-view .controls button:hover, .graph-view .graph-legend summary:hover { background: var(--surface); color: var(--ink); }
+.graph-view [data-graph="zoom"] { min-width: 36px; text-align: center; color: var(--muted); font-size: 10px; }
+.graph-view .graph-legend { position: relative; }
+.graph-view .graph-legend summary { cursor: pointer; list-style: none; }
+.graph-view .graph-legend summary::-webkit-details-marker { display: none; }
+.graph-view [data-graph="relationship-legend"] { position: absolute; bottom: calc(100% + 12px); left: 0; min-width: 205px; padding: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 4px 16px #19253412; }
+.graph-view .relationship-key { display: flex; align-items: center; gap: 8px; margin: 8px 0; white-space: nowrap; font-size: 11px; }
+.graph-view .relationship-key > span:first-child { width: 22px; border-top-width: 2px; }
+.graph-view .edge-count { margin: 7px 0 0 3px; color: var(--muted); font-size: 10px; pointer-events: none; }
+
+
+@media (max-width: 680px) {
+  .graph-hub .filters { max-height: 320px; }
+  .graph-view.canvas-panel { height: 560px; }
+  .graph-view .canvas-title span { max-width: 230px; }
+  .graph-view .graph-tools { left: 10px; }
+  .graph-view .controls button, .graph-view .graph-legend summary { padding: 7px; }
+  .graph-view [data-graph="relationship-legend"] { left: auto; right: 0; }
+}

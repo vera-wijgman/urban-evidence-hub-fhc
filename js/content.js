@@ -58,6 +58,12 @@ export const collections = {
 
 // Names stay in data; their colours come exclusively from theme.css.
 export const buckets = ['Methods', 'Research', 'Analysis', 'Conclusion', 'Simulation', 'Strategy', 'Design', 'Evaluation'];
+// Workbook relationships share one label/line definition; colors stay in theme.css.
+export const relationshipTypes = [
+  { id: 'informs', label: 'Informs', incoming: 'Informed by', meaning: 'Direct input', color: 'var(--graph-arrow)', dash: '' },
+  { id: 'supports', label: 'Supports', incoming: 'Supported by', meaning: 'Indirect support', color: 'var(--graph-arrow)', dash: '9 5' },
+  { id: 'evaluates', label: 'Evaluates', incoming: 'Evaluated by', meaning: 'Assessment', color: 'var(--graph-arrow)', dash: '2 5' },
+];
 export const tagGroups = {
   'Urban categories': ['Historical development', 'Demographics', 'Mobility', 'Morphology', 'Land use', 'Public space', 'Environment'],
   'Content type': ['Code', 'Dataset', 'Description', 'Diagram', 'Drawing', 'Geospatial information', 'Image', 'Interview / survey', 'Literature', 'Map', 'Video', 'Presentation'],

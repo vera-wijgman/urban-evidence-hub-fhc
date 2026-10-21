@@ -22,7 +22,7 @@ export function filterEvidence(items, filters) {
   const categories = Object.values(tagGroups).map(tags => filters.include.filter(tag => tags.includes(tag)));
   const results = items.filter(item => {
     const text = [item.title, item.description, item.source, ...item.tags, ...item.files.map(file => file.fileName)].join(' ').toLocaleLowerCase();
-    return (!filters.buckets.length || filters.buckets.includes(item.bucket))
+    return (!filters.buckets.length || (item.buckets || [item.bucket]).some(bucket => filters.buckets.includes(bucket)))
       && terms.every(term => text.includes(term))
       && categories.every(tags => !tags.length || tags.some(tag => item.tags.includes(tag)))
       && filters.exclude.every(tag => !item.tags.includes(tag));

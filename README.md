@@ -9,8 +9,8 @@ version is developed on `codex/website-v2`.
 
 Earlier hosted preview with collapsible buckets and shared evidence details:
 [Open version 2](https://6ad7da5502598c654daf95a9--urban-evidence-hub-fhc.netlify.app/).
-The latest header and page-heading refinements are saved on GitHub and checked
-locally; they have not been deployed to Netlify.
+The latest website, including the integrated studio graph, is saved on GitHub
+and checked locally. It has not been deployed to Netlify.
 
 Requires Node.js 20 or later.
 
@@ -68,16 +68,23 @@ part of the website they implement, so the next student group can maintain it.
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
 | `app.js` | Seven labelled sections for page rendering (including partner/publication detail pages), project bucket controls, shared evidence details, filters, routing, events and loading |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
-| `js/graph.js` | Graph mount/cleanup entry point; implementation handover in `GRAPH-INTEGRATION.md` |
-| `GRAPH-INTEGRATION.md` | Graph source locations, preparation checkpoint, data migration and integration checks |
-| `data/evidence.json` | Published framework snapshot, attachment URLs and directed relationships |
+| `js/graph.js` | Mounted graph canvas, hover/pinned chains, tag overlays, pan/zoom and listener/observer cleanup |
+| `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow/tag clearance |
+| `js/graph-data.js` | Exact framework-file mapping and typed incoming/outgoing relationship sections |
+| `assets/graph.css` | Scoped graph visuals and filter controls; shared palette stays in `assets/theme.css` |
+| `GRAPH-INTEGRATION.md` | Integrated graph data contract, maintenance workflow, interaction requirements and checks |
+| `data/evidence.json` | 300 catalogue records, 660 fixed file identities, exact attachment metadata/previews and 1,874 file relationships |
 | `scripts/` | Small build, preview, framework-import and thumbnail tools |
+| `scripts/import-framework.py` | Imports Studio 2026 and resolves Informs/Supports/Evaluates through fixed Evidence IDs; also supports the earlier row-reference format |
+| `tests/graph.test.mjs`, `tests/test_framework_import.py`, `tests/browser/graph-flow.js` | Integrated model/data, workbook identity and mounted website checks |
 
 The empty `.logo-space` in the header reserves room for the eventual logo. Add
 an image there when available. No annotation marks, paper textures, About page,
-latest-evidence section or decision-chain interface are included.
+latest-evidence section or separate decision-chain strip are included.
 
 ## Adding studio content
+
+The working framework is `outputs/health-islands-edge-test/Framework table - Studio 2026 and 2027.xlsx`. Studio 2026 contains 660 entries with fixed IDs and outgoing Informs/Supports/Evaluates columns; Studio 2027 retains the same headers. The website now uses the consolidated snapshot. The workbook and historical prototype remain local working files outside the public build.
 
 Edit `js/content.js`. Homepage previews and the corresponding subpages use the
 same collections. Add a project with an `id`, `title`, `year`, `image`, `tag`,
@@ -122,8 +129,8 @@ edge. Original logo files stay unchanged.
 ## Updating evidence from the framework table
 
 The browser reads a JSON snapshot, rather than needing to process Excel on each
-visit. The initial snapshot represents all **626 rows** of `Framework Table
-updated.xlsx`, matched to the existing **300 evidence groups / 660 attachments**.
+visit. The current snapshot represents all **660 rows** of the consolidated
+Studio 2026 framework, matched to **300 catalogue records / 660 attachments**.
 Named evidence groups keep their multiple files together in the detail drawer.
 There are 236 local WebP thumbnails; other file types have a format placeholder.
 
@@ -140,15 +147,18 @@ its `source` field. Older differing website copies were backed up locally.
 With Python and `openpyxl` installed, refresh metadata with:
 
 ```sh
-python scripts/import-framework.py "path/to/Framework Table.xlsx"
+python scripts/import-framework.py "outputs/health-islands-edge-test/Framework table - Studio 2026 and 2027.xlsx" --output tmp/evidence-review.json
 ```
 
 This reads the workbook without changing it. It matches rows against titles,
 published filenames and verified filename aliases, combines group tags, and
 updates descriptions, dates, sources, buckets and row references. The import
-report lists any row without a unique file match. Those records remain visible
-with an explicit missing-file state; the importer never invents a URL. Existing
-published attachments are preserved, including evidence outside the new table.
+report is written beside the output. Modern imports must resolve each fixed ID
+to an exact attachment and validate all relationship targets before writing.
+Review the temporary snapshot/report, then import again without `--output` to
+update the website. Existing file URLs and preview excerpts are retained. Optional
+`--previews path/to/prototype-data.js` seeds Office/notebook excerpts during the
+initial migration; ordinary metadata updates do not need the prototype.
 
 To attach a new file, publish the original in the evidence file store and add its
 `fileName` and absolute `fileUrl` to the corresponding record's `files` array in
@@ -171,31 +181,30 @@ existing thumbnails, writes small WebP images, and leaves originals untouched.
 
 ## Adding the graph and evidence relationships
 
-Replace `mountGraph` in `js/graph.js`. It receives:
+The completed graph is mounted at `#/hub/graph`. See
+[GRAPH-INTEGRATION.md](GRAPH-INTEGRATION.md) for its maintenance contract.
 
-```js
-mountGraph(container, { evidence, links, filters, onSelect })
-```
+`frameworkEntries` in `js/graph-data.js` derives individual graph files from
+`files[].framework`. Each fixed `UEH-…` ID retains its exact catalogue record,
+attachment, per-file tags and metadata. `fileLinks` stores all 1,874 file edges;
+`links` is the 66-edge catalogue aggregation. Never reconstruct IDs from row
+positions or use a representative image when a specific file is selected.
 
-`evidence` is the filtered collection. Use each record's stable `id`; its
-`frameworkRows` array maps spreadsheet rows to that record. Call `onSelect(id)`
-to open the existing preview drawer. Return a cleanup function for graph
-listeners or observers. The homepage preview in `renderHome` has a centre link
-and a bottom link; replace its empty centre with a graph preview when available.
+`mountGraph` receives the full file collection, file links, shared filters,
+filter-controls root, shared drawer and selection/clear/count callbacks. Its
+controller provides `select`, `clear`, `update` and `destroy`; route changes abort
+document listeners and disconnect its resize observer. Filter updates keep the
+same mounted layout. Unconnected visibility defaults on; tag overlays default off.
 
-The shared relationship format is:
+Bubble selection shows member files and nonempty typed relationships. File
+selection reuses the same simplified drawer renderer as Grid, List and Projects.
+The homepage keeps its existing Graph links; it does not mount a second graph.
 
-```js
-{ source: 'source-evidence-id', target: 'target-evidence-id', type: 'supports' }
-// type may also be 'links-to'.
-```
-
-The supplied table has no relationships yet, so no graph nodes or links have
-been fabricated. Enter forward target Excel row numbers in `Supporting links`
-or `Direct links`, separated by commas, and import again. The source is the row
-containing the link and the target is the referenced row. The drawer derives
-backward links from incoming relationships and forward links from outgoing
-ones. Invalid row references stop the import before it overwrites the snapshot.
+Enter fixed target IDs in the workbook's Informs, Supports or Evaluates column,
+separated by semicolons, then refresh the snapshot. The importer validates IDs
+before writing and derives the incoming labels Informed by, Supported by and
+Evaluated by. Palette, arrow colors and fade levels live in `assets/theme.css`;
+line types and labels live in `js/content.js`.
 
 ## Verification
 
@@ -206,3 +215,8 @@ navigation, filters across views, direct evidence links, drawer controls,
 project file selection, collapsible buckets, direct links, shared metadata and
 relationship navigation, persistent Hub tabs, grid hover tags, example
 collections, global search and mobile overflow.
+
+For the mounted graph flow, start the local preview and run
+`npx --yes --package @playwright/cli playwright-cli run-code --filename=tests/browser/graph-flow.js`
+in an open Playwright CLI session. Importer checks run with
+`python -m unittest discover -s tests -p test_framework_import.py` (requires openpyxl).

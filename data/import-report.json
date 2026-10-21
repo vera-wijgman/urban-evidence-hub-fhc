@@ -1,9 +1,10 @@
 {
-  "source": "Framework Table updated.xlsx",
-  "frameworkRows": 626,
+  "source": "Framework table - Studio 2026 and 2027.xlsx",
+  "frameworkRows": 660,
   "evidenceItems": 300,
-  "links": 0,
+  "links": 66,
+  "fileLinks": 1874,
+  "mappedFiles": 660,
   "unresolvedFiles": [],
-  "unpublishedFiles": [],
-  "restoredFiles": 21
+  "unpublishedFiles": []
 }

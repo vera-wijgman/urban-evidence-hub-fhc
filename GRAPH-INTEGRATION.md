@@ -1,87 +1,67 @@
-# Integrate the studio evidence graph into Hub → Graph
+# Integrated studio evidence graph
 
-Use this handover when integrating the completed prototype into the main website.
-The source files are in this repository; the generated standalone HTML is a review
-copy. The public Graph tab is still the integration point in `js/graph.js`.
+Hub → Graph now uses the completed compact prototype, the consolidated 660-entry
+framework and the website's shared header, filters, theme and detail drawer.
+The snapshot has 300 catalogue records, 660 exact file IDs, 296 bubbles,
+1,874 file relationships and 48 aggregated graph arrows.
 
-## Preparation checkpoint — 21 October 2026
+## Runtime code map
 
-The local prototype has been located and its 11 Node checks pass. Its snapshot
-contains 660 individual files and 1,874 relationships. The current public dataset
-has 300 grouped catalogue records and no relationships or `frameworkEvidenceIds`
-mapping yet. These are different data shapes; do not pass one directly to the
-other renderer or match records by title.
-
-For the integration task, first import the consolidated workbook into a temporary
-snapshot and verify fixed-ID coverage, attachment URLs and relationships. Then
-adapt the graph to the existing mount/cleanup entry point and shared drawer,
-including exact-file selection and bubble-member views. Verify the mounted Graph,
-Grid, List and Projects before replacing the public snapshot. The graph sources
-and workbook currently live in this local workspace and are outside the public
-build; commit the required runtime sources as part of that integration.
-
-This preparation keeps the current website usable. It does not mount the
-prototype, overwrite the catalogue, or publish a graph deployment.
-
-## Sources to use
-
-| File | Role |
+| File | Responsibility |
 | --- | --- |
-| `prototypes/health-islands-graph/graph-model.js` | Project-scoped grouping, compact rings, neighbour-aware layout, safe contraction/clearance, directed decision chains and optional tag positions |
-| `prototypes/health-islands-graph/app.js` | Current graph interactions and the final bubble/file drawer behavior |
-| `prototypes/health-islands-graph/styles.css` | Graph-specific visuals and controls; uses the main website's theme tokens |
-| `prototypes/health-islands-graph/index.html` | Reference markup for the graph canvas, filters, legend and drawer sections |
-| `prototypes/health-islands-graph/data.js` | Exported file-level evidence and relationships from the consolidated workbook |
-| `prototypes/health-islands-graph/relationship-batch.json` | Recorded rules and explicit removals; the workbook contains the resulting actual links |
-| `outputs/health-islands-edge-test/Framework table - Studio 2026 and 2027.xlsx` | Authoritative working framework: 660 fixed IDs; Studio 2027 has the same two header rows and no entries |
-| `assets/theme.css`, `styles.css`, `js/content.js` | Shared website palette, shell, drawer styles and tag categories; reuse these |
-| `scripts/import-framework.py` | Reads Studio 2026 and resolves Informs/Supports/Evaluates by fixed Evidence ID |
-| `tests/health-islands-graph.test.mjs`, `tests/test_framework_import.py` | Existing behavior and importer checks to preserve during integration |
+| `js/graph.js` | Scoped mounted SVG, graph interactions, visibility/tag controls and lifecycle cleanup |
+| `js/graph-model.js` | Pure prototype layout: compact rings, neighbour-aware placement, safe contraction, project-scoped bubbles, directed chains and optional tag positions |
+| `js/graph-data.js` | Individual file identities/attachment references and nonempty typed relationship sections |
+| `app.js` | Hub shell/filter URLs, graph mounting and one shared drawer renderer for Graph, Grid, List and Projects |
+| `assets/graph.css` | Graph-scoped visuals and controls; no duplicate header or drawer styling |
+| `assets/theme.css`, `js/content.js` | Shared palette/fade tokens, tag categories and relationship labels/line types |
+| `data/evidence.json` | Published catalogue/file snapshot, attachment URLs and directed edges |
+| `scripts/import-framework.py` | Read-only workbook import, exact-file mapping and validation before writing |
 
-The standalone review file remains
-`outputs/health-islands-edge-test/Health Islands - evidence graph.html`, although
-its graph now includes the whole studio. It contains 660 file entries, 296 bubbles
-and 48 group arrows backed by 1,874 file relationships. The 421 entries added to
-the original test have no recorded relationships yet.
+## Data and selection contract
 
-## Integrate with the existing website
+The authoritative local workbook is
+`outputs/health-islands-edge-test/Framework table - Studio 2026 and 2027.xlsx`.
+Studio 2026 contains all fixed IDs and outgoing Informs/Supports/Evaluates targets;
+Studio 2027 retains the same two header rows. Do not rerun historical reset/merge
+scripts or replace it with the 239-entry Health Islands test.
 
-1. Implement the existing `mountGraph(container, { evidence, links, filters,
-   onSelect })` entry point in `js/graph.js` using the model and rendering behavior
-   above. Keep the main website's existing header, Hub bar, routes and sidebar.
-   Copy the graph canvas and controls rather than nesting the standalone page or
-   its duplicate header inside the website.
-2. Separate the current `app.js` startup closure from its graph renderer. Scope
-   lookups to the mounted container, inject data and selection callbacks, and
-   return cleanup for observers and listeners. The current prototype uses
-   document-level lookups and handlers; it is a reference implementation, not yet
-   a drop-in `mountGraph` module.
-3. Preserve the file-level graph identities. `UEH-…` IDs are fixed workbook values
-   used by relationships; never reconstruct them from current row positions or
-   use file titles as identifiers. The website catalogue currently groups several
-   attachments in one record. After importing this workbook,
-   `frameworkEvidenceIds` maps those catalogue records to their framework files.
-   `frameworkRows` represents current physical rows and is not an identity map.
-4. Keep the file-level nodes, per-file tags and links available to the graph.
-   Adapt website catalogue filters to that data. Do not discard individual file
-   IDs when aggregating visual bubbles. Group keys include project membership so
-   equally named groups from different projects remain separate.
-5. Reuse the main shared drawer. A bubble opens its own member/relationship view.
-   A file click must open that exact attachment, its own metadata/tags and its own
-   links; extend the selection callback to carry the selected attachment where
-   necessary. Opening the catalogue record's default attachment can show the
-   wrong file and is not sufficient.
-6. Keep shared theme tokens and `js/content.js` as the sources for palette and tag
-   categories. The prototype's generated `tag-groups.js` is a standalone-file
-   compatibility snapshot, not a second maintained taxonomy. Scope graph CSS to
-   the graph container and avoid global overrides of website controls.
-7. Extend the build allowlist in `scripts/build.mjs` for any new runtime graph
-   modules/data. Export only the runtime data needed by the website; the local
-   workbook, previews and test tools should stay outside the public build.
+The 300 existing catalogue records retain their IDs and published file URLs.
+Each attachment has `framework` metadata: its fixed ID, original title, group,
+buckets, own tags/authors/projects, description/source and optional lightweight
+preview excerpt. Its current `row` controls display order only, never identity.
+`frameworkEvidenceIds` maps catalogue records to these file identities.
+`fileLinks` preserves all 1,874 exact file edges, including links inside the same
+catalogue card. `links` is the separate 66-edge catalogue aggregation.
 
-Do not replace the new workbook with the historical 239-entry Health Islands test
-or rerun one-off reset/merge scripts. The website catalogue has not been imported
-or published as part of the prototype's final visual edits.
+`frameworkEntries` derives graph nodes without maintaining a second metadata
+snapshot. `mountGraph(container, { evidence, links, filters, controls, drawer,
+onSelect, onClear, onCount })` receives the full file collection. Shared filters
+apply to individual file metadata. The controller exposes `select(id, focus)`,
+`clear(notify)`, `update(filters)` and `destroy()`. The selection callback carries
+the bubble, optional exact file and group arrows to the shared drawer.
+
+The graph owns scoped canvas events, two abortable document listeners and one
+resize observer. Route teardown destroys them. Filter updates preserve positions,
+pan/zoom and tag overlays. Reset remounts a fresh graph. Fit all can zoom far enough
+out to contain the complete disconnected collection; zoom in or switch Unconnected
+off to inspect the connected core. Layout geometry itself matches the prototype.
+
+## Refresh workflow
+
+1. Publish/register new attachments before importing. Keep fixed IDs when sorting.
+2. Run `python scripts/import-framework.py "path/to/consolidated.xlsx" --output tmp/evidence-review.json`.
+3. Review the snapshot and adjacent import report. Missing exact-file matches or
+   invalid IDs fail before writing. Run the same command without `--output` only
+   after review, then rebuild the local preview.
+4. Existing excerpt previews survive imports. The optional `--previews` argument
+   can read the local prototype's exported data.js when refreshing those excerpts.
+   It is not a second maintained taxonomy or runtime dependency.
+
+All runtime modules in `js/` and styles in `assets/` are already included by
+the build allowlist. Workbooks, prototype pages, private originals and test tools
+stay outside the public build. The original `prototypes/health-islands-graph/`
+and standalone HTML in `outputs/` remain local historical references.
 
 ## Final visual and interaction behavior
 
@@ -122,16 +102,20 @@ or published as part of the prototype's final visual edits.
   between connected bubbles and 24 from unrelated arrows. Do not replace this
   with a generic force layout that strands single-connection bubbles far away.
 
-## Verify the integrated result
+## Verification
 
-Run the Node tests and Python importer tests using the configured workspace
-runtimes. Update tests to exercise the mounted website renderer, then build and
-check the real Graph route. Verify hover/pin/clear behavior, filtered and unconnected
-views, tag overlays, member/linked-file clicks, correct attachments, omitted empty
-categories, hidden IDs and route teardown/remount without duplicated listeners.
-Check Grid, List and Projects still open their expected files and shared drawer.
+`node --test tests/evidence.test.mjs tests/graph.test.mjs` checks fixed-ID coverage,
+exact attachment mapping, per-file filter/link behavior, compact placement,
+circle/arrow clearance, majority colors, typed aggregation and directed chains.
+`python -m unittest discover -s tests -p test_framework_import.py` checks stable
+IDs, legacy references, invalid targets and exact-file metadata after reordering.
 
-To refresh the standalone reference, run
-`tmp/health-islands-edge-test/export_graph.py`, then
-`tmp/health-islands-edge-test/package-preview.cjs`. This reads the authoritative
-workbook; it does not change it.
+With the local preview running, use Playwright CLI's `run-code` with
+`--filename=tests/browser/graph-flow.js`. The mounted website flow checks hover,
+pin/clear, exact member/linked-file selection, simplified panels, tag overlays,
+filters, pan/zoom, Unconnected, mobile modal behavior and Graph/Grid/List/Projects.
+It also counts abortable listeners through repeated route teardown/remount.
+Additional local verification checked dragging, circle-boundary arrow endpoints,
+pinned-over-hover behavior, faded/outside clicks and empty searches.
+
+This version is saved to GitHub and verified locally; no deployment is performed.
