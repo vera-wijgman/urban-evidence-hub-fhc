@@ -6,6 +6,7 @@ export const site = {
   description: 'Explore how research and analysis inform design decisions across the Future Healthy Cities master studio.',
   heroImage: 'assets/healthy-cities.jpg',
   studio: 'Future Healthy Cities master studio',
+  homeLabel: 'Master Studio — Future Healthy Cities',
   hubDescription: 'Explore the evidence and the connections between research, analysis and design.',
 };
 

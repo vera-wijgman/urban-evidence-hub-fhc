@@ -52,7 +52,7 @@ function collectionPreview(type) {
 function renderHome() {
   main.innerHTML = `<div class="container home-page">
     <section class="home-hero" aria-labelledby="home-title">
-      <div class="hero-copy"><p class="eyebrow">${site.studio}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p><p class="hero-description">${site.description}</p>
+      <div class="hero-copy"><p class="eyebrow">${site.homeLabel}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p><p class="hero-description">${site.description}</p>
         <figure class="hero-image"><img src="${site.heroImage}" alt="A vision of a healthy city with green buildings, public transport and connected urban systems." width="1792" height="1024" fetchpriority="high" /></figure>
       </div>
       <div class="graph-preview">
@@ -67,7 +67,7 @@ function renderHome() {
 function renderCollection(type) {
   const collection = collections[type];
   const years = [...new Set(collection.items.map(item => item.year))].sort((a, b) => b - a);
-  main.innerHTML = `<div class="container collection-page"><header class="page-heading"><p class="eyebrow">${site.studio}</p><h1>${collection.title}</h1><p>${collection.description}</p></header>
+  main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>${collection.title}</h1><p>${collection.description}</p></header>
     ${years.length ? years.map(year => `<section class="year-section"><div class="section-heading"><h2>Studio ${escape(year)}</h2><span class="muted">${collection.items.filter(item => item.year === year).length} ${type}</span></div><div class="collection-grid">${collection.items.filter(item => item.year === year).map(item => collectionCard(item, type)).join('')}</div></section>`).join('') : `<div class="collection-empty large"><span class="empty-label">${type === 'publications' ? 'Work in progress' : 'Building connections'}</span><h2>${type === 'publications' ? 'More to share, soon.' : 'Better cities, together.'}</h2><p>${collection.empty}</p></div>`}
   </div>`;
 }

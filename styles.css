@@ -62,8 +62,10 @@ p { margin-bottom: 16px; }
 .site-footer a:last-child { color: var(--accent); }
 
 /* 3. Homepage: image and empty clickable graph preview, then collections. */
-.home-hero { padding: 65px 0 52px; display: grid; grid-template-columns: 1fr 1.08fr; gap: 44px; }
-.hero-copy .eyebrow { margin-bottom: 18px; }
+.home-hero { padding: var(--page-heading-top) 0 52px; display: grid; grid-template-columns: 1fr 1.08fr; gap: 44px; }
+.hero-copy { position: relative; }
+/* The homepage label sits above its title without shifting the shared title line. */
+.hero-copy .eyebrow { position: absolute; bottom: 100%; margin: 0 0 18px; }
 .hero-copy h1 { margin-bottom: 9px; font-size: clamp(36px, 3.65vw, 58px); white-space: nowrap; }
 .hero-subtitle { font-size: clamp(22px, 2vw, 31px); letter-spacing: -.03em; margin-bottom: 15px; line-height: 1.25; }
 .hero-description { color: var(--muted); font-size: 16px; max-width: 470px; line-height: 1.6; margin-bottom: 28px; }
@@ -92,8 +94,8 @@ a.collection-card:hover h3 { color: var(--accent); }
 .collection-empty p { color: var(--muted); margin-bottom: 0; font-size: 14px; }
 
 /* 4. Collection subpages, studio years, project details and site search. */
-.page-heading { padding: 58px 0 42px; max-width: 800px; }
-.page-heading h1 { margin-bottom: 18px; font-size: var(--page-title-size); }
+.page-heading { padding: var(--page-heading-top) 0 42px; max-width: 800px; }
+.page-heading h1, .hub-header h1 { margin: 0 0 18px; font-size: var(--page-title-size); }
 .page-heading > p:last-child { margin: 0; color: var(--muted); font-size: 17px; }
 .year-section { padding-top: 30px; margin-bottom: 50px; border-top: 1px solid var(--line); }
 .year-section h2 { font-size: 22px; }
@@ -138,8 +140,8 @@ a.collection-card:hover h3 { color: var(--accent); }
 .search-result > span:last-child { position: absolute; right: 18px; top: 20px; color: var(--accent); }
 
 /* 5. Hub introduction, collapsible filters and search toolbar. */
-.hub-header { padding: 38px var(--gutter) 30px; border-bottom: 1px solid var(--line); }
-.hub-header h1 { font-size: var(--page-title-size); margin: 0 0 14px; }
+/* Hub's persistent view bar occupies part of the same title offset. */
+.hub-header { padding: calc(var(--page-heading-top) - var(--hub-bar-height)) var(--gutter) 42px; border-bottom: 1px solid var(--line); }
 .hub-header > p { margin: 0; max-width: 800px; color: var(--muted); font-size: 17px; }
 .hub-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 70vh; }
 .filters { padding: 28px 20px 40px var(--gutter); border-right: 1px solid var(--line); }
@@ -260,7 +262,6 @@ a.collection-card:hover h3 { color: var(--accent); }
 }
 @media (max-width: 960px) {
   .project-viewer { grid-template-columns: minmax(0, 1fr) 320px; }
-  .home-hero { padding-top: 40px; }
   .hero-copy h1 { font-size: 38px; }
   .hero-description { font-size: 14px; }
   .graph-preview { min-height: 390px; }
@@ -270,7 +271,7 @@ a.collection-card:hover h3 { color: var(--accent); }
   .sort-label { justify-content: flex-end; }
 }
 @media (max-width: 680px) {
-  :root { --header-height: 112px; --page-title-size: 30px; }
+  :root { --header-height: 112px; --page-title-size: 30px; --page-heading-top: 68px; }
   .site-header { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; grid-template-areas: "brand menu" "search search" "nav nav"; padding: 16px 20px 0; gap: 12px; }
   .brand { font-size: 18px; }
   .logo-space { width: 22px; right: calc(100% + 8px); }
@@ -279,7 +280,7 @@ a.collection-card:hover h3 { color: var(--accent); }
   #main-nav.is-open { display: grid; grid-template-columns: repeat(3, 1fr); }
   #main-nav a { justify-content: center; padding: 12px 4px; font-size: 13px; }
   .hub-nav { display: contents; }
-  .home-hero { grid-template-columns: 1fr; padding: 36px 0; gap: 26px; }
+  .home-hero { grid-template-columns: 1fr; padding-bottom: 36px; gap: 26px; }
   .hero-copy h1 { font-size: clamp(32px, 8vw, 44px); }
   .hero-subtitle { font-size: 24px; }
   .hero-description { max-width: 100%; }
@@ -294,7 +295,7 @@ a.collection-card:hover h3 { color: var(--accent); }
   .collection-image img { aspect-ratio: 1.9; }
   .collection-empty { padding: 24px; }
   .site-footer { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 30px; }
-  .page-heading { padding: 40px 0 30px; }
+  .page-heading { padding-bottom: 30px; }
   .page-heading > p:last-child { font-size: 15px; }
   .search-evidence { grid-template-columns: 1fr; gap: 26px; }
   .project-viewer { grid-template-columns: minmax(0, 1fr); grid-template-areas: "toolbar" "stage" "files" "info"; }
@@ -304,7 +305,7 @@ a.collection-card:hover h3 { color: var(--accent); }
   .project-info { height: auto; border-left: 0; padding: 24px 20px; }
   .project-info-image { max-width: 400px; }
   .project-filmstrip { padding-inline: 20px; gap: 16px; }
-  .hub-header { padding: 28px 20px; }
+  .hub-header { padding-inline: 20px; padding-bottom: 30px; }
   .hub-header > p { font-size: 15px; }
   .hub-layout { display: block; }
   .filters { padding: 0 20px; border-right: 0; border-bottom: 1px solid var(--line); }
