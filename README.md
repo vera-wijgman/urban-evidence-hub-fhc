@@ -97,8 +97,9 @@ The layout stacks on mobile. Cached PDF first pages provide mobile previews,
 with links to open the original PDFs. A link also opens the project's filtered
 Hub view.
 
-Publications and Partners contain two clearly named layout examples each.
-Replace those entries with real content when available, for example:
+Publications contains two clearly named layout examples. Partners contains RIVM
+and Gemeente Eindhoven, using the supplied logos in `assets/partners/`.
+Replace the publication examples or add new entries when available, for example:
 
 ```js
 { id: 'publication-id', title: 'Publication title', year: 2027,

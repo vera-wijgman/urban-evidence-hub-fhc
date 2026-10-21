@@ -35,10 +35,10 @@ export const publications = [
 ];
 // Partner: { id, title, year, image?, url? }.
 export const partners = [
-  { id: 'example-partner-01', title: 'Example partner 01', year: 2026,
-    image: 'home-responsive-neighbourhood.jpeg' },
-  { id: 'example-partner-02', title: 'Example partner 02', year: 2026,
-    image: 'home-health-islands.png' },
+  { id: 'rivm', title: 'RIVM — Rijksinstituut voor Volksgezondheid en Milieu', year: 2026,
+    image: 'assets/partners/rivm.jpg' },
+  { id: 'gemeente-eindhoven', title: 'Gemeente Eindhoven', year: 2026,
+    image: 'assets/partners/gemeente-eindhoven.jpg' },
 ];
 
 export const collections = {

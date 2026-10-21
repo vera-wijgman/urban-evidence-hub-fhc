@@ -84,6 +84,8 @@ p { margin-bottom: 16px; }
 .collection-card { min-width: 0; display: flex; flex-direction: column; }
 .collection-image { overflow: hidden; background: var(--surface); border-radius: var(--radius); }
 .collection-image img { width: 100%; aspect-ratio: 2.15; height: auto; transition: transform .35s; }
+/* Partner logos keep their full artwork inside the shared image frame. */
+.partner-logo img { object-fit: contain; background: var(--paper); }
 a.collection-card:hover .collection-image img { transform: scale(1.025); }
 .collection-card-copy { position: relative; flex: 1; display: flex; flex-direction: column; padding: 17px 0 0; }
 .collection-card h3 { margin: 0 0 8px; font-size: 20px; }

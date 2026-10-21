@@ -36,7 +36,7 @@ function collectionCard(item, type) {
   const date = item.date ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(item.date)) : '';
   const metadata = type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
     : type === 'publications' && date ? `<time class="card-year" datetime="${escape(item.date)}">${date}</time>` : '';
-  const contents = `${item.image ? `<div class="collection-image"><img src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" /></div>` : ''}
+  const contents = `${item.image ? `<div class="collection-image${type === 'partners' ? ' partner-logo' : ''}"><img src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" /></div>` : ''}
     <div class="collection-card-copy"><h3>${escape(item.title)}</h3>${metadata}</div>`;
   return href ? `<a class="collection-card" href="${href}"${type !== 'projects' ? ' target="_blank" rel="noopener noreferrer"' : ''}>${contents}</a>` : `<article class="collection-card">${contents}</article>`;
 }
