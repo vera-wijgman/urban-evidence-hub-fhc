@@ -32,13 +32,13 @@ let activeProject;
 
 // 2. Shared collection cards: homepage previews and year-grouped subpages.
 function collectionCard(item, type) {
-  const href = type === 'projects' ? `#/projects/${item.id}` : safeUrl(item.url);
+  const href = `#/${type}/${item.id}`;
   const date = item.date ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(item.date)) : '';
   const metadata = type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
     : type === 'publications' && date ? `<time class="card-year" datetime="${escape(item.date)}">${date}</time>` : '';
   const contents = `${item.image ? `<div class="collection-image${type === 'partners' ? ' partner-logo' : ''}"><img src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" /></div>` : ''}
     <div class="collection-card-copy"><h3>${escape(item.title)}</h3>${metadata}</div>`;
-  return href ? `<a class="collection-card" href="${href}"${type !== 'projects' ? ' target="_blank" rel="noopener noreferrer"' : ''}>${contents}</a>` : `<article class="collection-card">${contents}</article>`;
+  return `<a class="collection-card" href="${href}">${contents}</a>`;
 }
 
 function collectionPreview(type) {
@@ -70,6 +70,14 @@ function renderCollection(type) {
   main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>${collection.title}</h1><p>${collection.description}</p></header>
     ${years.length ? years.map(year => `<section class="year-section"><div class="section-heading"><h2>Studio ${escape(year)}</h2><span class="muted">${collection.items.filter(item => item.year === year).length} ${type}</span></div><div class="collection-grid">${collection.items.filter(item => item.year === year).map(item => collectionCard(item, type)).join('')}</div></section>`).join('') : `<div class="collection-empty large"><span class="empty-label">${type === 'publications' ? 'Work in progress' : 'Building connections'}</span><h2>${type === 'publications' ? 'More to share, soon.' : 'Better cities, together.'}</h2><p>${collection.empty}</p></div>`}
   </div>`;
+}
+
+// Partner and publication pages share a simple title, introduction and return link.
+function renderCollectionItem(type, id) {
+  const item = collections[type].items.find(item => item.id === id);
+  if (!item) return renderNotFound();
+  document.title = `${item.title} | ${site.title}`;
+  main.innerHTML = `<article class="container collection-page"><header class="page-heading"><h1>${escape(item.title)}</h1><p>${escape(item.description)}</p></header><a class="text-link" href="#/${type}">← All ${type}</a></article>`;
 }
 
 // Project viewer: large selected file, project information on the right, all files below.
@@ -327,6 +335,7 @@ function renderRoute() {
   if (route.page === 'home') renderHome();
   else if (route.page === 'hub') renderHub();
   else if (route.page === 'projects' && parts[1]) renderProject(parts[1]);
+  else if (collections[route.page] && parts[1]) renderCollectionItem(route.page, parts[1]);
   else if (collections[route.page]) renderCollection(route.page);
   else if (route.page === 'search') renderSearch();
   else renderNotFound();

@@ -66,7 +66,7 @@ part of the website they implement, so the next student group can maintain it.
 | `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
 | `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
-| `app.js` | Seven labelled sections for page rendering, project bucket controls, shared evidence details, filters, routing, events and loading |
+| `app.js` | Seven labelled sections for page rendering (including partner/publication detail pages), project bucket controls, shared evidence details, filters, routing, events and loading |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
 | `js/graph.js` | Empty graph renderer, ready for the graph being developed separately |
 | `data/evidence.json` | Published framework snapshot, attachment URLs and directed relationships |
@@ -104,12 +104,14 @@ Replace the publication examples or add new entries when available, for example:
 ```js
 { id: 'publication-id', title: 'Publication title', year: 2027,
   date: '2027-06-15', image: 'assets/publication-cover.webp',
-  url: 'https://example.org/publication' }
+  description: 'A short introduction to the publication.' }
 ```
 
 Publication cards show an image, title and publication date; partner cards show
-an image and title. The image is optional. Entries with a URL open their source
-in a new tab; entries without a URL remain informational cards.
+an image and title. The image is optional. Every card opens its own page at
+`#/publications/<id>` or `#/partners/<id>`, with a title, the `description`
+sentence and a link back to the collection. Edit these introductions in
+`js/content.js`; both page types share `renderCollectionItem` in `app.js`.
 
 ## Updating evidence from the framework table
 
