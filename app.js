@@ -92,13 +92,13 @@ function renderCollection(type) {
   </div>`;
 }
 
-// People categories reuse the same content cards and profile-page renderer.
+// People sections reuse the same content cards and profile-page renderer.
 function renderPeople() {
-  const group = peopleGroups.find(group => group.id === route.params.get('category')) || peopleGroups[0];
-  const years = [...new Set(group.items.map(item => item.year).filter(Boolean))];
   main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>People</h1><p>${collections.people.description}</p></header>
-    <nav class="people-nav" aria-label="People categories">${peopleGroups.map(category => `<a href="#/people?category=${category.id}"${category === group ? ' aria-current="page"' : ''}>${category.title}</a>`).join('')}</nav>
-    <section class="year-section"><div class="section-heading"><h2>${group.title}</h2><span class="muted">${group.id === 'students' ? years.map(year => `Studio ${year}`).join(', ') + ' · ' : ''}${group.items.length} ${group.title.toLowerCase()}</span></div><div class="collection-grid">${group.items.map(item => collectionCard(item, 'people')).join('')}</div></section></div>`;
+    ${peopleGroups.map(group => {
+      const years = [...new Set(group.items.map(item => item.year).filter(Boolean))];
+      return `<section id="people-${group.id}" class="year-section"><div class="section-heading"><h2>${group.title}</h2><span class="muted">${group.id === 'students' ? years.map(year => `Studio ${year}`).join(', ') + ' · ' : ''}${group.items.length} ${group.title.toLowerCase()}</span></div><div class="collection-grid">${group.items.map(item => collectionCard(item, 'people')).join('')}</div></section>`;
+    }).join('')}</div>`;
 }
 
 // Profile and publication pages share a title, introduction and return link.
@@ -145,7 +145,7 @@ function selectProjectFile(index, syncUrl = true) {
   selectedId = item?.id || null;
   panel.classList.toggle('evidence-info', Boolean(entry));
   panel.setAttribute('aria-label', entry ? 'Evidence details' : 'Project information');
-  panel.innerHTML = entry ? evidenceDetails(item, file) : `<img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(escape).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', new URLSearchParams({ include: project.tag }))}">Browse in the Hub →</a>`;
+  panel.innerHTML = entry ? evidenceDetails(item, file) : `<img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(name => escape(name.split(' ')[0])).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', new URLSearchParams({ include: project.tag }))}">Browse in the Hub →</a>`;
   panel.scrollTop = 0;
   document.querySelector('#project-position').textContent = entry ? `${index + 1} of ${projectFiles.length}` : `${projectFiles.length} files`;
   document.querySelector('.project-controls [data-step="-1"]').disabled = !projectHistory.canBack;
@@ -185,7 +185,7 @@ function renderFilters() {
   const { filters } = route;
   const counts = new Map();
   (route.view === 'graph' ? fileEvidence : evidence).forEach(item => item.tags.forEach(tag => counts.set(tag, (counts.get(tag) || 0) + 1)));
-  document.querySelector('#filter-controls').innerHTML = `${route.view === 'graph' ? '<div class="filter-heading graph-filter-header"><h2>Filters</h2><label class="connection-toggle"><span>Unconnected</span><input data-graph="show-unconnected" type="checkbox" role="switch" aria-label="Show unconnected evidence" checked /><span class="switch-track" aria-hidden="true"></span></label></div>' : ''}<div class="filter-heading"><h2>Evidence buckets</h2><button type="button" class="text-button" data-clear>Reset</button></div>
+  document.querySelector('#filter-controls').innerHTML = `${route.view === 'graph' ? '<div class="filter-heading graph-filter-header"><h2>Filters</h2><label class="connection-toggle"><span>Unconnected</span><input data-graph="show-unconnected" type="checkbox" role="switch" aria-label="Show unconnected evidence" /><span class="switch-track" aria-hidden="true"></span></label></div>' : ''}<div class="filter-heading"><h2>Evidence buckets</h2><button type="button" class="text-button" data-clear>Reset</button></div>
     <div class="bucket-filters">${buckets.map(bucket => `<label style="--bucket:var(--${bucket.toLowerCase()})"><span class="bucket-dot" aria-hidden="true"></span><span>${bucket}</span><input type="checkbox" data-bucket="${bucket}" ${!filters.buckets.length || filters.buckets.includes(bucket) ? 'checked' : ''} /></label>`).join('')}</div>
     <div class="filter-heading tag-heading"><h2>Filter by tags</h2></div><p class="filter-help">Include or exclude a tag.</p>
     ${Object.entries(tagGroups).map(([group, tags], index) => `<details class="filter-group"${index === 0 ? ' open' : ''}><summary>${group}<span class="group-indicator" aria-hidden="true">+</span></summary><div class="tag-options">${tags.map(tag => `<div class="tag-option"><span>${escape(tag.replace(/^Group \d: /, ''))}<small>${counts.get(tag) || 0}</small></span><div class="tag-actions"><button type="button" data-tag="${escape(tag)}" data-mode="include" aria-pressed="${filters.include.includes(tag)}" aria-label="Include ${escape(tag)}" title="Include ${escape(tag)}">+</button><button type="button" data-tag="${escape(tag)}" data-mode="exclude" aria-pressed="${filters.exclude.includes(tag)}" aria-label="Exclude ${escape(tag)}" title="Exclude ${escape(tag)}">−</button></div></div>`).join('')}</div></details>`).join('')}
@@ -436,7 +436,9 @@ function renderRoute() {
   else if (collections[route.page]) renderCollection(route.page);
   else if (route.page === 'search') renderSearch();
   else renderNotFound();
-  window.scrollTo(0, 0);
+  const peopleSection = route.page === 'people' && document.getElementById(`people-${params.get('category')}`);
+  if (peopleSection) peopleSection.scrollIntoView({ block: 'start' });
+  else window.scrollTo(0, 0);
 }
 
 // 6. Delegated interactions: one handler per event, with no per-card listeners.

@@ -43,15 +43,17 @@ p { margin-bottom: 16px; }
 .brand { grid-area: brand; justify-self: center; display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 20px; font-weight: 650; letter-spacing: -.035em; }
 .brand-logo { width: 36px; height: 36px; flex-shrink: 0; }
 #main-nav { grid-area: nav; display: flex; align-self: stretch; justify-content: center; gap: clamp(18px, 2.2vw, 36px); align-items: stretch; }
-#main-nav a { display: flex; align-items: center; border-bottom: 2px solid transparent; padding-top: 2px; color: var(--muted); font-size: var(--nav-font-size); }
+#main-nav a { display: grid; grid-template-areas: "label"; align-content: center; justify-items: center; border-bottom: 2px solid transparent; padding-top: 2px; color: var(--muted); font-size: var(--nav-font-size); }
+/* Reserve each label's bold width so hovering never moves neighbouring tabs. */
+#main-nav a > span, #main-nav a::after { grid-area: label; }
+#main-nav a::after { content: attr(data-label); font-weight: 650; visibility: hidden; pointer-events: none; }
 #main-nav a:is(:hover, :focus-visible) { color: var(--ink); font-weight: 650; }
-#main-nav a[aria-current] { color: var(--accent); border-color: var(--accent); }
+#main-nav a[aria-current] { color: var(--accent); border-color: var(--accent); font-weight: 650; }
 .hub-nav { display: flex; align-items: stretch; }
 .hub-subnav { display: none; position: absolute; z-index: 10; top: calc(100% - 1px); left: 0; width: 100%; height: var(--hub-bar-height); padding: 8px 0; border-block: 1px solid var(--line); background: var(--paper); }
 .hub-nav.is-open .hub-subnav { display: block; }
 .hub-subnav-links { display: flex; gap: 4px; width: max-content; margin-left: var(--hub-centre, 50%); transform: translateX(-50%); }
-#main-nav .hub-subnav a { padding: 9px 12px; border: 0; border-radius: 3px; }
-#main-nav .hub-subnav a:hover, #main-nav .hub-subnav a[aria-current] { color: var(--accent); background: var(--surface); }
+#main-nav .hub-subnav a { padding: 9px 12px; border: 0; }
 .search-field { min-width: 0; display: flex; align-items: center; gap: 10px; }
 .search-field svg { width: 19px; height: 19px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .search-field input { width: 100%; border: 0; background: transparent; padding: 8px 0; outline-offset: 1px; color: var(--ink); font-size: 13px; }
@@ -106,9 +108,6 @@ a.collection-card:hover h3 { color: var(--accent); }
 .collection-empty.large h2 { font-size: 30px; margin-bottom: 15px; }
 .collection-page { min-height: 65vh; }
 /* People categories and initials leave room for future portraits without new page code. */
-.people-nav { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 24px; font-size: var(--nav-font-size); color: var(--muted); }
-.people-nav a { padding-bottom: 10px; border-bottom: 2px solid transparent; }
-.people-nav a:is(:hover, :focus-visible), .people-nav a[aria-current] { font-weight: 650; color: var(--accent); border-color: var(--accent); }
 .person-card { flex-direction: row; align-items: center; gap: 16px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
 .person-card .collection-card-copy { padding: 0; }
 .person-card .collection-image { width: 52px; height: 52px; flex-shrink: 0; border-radius: 50%; }

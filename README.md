@@ -83,7 +83,11 @@ part of the website they implement, so the next student group can maintain it.
 
 The header's `.brand` centres the logo and title together above the tabs.
 Adjust `.brand-logo` in `styles.css` for its size; the SVG viewBox in `index.html`
-frames the artwork while preserving the original PNG. No annotation marks, paper textures, About page,
+frames the artwork while preserving the original PNG. Navigation reserves the
+bold width of each label so hover and selection do not move neighbouring tabs.
+When renaming a tab, update both its visible `span` and `data-label` in `index.html`.
+Hover makes text dark and bold; the selected tab remains accent-colored and bold.
+No annotation marks, paper textures, About page,
 latest-evidence section or separate decision-chain strip are included.
 
 ## Adding studio content
@@ -113,8 +117,10 @@ with links to open the original PDFs. A link also opens the project's filtered
 Hub view.
 
 Publications contains two clearly named layout examples. People has Students,
-Tutors and Partners categories. Student examples reuse `projects[].members` and
-their framework author tags. Tutors are in `tutors`; update names, initials and
+Tutors and Partners as consecutive sections, without category tabs. Existing
+`?category=students`, `tutors` or `partners` links scroll to the corresponding section.
+Student examples reuse `projects[].members` and their framework author tags;
+cards, profiles and project overviews display first names only. Tutors are in `tutors`; update names, initials and
 introductions there. Add an image for a portrait when available. Partners retains
 RIVM and Gemeente Eindhoven, using the supplied logos in `assets/partners/`.
 Replace the publication examples or add new entries when available, for example:
@@ -214,7 +220,8 @@ positions or use a representative image when a specific file is selected.
 filter-controls root, shared drawer and selection/clear/count callbacks. Its
 controller provides `select`, `clear`, `update` and `destroy`; route changes abort
 document listeners and disconnect its resize observer. Filter updates keep the
-same mounted layout. Unconnected visibility defaults on; tag overlays default off.
+same mounted layout. The graph opens with connected evidence only; Unconnected
+and tag overlays default off. Reset restores these defaults.
 
 Bubble selection shows member files and nonempty typed relationships. File
 selection reuses the same simplified drawer renderer as Grid and Projects.
@@ -244,5 +251,6 @@ For the mounted graph flow, start the local preview and run
 in an open Playwright CLI session. Importer checks run with
 `python -m unittest discover -s tests -p test_framework_import.py` (requires openpyxl).
 Run the same browser command with `--filename=tests/browser/studio-feedback-flow.js`
-for tag links, multi-step viewing history, People profiles, the connected homepage
-preview, UrbanLab branding and mobile menu/header checks.
+for tag links, multi-step viewing history, ordered People sections and profiles,
+stable navigation hover/selection, the connected homepage preview and graph
+defaults, UrbanLab branding and mobile menu/header checks.

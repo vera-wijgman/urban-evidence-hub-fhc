@@ -22,13 +22,37 @@ async (page) => {
   check(!/master studio/i.test(await page.locator('body').innerText()), 'Old studio branding is absent from homepage copy');
   check(await page.locator('.site-footer a').count() === 1 && !/Trace evidence/i.test(await page.locator('.site-footer').innerText()), 'Footer has no Trace Evidence into Design link');
   const peopleLink = page.locator('#main-nav [data-page="people"]');
-  await peopleLink.hover();
+  const positions = selector => page.locator(selector).evaluateAll(links => links.map(link => {
+    const rect = link.querySelector('span').getBoundingClientRect();
+    return { label:link.dataset.label, x:rect.x, y:rect.y };
+  }));
+  const mainLinks = '#main-nav [data-page]';
+  const original = await positions(mainLinks);
+  for (const label of ['home','hub','projects','publications','people']) {
+    await page.locator(`#main-nav [data-page="${label}"]`).hover();
+    const hovered = await positions(mainLinks);
+    check(hovered.every((position,index) => original[index].label === position.label && (position.label.toLowerCase() === label || Math.abs(position.x-original[index].x)<0.1 && Math.abs(position.y-original[index].y)<0.1)), `Hovering ${label} does not move other tab names`);
+  }
   check(await peopleLink.evaluate(link => parseFloat(getComputedStyle(link).fontSize) >= 16 && Number(getComputedStyle(link).fontWeight) >= 650), 'Larger navigation becomes bold on hover');
+  await page.locator('[data-page="hub"]').hover();
+  const beforeSub = await positions('#hub-subnav a');
+  await page.locator('[data-view="grid"]').hover();
+  const afterSub = await positions('#hub-subnav a');
+  check(Math.abs(beforeSub[0].x-afterSub[0].x)<0.1 && Math.abs(beforeSub[0].y-afterSub[0].y)<0.1, 'Hovering Grid does not move Knowledge graph');
+  const hoverStyle = await page.locator('[data-view="grid"]').evaluate(link => ({ color:getComputedStyle(link).color, background:getComputedStyle(link).backgroundColor, weight:Number(getComputedStyle(link).fontWeight), ink:getComputedStyle(document.body).color }));
+  check(hoverStyle.background === 'rgba(0, 0, 0, 0)' && hoverStyle.weight >= 650 && hoverStyle.color === hoverStyle.ink, 'Submenu hover uses bold text without a blue box');
+  check(await page.locator('[data-view="graph"] span').textContent() === 'Knowledge graph', 'Knowledge graph uses a lowercase g');
   check(await page.locator('#main-nav [data-page="partners"], #hub-subnav [data-view="list"]').count() === 0, 'Navigation contains People and only two Hub views');
   await page.screenshot({ path: 'output/playwright/studio-home-desktop.png', fullPage: true });
   await page.getByRole('link', { name: 'Open Knowledge Graph', exact: true }).click();
-  await page.locator('.canvas-panel .node').last().waitFor();
+  await page.locator('.canvas-panel .node').last().waitFor({ state: 'attached' });
   check(await page.locator('.canvas-panel .node').count() === 660, 'The whole homepage preview opens the real Knowledge Graph');
+  check(await page.getByRole('switch', { name:'Show unconnected evidence' }).isChecked() === false, 'Knowledge graph opens with Unconnected switched off');
+  const visibleFiles = files.filter(file => connected.has(groupKey(file))).length;
+  check(await page.locator('#result-count').textContent() === `${visibleFiles} pieces of evidence`, 'Only connected evidence is shown by default');
+  await page.locator('[data-page="home"]').hover();
+  const selectedStyle = await page.locator('[data-view="graph"]').evaluate(link => ({ color:getComputedStyle(link).color, weight:Number(getComputedStyle(link).fontWeight), background:getComputedStyle(link).backgroundColor, accent:getComputedStyle(document.querySelector('[data-page="hub"]')).color }));
+  check(selectedStyle.color === selectedStyle.accent && selectedStyle.weight >= 650 && selectedStyle.background === 'rgba(0, 0, 0, 0)', 'Selected subtab stays blue and bold without a box');
 
   // A tag starts a fresh Grid query, independent of the previously active filters.
   const tagged = files.find(file => file.tags.includes('Mobility'));
@@ -86,15 +110,17 @@ async (page) => {
 
   await page.locator('#main-nav [data-page="people"]').click();
   await page.getByRole('heading', { name: 'People', exact: true }).waitFor();
-  check(await page.locator('.person-card').count() === 9, 'People shows all nine framework students with individual icons');
-  await page.getByRole('navigation', { name: 'People categories' }).getByRole('link', { name: 'Tutors', exact: true }).click();
-  await page.getByRole('heading', { name: 'Tutors', exact: true, level: 2 }).waitFor();
-  const tutorNames = await page.locator('.collection-card h3').allTextContents();
-  check(JSON.stringify(tutorNames) === JSON.stringify(['Diana da Silva Carillo','Cem Ataman','Kevin Paulus']), 'Tutors contains the three supplied names');
-  check(await page.locator('a[href="#/people/kevin-paulus"] .person-role').textContent() === 'Tutor · RIVM', 'Kevin Paulus is identified with RIVM');
-  await page.locator('a[href="#/people/diana-da-silva-carillo"]').click();
-  await page.getByRole('heading', { name: 'Diana da Silva Carillo', exact: true }).waitFor();
-  check(await page.locator('main .page-heading p').count() === 1, 'Individual people cards open an introduction page');
+  check(await page.locator('#people-students .person-card').count() === 9, 'People shows all nine students');
+  const sections = await page.locator('main .year-section h2').allTextContents();
+  check(JSON.stringify(sections) === JSON.stringify(['Students','Tutors','Partners']), 'People stacks Students, Tutors and Partners in order');
+  check(await page.locator('.people-nav').count() === 0, 'People has no category tabs');
+  const studentNames = await page.locator('#people-students h3').allTextContents();
+  check(studentNames.every(name => !name.includes(' ')), 'Student cards use only first names');
+  const tutorNames = await page.locator('#people-tutors .collection-card h3').allTextContents();
+  check(JSON.stringify(tutorNames) === JSON.stringify(['Diana Carrillo Silva','Cem Ataman']), 'Tutor names are corrected and Kevin is removed');
+  await page.locator('a[href="#/people/diana-carrillo-silva"]').click();
+  await page.getByRole('heading', { name: 'Diana Carrillo Silva', exact: true }).waitFor();
+  check(await page.locator('main .page-heading p').count() === 1, 'Updated tutor profile opens its introduction');
   await page.goto(`${base}#/people?category=partners`);
   await page.getByRole('heading', { name: 'Partners', exact: true }).waitFor();
   check(await page.locator('.partner-logo').count() === 2, 'RIVM and Eindhoven remain available under People → Partners');
@@ -114,7 +140,7 @@ async (page) => {
     check(headerHeight <= 120, `${width}px: the closed homepage header remains compact`);
     check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${width}px: homepage has no horizontal overflow`);
     await page.goto(`${base}#/hub/graph`);
-    await page.locator('.canvas-panel .node').last().waitFor();
+    await page.locator('.canvas-panel .node').last().waitFor({ state: 'attached' });
     const nav = await page.locator('#hub-subnav').boundingBox();
     check(nav.x >= 0 && nav.x + nav.width <= width + 1, `${width}px: Knowledge Graph and Grid remain accessible with the main menu closed`);
     check(await page.locator('.menu-button').getAttribute('aria-expanded') === 'false', `${width}px: Hub does not automatically expand the main menu`);

@@ -49,19 +49,16 @@ export const partners = [
 ];
 
 // People: student names reuse the project teams; add portraits in place of initials later.
-export const students = projects.flatMap(project => project.members.map(title => ({
-  id: `student-${title.split(' ')[0].toLowerCase()}`, title, year: project.year,
-  initials: title.split(' ').map(word => word[0]).filter((_, index, words) => index === 0 || index === words.length - 1).join(''),
-  role: `Student · ${project.title}`, evidenceTag: title.split(' ')[0],
+export const students = projects.flatMap(project => project.members.map(name => name.split(' ')[0]).map(title => ({
+  id: `student-${title.toLowerCase()}`, title, year: project.year,
+  initials: title[0], role: `Student · ${project.title}`, evidenceTag: title,
   description: `${title} participates in the ${project.title} project in the Future Healthy Cities UrbanLab.`,
 })));
 export const tutors = [
-  { id: 'diana-da-silva-carillo', title: 'Diana da Silva Carillo', initials: 'DC', role: 'Studio tutor',
-    description: 'Diana da Silva Carillo is a tutor in the Future Healthy Cities UrbanLab.' },
+  { id: 'diana-carrillo-silva', title: 'Diana Carrillo Silva', initials: 'DS', role: 'Studio tutor',
+    description: 'Diana Carrillo Silva is a tutor in the Future Healthy Cities UrbanLab.' },
   { id: 'cem-ataman', title: 'Cem Ataman', initials: 'CA', role: 'Studio tutor',
     description: 'Cem Ataman is a tutor in the Future Healthy Cities UrbanLab.' },
-  { id: 'kevin-paulus', title: 'Kevin Paulus', initials: 'KP', role: 'Tutor · RIVM',
-    description: 'Kevin Paulus is a tutor from RIVM involved in the Future Healthy Cities UrbanLab.' },
 ];
 export const peopleGroups = [
   { id: 'students', title: 'Students', items: students },

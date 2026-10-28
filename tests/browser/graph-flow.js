@@ -19,16 +19,19 @@ async (page) => {
   });
   await page.setViewportSize({ width: 1600, height: 1050 });
   await page.goto(`${base}#/hub/graph`);
-  await page.locator('.graph-view .node').last().waitFor();
+  await page.locator('.graph-view .node').last().waitFor({ state: 'attached' });
   const data = await page.evaluate(() => fetch('data/evidence.json').then(response => response.json()));
   const files = data.items.flatMap(item => item.files.map(file => ({ ...file.framework, file, item })));
   const byId = new Map(files.map(file => [file.id, file]));
+  const groupKey = file => file.group ? `group:${file.projects.length ? file.projects.join('|') + ':' : ''}${file.group}` : file.id;
+  const connected = new Set(data.fileLinks.flatMap(link => [groupKey(byId.get(link.source)), groupKey(byId.get(link.target))]));
+  const connectedCount = files.filter(file => connected.has(groupKey(file))).length;
   const drawer = page.locator('#evidence-detail');
   const graph = page.locator('.graph-view');
   check(await graph.locator('.node').count() === 660, 'All 660 exact framework files render');
   check(await graph.locator('.cluster').count() === 296, 'The 296 compact project-scoped bubbles render');
   check(await graph.locator('.relationship-arrow').count() === 48, 'All 48 typed group arrows render');
-  check(await page.locator('#result-count').textContent() === '660 pieces of evidence', 'Graph count uses individual files');
+  check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence`, 'Graph defaults to connected individual files');
   check(await page.locator('[data-graph="tag-controls"] input:checked').count() === 0, 'Tag overlays start unchecked');
   const bubble = graph.locator('.cluster').filter({ hasText: /^Integration/ }).first();
   await bubble.hover({ force: true });
@@ -88,12 +91,12 @@ async (page) => {
   check(count === files.filter(file => file.tags.includes('Mobility')).length, 'Shared include filters use exact file metadata');
   check(await graph.locator('.tag-node').count() === 1, 'Filter updates preserve the mounted tag overlay');
   await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  check(await page.locator('#result-count').textContent() === '660 pieces of evidence' && await graph.locator('.tag-node').count() === 0, 'Reset restores the graph and clears tag overlays');
+  check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence` && await graph.locator('.tag-node').count() === 0, 'Reset restores the graph and clears tag overlays');
   check(await page.evaluate(() => graphListeners) === 2, 'One mounted graph owns exactly its two document listeners');
   await page.screenshot({ path: 'output/playwright/integrated-graph-desktop.png', fullPage: true });
   for (const view of ['grid','graph','grid','graph']) {
     await page.locator(`#hub-subnav a[data-view="${view}"]`).click();
-    await page.locator(view === 'graph' ? '.graph-view .node' : '.evidence-card').first().waitFor();
+    await page.locator(view === 'graph' ? '.graph-view .node' : '.evidence-card').first().waitFor({ state: 'attached' });
     check(await page.evaluate(() => graphListeners) === (view === 'graph' ? 2 : 0), `${view}: route teardown/remount leaves no graph listener duplicates`);
     if (view !== 'graph') {
       await page.locator('.evidence-card').first().click();

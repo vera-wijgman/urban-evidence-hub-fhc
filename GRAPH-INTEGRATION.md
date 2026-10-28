@@ -43,9 +43,10 @@ the bubble, optional exact file and group arrows to the shared drawer.
 
 The graph owns scoped canvas events, two abortable document listeners and one
 resize observer. Route teardown destroys them. Filter updates preserve positions,
-pan/zoom and tag overlays. Reset remounts a fresh graph. Fit all can zoom far enough
-out to contain the complete disconnected collection; zoom in or switch Unconnected
-off to inspect the connected core. Layout geometry itself matches the prototype.
+pan/zoom and tag overlays. The graph opens with connected evidence only:
+Unconnected starts off, and Reset restores that default with tag overlays off.
+Fit all can zoom far enough out to contain the complete collection when
+Unconnected is enabled. Layout geometry itself matches the prototype.
 
 The homepage uses `mountGraphPreview` with the same dataset and SVG geometry.
 It renders only connected bubbles, their member dots and real typed arrows. The
