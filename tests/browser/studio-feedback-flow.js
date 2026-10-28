@@ -44,15 +44,15 @@ async (page) => {
   check(await page.locator('[data-view="graph"] span').textContent() === 'Knowledge graph', 'Knowledge graph uses a lowercase g');
   check(await page.locator('#main-nav [data-page="partners"], #hub-subnav [data-view="list"]').count() === 0, 'Navigation contains People and only two Hub views');
   await page.screenshot({ path: 'output/playwright/studio-home-desktop.png', fullPage: true });
-  await page.getByRole('link', { name: 'Open Knowledge Graph', exact: true }).click();
+  await page.getByRole('link', { name: 'Open Knowledge graph', exact: true }).click();
   await page.locator('.canvas-panel .node').last().waitFor({ state: 'attached' });
   check(await page.locator('.canvas-panel .node').count() === 660, 'The whole homepage preview opens the real Knowledge Graph');
   check(await page.getByRole('switch', { name:'Show unconnected evidence' }).isChecked() === false, 'Knowledge graph opens with Unconnected switched off');
   const visibleFiles = files.filter(file => connected.has(groupKey(file))).length;
   check(await page.locator('#result-count').textContent() === `${visibleFiles} pieces of evidence`, 'Only connected evidence is shown by default');
   await page.locator('[data-page="home"]').hover();
-  const selectedStyle = await page.locator('[data-view="graph"]').evaluate(link => ({ color:getComputedStyle(link).color, weight:Number(getComputedStyle(link).fontWeight), background:getComputedStyle(link).backgroundColor, accent:getComputedStyle(document.querySelector('[data-page="hub"]')).color }));
-  check(selectedStyle.color === selectedStyle.accent && selectedStyle.weight >= 650 && selectedStyle.background === 'rgba(0, 0, 0, 0)', 'Selected subtab stays blue and bold without a box');
+  const selectedStyle = await page.locator('[data-view="graph"]').evaluate(link => ({ color:getComputedStyle(link).color, weight:Number(getComputedStyle(link).fontWeight), background:getComputedStyle(link).backgroundColor, ink:getComputedStyle(document.body).color, main:getComputedStyle(document.querySelector('[data-page="hub"]')).color }));
+  check(selectedStyle.color === selectedStyle.ink && selectedStyle.main === selectedStyle.ink && selectedStyle.weight >= 650 && selectedStyle.background === 'rgba(0, 0, 0, 0)', 'Selected tabs stay dark and bold without a box');
 
   // A tag starts a fresh Grid query, independent of the previously active filters.
   const tagged = files.find(file => file.tags.includes('Mobility'));
@@ -123,7 +123,7 @@ async (page) => {
   check(await page.locator('main .page-heading p').count() === 1, 'Updated tutor profile opens its introduction');
   await page.goto(`${base}#/people?category=partners`);
   await page.getByRole('heading', { name: 'Partners', exact: true }).waitFor();
-  check(await page.locator('.partner-logo').count() === 2, 'RIVM and Eindhoven remain available under People → Partners');
+  check(await page.locator('#people-partners .collection-card h3').allTextContents().then(names => JSON.stringify(names) === JSON.stringify(['RIVM — Rijksinstituut voor Volksgezondheid en Milieu'])), 'Only RIVM is shown under People → Partners');
   await page.goto(`${base}#/hub/list?include=Mobility`);
   await page.locator('.evidence-grid').waitFor();
   check(await page.evaluate(() => location.hash) === '#/hub/grid?include=Mobility', 'Old List links resolve to Grid without a List view');

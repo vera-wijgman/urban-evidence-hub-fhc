@@ -48,7 +48,7 @@ p { margin-bottom: 16px; }
 #main-nav a > span, #main-nav a::after { grid-area: label; }
 #main-nav a::after { content: attr(data-label); font-weight: 650; visibility: hidden; pointer-events: none; }
 #main-nav a:is(:hover, :focus-visible) { color: var(--ink); font-weight: 650; }
-#main-nav a[aria-current] { color: var(--accent); border-color: var(--accent); font-weight: 650; }
+#main-nav a[aria-current] { color: var(--ink); border-color: var(--ink); font-weight: 650; }
 .hub-nav { display: flex; align-items: stretch; }
 .hub-subnav { display: none; position: absolute; z-index: 10; top: calc(100% - 1px); left: 0; width: 100%; height: var(--hub-bar-height); padding: 8px 0; border-block: 1px solid var(--line); background: var(--paper); }
 .hub-nav.is-open .hub-subnav { display: block; }

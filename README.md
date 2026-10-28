@@ -86,7 +86,8 @@ Adjust `.brand-logo` in `styles.css` for its size; the SVG viewBox in `index.htm
 frames the artwork while preserving the original PNG. Navigation reserves the
 bold width of each label so hover and selection do not move neighbouring tabs.
 When renaming a tab, update both its visible `span` and `data-label` in `index.html`.
-Hover makes text dark and bold; the selected tab remains accent-colored and bold.
+Hover makes text dark and bold; the selected tab remains dark and bold.
+Other accent links and controls use the logo's blue (`--accent` in `assets/theme.css`).
 No annotation marks, paper textures, About page,
 latest-evidence section or separate decision-chain strip are included.
 
@@ -121,8 +122,8 @@ Tutors and Partners as consecutive sections, without category tabs. Existing
 `?category=students`, `tutors` or `partners` links scroll to the corresponding section.
 Student examples reuse `projects[].members` and their framework author tags;
 cards, profiles and project overviews display first names only. Tutors are in `tutors`; update names, initials and
-introductions there. Add an image for a portrait when available. Partners retains
-RIVM and Gemeente Eindhoven, using the supplied logos in `assets/partners/`.
+introductions there. Add an image for a portrait when available. RIVM is the current
+partner; supplied logo originals are kept in `assets/partners/` for future use.
 Replace the publication examples or add new entries when available, for example:
 
 ```js

@@ -72,9 +72,9 @@ function renderHome() {
       <div class="hero-copy"><p class="eyebrow">${site.homeLabel}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p><p class="hero-description">${site.description}</p>
         <figure class="hero-image"><img src="${site.heroImage}" alt="A vision of a healthy city with green buildings, public transport and connected urban systems." width="1792" height="1024" fetchpriority="high" /></figure>
       </div>
-      <a class="graph-preview" href="#/hub/graph" aria-label="Open Knowledge Graph">
+      <a class="graph-preview" href="#/hub/graph" aria-label="Open Knowledge graph">
         <div id="home-graph-preview" class="graph-preview-canvas" aria-hidden="true"></div>
-        <span class="graph-preview-bottom">Open Knowledge Graph <span aria-hidden="true">→</span></span>
+        <span class="graph-preview-bottom">Open Knowledge graph <span aria-hidden="true">→</span></span>
       </a>
     </section>
     <section class="home-section home-introduction" aria-labelledby="hub-introduction"><div class="section-heading"><h2 id="hub-introduction">About the Urban Evidence Hub</h2></div><p>${escape(site.introduction)}</p></section>
@@ -97,7 +97,8 @@ function renderPeople() {
   main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>People</h1><p>${collections.people.description}</p></header>
     ${peopleGroups.map(group => {
       const years = [...new Set(group.items.map(item => item.year).filter(Boolean))];
-      return `<section id="people-${group.id}" class="year-section"><div class="section-heading"><h2>${group.title}</h2><span class="muted">${group.id === 'students' ? years.map(year => `Studio ${year}`).join(', ') + ' · ' : ''}${group.items.length} ${group.title.toLowerCase()}</span></div><div class="collection-grid">${group.items.map(item => collectionCard(item, 'people')).join('')}</div></section>`;
+      const label = group.title.toLowerCase();
+      return `<section id="people-${group.id}" class="year-section"><div class="section-heading"><h2>${group.title}</h2><span class="muted">${group.id === 'students' ? years.map(year => `Studio ${year}`).join(', ') + ' · ' : ''}${group.items.length} ${group.items.length === 1 ? label.slice(0, -1) : label}</span></div><div class="collection-grid">${group.items.map(item => collectionCard(item, 'people')).join('')}</div></section>`;
     }).join('')}</div>`;
 }
 

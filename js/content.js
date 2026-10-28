@@ -42,10 +42,6 @@ export const partners = [
     image: 'assets/partners/rivm.jpg',
     imageFrame: { viewBox: '36 0 402 151', width: 474, height: 180 },
     description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities UrbanLab.' },
-  { id: 'gemeente-eindhoven', title: 'Gemeente Eindhoven', year: 2026,
-    image: 'assets/partners/gemeente-eindhoven.jpg',
-    imageFrame: { viewBox: '44 188 413 124', width: 500, height: 500 },
-    description: 'This page introduces Gemeente Eindhoven, a partner of the Future Healthy Cities UrbanLab.' },
 ];
 
 // People: student names reuse the project teams; add portraits in place of initials later.
