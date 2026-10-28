@@ -91,7 +91,7 @@ async (page) => {
   check(await page.locator('#result-count').textContent() === '660 pieces of evidence' && await graph.locator('.tag-node').count() === 0, 'Reset restores the graph and clears tag overlays');
   check(await page.evaluate(() => graphListeners) === 2, 'One mounted graph owns exactly its two document listeners');
   await page.screenshot({ path: 'output/playwright/integrated-graph-desktop.png', fullPage: true });
-  for (const view of ['grid','list','graph','grid','graph']) {
+  for (const view of ['grid','graph','grid','graph']) {
     await page.locator(`#hub-subnav a[data-view="${view}"]`).click();
     await page.locator(view === 'graph' ? '.graph-view .node' : '.evidence-card').first().waitFor();
     check(await page.evaluate(() => graphListeners) === (view === 'graph' ? 2 : 0), `${view}: route teardown/remount leaves no graph listener duplicates`);

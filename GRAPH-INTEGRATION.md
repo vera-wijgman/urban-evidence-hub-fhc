@@ -12,7 +12,7 @@ The snapshot has 300 catalogue records, 660 exact file IDs, 296 bubbles,
 | `js/graph.js` | Scoped mounted SVG, graph interactions, visibility/tag controls and lifecycle cleanup |
 | `js/graph-model.js` | Pure prototype layout: compact rings, neighbour-aware placement, safe contraction, project-scoped bubbles, directed chains and optional tag positions |
 | `js/graph-data.js` | Individual file identities/attachment references and nonempty typed relationship sections |
-| `app.js` | Hub shell/filter URLs, graph mounting and one shared drawer renderer for Graph, Grid, List and Projects |
+| `app.js` | Hub shell/filter URLs, graph mounting and one shared drawer renderer for Graph, Grid and Projects |
 | `assets/graph.css` | Graph-scoped visuals and controls; no duplicate header or drawer styling |
 | `assets/theme.css`, `js/content.js` | Shared palette/fade tokens, tag categories and relationship labels/line types |
 | `data/evidence.json` | Published catalogue/file snapshot, attachment URLs and directed edges |
@@ -46,6 +46,14 @@ resize observer. Route teardown destroys them. Filter updates preserve positions
 pan/zoom and tag overlays. Reset remounts a fresh graph. Fit all can zoom far enough
 out to contain the complete disconnected collection; zoom in or switch Unconnected
 off to inspect the connected core. Layout geometry itself matches the prototype.
+
+The homepage uses `mountGraphPreview` with the same dataset and SVG geometry.
+It renders only connected bubbles, their member dots and real typed arrows. The
+entire read-only preview links to Hub → Knowledge Graph and needs no observers
+or event listeners. The Hub has Knowledge Graph and Grid views; saved List URLs
+redirect to Grid. File tags link to a fresh Grid filter, and both the shared
+drawer and project toolbar support viewing-order Back/Forward history. Project
+sidebars omit the duplicate file preview shown on the main stage.
 
 ## Refresh workflow
 
@@ -113,7 +121,7 @@ IDs, legacy references, invalid targets and exact-file metadata after reordering
 With the local preview running, use Playwright CLI's `run-code` with
 `--filename=tests/browser/graph-flow.js`. The mounted website flow checks hover,
 pin/clear, exact member/linked-file selection, simplified panels, tag overlays,
-filters, pan/zoom, Unconnected, mobile modal behavior and Graph/Grid/List/Projects.
+filters, pan/zoom, Unconnected, mobile modal behavior and Graph/Grid/Projects.
 It also counts abortable listeners through repeated route teardown/remount.
 Additional local verification checked dragging, circle-boundary arrow endpoints,
 pinned-over-hover behavior, faded/outside clicks and empty searches.

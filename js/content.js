@@ -1,13 +1,13 @@
-// Site content: add studio years, projects, publications and partners here.
+// Site content: add studio years, projects, publications and people here.
 // Each collection uses the same card renderer; no layout changes are needed.
 export const site = {
   title: 'Urban Evidence Hub',
   subtitle: 'Trace evidence into design',
-  description: 'Explore how research and analysis inform design decisions across the Future Healthy Cities master studio.',
+  description: 'Explore how research and analysis inform design decisions across the Future Healthy Cities UrbanLab.',
   heroImage: 'assets/healthy-cities.jpg',
-  studio: 'Future Healthy Cities master studio',
-  homeLabel: 'Master Studio — Future Healthy Cities',
+  homeLabel: 'UrbanLab — Future Healthy Cities',
   hubDescription: 'Explore the evidence and the connections between research, analysis and design.',
+  introduction: 'The Urban Evidence Hub brings together research, analyses and design work from the Future Healthy Cities UrbanLab. It makes the evidence behind urban design decisions easier to explore, connecting individual files to projects, themes and one another. Use the knowledge graph to trace these connections, or browse the grid to discover the work of the studio’s students, tutors and partners.',
 };
 
 export const projects = [
@@ -30,7 +30,7 @@ export const projects = [
 export const publications = [
   { id: 'example-publication-01', title: 'Example publication 01', year: 2026,
     date: '2026-10-15', image: 'assets/healthy-cities.jpg',
-    description: 'Example publication 01 introduces research and design insights from the Future Healthy Cities master studio.' },
+    description: 'Example publication 01 introduces research and design insights from the Future Healthy Cities UrbanLab.' },
   { id: 'example-publication-02', title: 'Example publication 02', year: 2026,
     date: '2026-10-01', image: 'assets/healthy-cities.jpg',
     description: 'Example publication 02 explores how urban evidence can inform healthier cities.' },
@@ -41,19 +41,40 @@ export const partners = [
   { id: 'rivm', title: 'RIVM — Rijksinstituut voor Volksgezondheid en Milieu', year: 2026,
     image: 'assets/partners/rivm.jpg',
     imageFrame: { viewBox: '36 0 402 151', width: 474, height: 180 },
-    description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities master studio.' },
+    description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities UrbanLab.' },
   { id: 'gemeente-eindhoven', title: 'Gemeente Eindhoven', year: 2026,
     image: 'assets/partners/gemeente-eindhoven.jpg',
     imageFrame: { viewBox: '44 188 413 124', width: 500, height: 500 },
-    description: 'This page introduces Gemeente Eindhoven, a partner of the Future Healthy Cities master studio.' },
+    description: 'This page introduces Gemeente Eindhoven, a partner of the Future Healthy Cities UrbanLab.' },
+];
+
+// People: student names reuse the project teams; add portraits in place of initials later.
+export const students = projects.flatMap(project => project.members.map(title => ({
+  id: `student-${title.split(' ')[0].toLowerCase()}`, title, year: project.year,
+  initials: title.split(' ').map(word => word[0]).filter((_, index, words) => index === 0 || index === words.length - 1).join(''),
+  role: `Student · ${project.title}`, evidenceTag: title.split(' ')[0],
+  description: `${title} participates in the ${project.title} project in the Future Healthy Cities UrbanLab.`,
+})));
+export const tutors = [
+  { id: 'diana-da-silva-carillo', title: 'Diana da Silva Carillo', initials: 'DC', role: 'Studio tutor',
+    description: 'Diana da Silva Carillo is a tutor in the Future Healthy Cities UrbanLab.' },
+  { id: 'cem-ataman', title: 'Cem Ataman', initials: 'CA', role: 'Studio tutor',
+    description: 'Cem Ataman is a tutor in the Future Healthy Cities UrbanLab.' },
+  { id: 'kevin-paulus', title: 'Kevin Paulus', initials: 'KP', role: 'Tutor · RIVM',
+    description: 'Kevin Paulus is a tutor from RIVM involved in the Future Healthy Cities UrbanLab.' },
+];
+export const peopleGroups = [
+  { id: 'students', title: 'Students', items: students },
+  { id: 'tutors', title: 'Tutors', items: tutors },
+  { id: 'partners', title: 'Partners', items: partners },
 ];
 
 export const collections = {
   projects: { title: 'Projects', description: 'Explore the projects, and the evidence behind them.', items: projects },
-  publications: { title: 'Publications', description: 'Research and reflections from the Future Healthy Cities master studio.',
+  publications: { title: 'Publications', description: 'Research and reflections from the Future Healthy Cities UrbanLab.',
     empty: 'Publications will be collected here as the studio’s work is published.', items: publications },
-  partners: { title: 'Partners', description: 'People and organisations connected to the Future Healthy Cities master studio.',
-    empty: 'Our studio partners will be introduced here.', items: partners },
+  people: { title: 'People', description: 'Meet the students, tutors and partners of the Future Healthy Cities UrbanLab.',
+    items: peopleGroups.flatMap(group => group.items) },
 };
 
 // Names stay in data; their colours come exclusively from theme.css.

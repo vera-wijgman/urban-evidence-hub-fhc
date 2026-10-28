@@ -1,6 +1,6 @@
 # Urban Evidence Hub · Version 2
 
-A static website for the Future Healthy Cities master studio. Plain HTML, CSS and
+A static website for the Future Healthy Cities UrbanLab. Plain HTML, CSS and
 JavaScript, with no framework, runtime packages, external fonts or installation
 step. The original website is preserved in Git history and on `main`; this
 version is developed on `codex/website-v2`.
@@ -66,10 +66,11 @@ part of the website they implement, so the next student group can maintain it.
 | `assets/ueh-logo.png` | Original supplied logo; its header SVG frame removes surrounding whitespace |
 | `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
-| `js/content.js` | Homepage copy, projects, studio years, publications, partners and tag categories |
-| `app.js` | Seven labelled sections for page rendering (including partner/publication detail pages), project bucket controls, shared evidence details, filters, routing, events and loading |
+| `js/content.js` | UrbanLab copy, projects/cohorts, publications, People categories/profiles, partners and tag categories |
+| `app.js` | Seven labelled sections for pages, project buckets, shared evidence details/tag links, viewing history controls, filters, routing, events and loading |
+| `js/viewing-history.js` | Back/Forward through actual evidence selections; separate Hub and project sessions |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
-| `js/graph.js` | Mounted graph canvas, hover/pinned chains, tag overlays, pan/zoom and listener/observer cleanup |
+| `js/graph.js` | Connected homepage preview and interactive Hub graph; shared SVG geometry, chains, overlays, pan/zoom and cleanup |
 | `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow/tag clearance |
 | `js/graph-data.js` | Exact framework-file mapping and typed incoming/outgoing relationship sections |
 | `assets/graph.css` | Scoped graph visuals and filter controls; shared palette stays in `assets/theme.css` |
@@ -78,6 +79,7 @@ part of the website they implement, so the next student group can maintain it.
 | `scripts/` | Small build, preview, framework-import and thumbnail tools |
 | `scripts/import-framework.py` | Imports Studio 2026 and resolves Informs/Supports/Evaluates through fixed Evidence IDs; also supports the earlier row-reference format |
 | `tests/graph.test.mjs`, `tests/test_framework_import.py`, `tests/browser/graph-flow.js` | Integrated model/data, workbook identity and mounted website checks |
+| `tests/studio-navigation.test.mjs`, `tests/browser/studio-feedback-flow.js` | Viewing order, tag-to-Grid navigation, People, preview and mobile-header checks |
 
 The header's `.brand` centres the logo and title together above the tabs.
 Adjust `.brand-logo` in `styles.css` for its size; the SVG viewBox in `index.html`
@@ -98,17 +100,23 @@ scrollable thumbnail strip underneath. The strip includes every attachment,
 ordered by the eight evidence buckets and then alphabetically by filename.
 Click a bucket heading to collapse or expand its thumbnails. Selecting a file
 replaces the project introduction with the same evidence details used in the
-Hub: selected attachment, description, metadata, tags and backward/forward links.
+Hub: description, metadata, clickable tags and typed incoming/outgoing links.
+The sidebar omits the preview because it is already shown on the main stage.
 Both sidebars use `evidenceDetails` in `app.js`, so their content stays consistent.
-The large preview and shareable URL update with the selection. Previous/next
-controls follow the same order and expand a collapsed bucket when necessary;
+The large preview and shareable URL update with the selection. Back/Forward
+controls retrace the files actually viewed, including nonadjacent selections.
+Going Back and selecting something new replaces the old forward branch. Restoring
+a file expands its bucket when necessary; the toolbar remains accessible while scrolling.
 Project overview or closing the evidence details restores the project image.
 The layout stacks on mobile. Cached PDF first pages provide mobile previews,
 with links to open the original PDFs. A link also opens the project's filtered
 Hub view.
 
-Publications contains two clearly named layout examples. Partners contains RIVM
-and Gemeente Eindhoven, using the supplied logos in `assets/partners/`.
+Publications contains two clearly named layout examples. People has Students,
+Tutors and Partners categories. Student examples reuse `projects[].members` and
+their framework author tags. Tutors are in `tutors`; update names, initials and
+introductions there. Add an image for a portrait when available. Partners retains
+RIVM and Gemeente Eindhoven, using the supplied logos in `assets/partners/`.
 Replace the publication examples or add new entries when available, for example:
 
 ```js
@@ -119,7 +127,7 @@ Replace the publication examples or add new entries when available, for example:
 
 Publication cards show an image, title and publication date; partner cards show
 an image and title. The image is optional. Every card opens its own page at
-`#/publications/<id>` or `#/partners/<id>`, with a title, the `description`
+`#/publications/<id>` or `#/people/<id>`, with a title, the `description`
 sentence and a link back to the collection. Edit these introductions in
 `js/content.js`; both page types share `renderCollectionItem` in `app.js`.
 
@@ -171,11 +179,21 @@ host, update those URLs and `FILE_BASE_URL` in the importer together.
 Tags use **OR within a category, AND between categories**. Excluded tags always
 remove matching evidence. Bucket checkboxes support any combination, including
 none. Filters, sorting and selected evidence are stored in the URL and survive
-switches between Graph, Grid and List in the horizontal Hub submenu. Hover or
+switches between Knowledge Graph and Grid in the horizontal Hub submenu. Hover or
 keyboard focus reveals it; clicking Hub opens Graph and keeps the view links
-visible while browsing any Hub view, including on touch screens. The list and
-grid share the same filter function and details drawer. Grid cards show their
+visible while browsing any Hub view, including on touch screens. Both views
+share the same filter function and details drawer. Grid cards show their
 bucket, project name and tags on hover or keyboard focus.
+
+Evidence tags in the Hub drawer and project sidebar link to a fresh Grid query
+containing only that tag, including bucket/custom tags. Prior search, filters
+and open-file state are cleared. Saved List links redirect to Grid; saved
+Partners links redirect to the People partner category/profile.
+
+On phones, the main menu stays collapsed until Menu is pressed, while the two
+Hub views remain visible. Change their shared size with `--nav-font-size`.
+The centered logo/title remains in place; at 320–430 px widths the header is
+about 113 px tall, or 169 px including the Hub view bar, without horizontal overflow.
 
 To regenerate previews from an available local `evidence-files` archive, install
 Pillow and pypdfium2 and run `python scripts/create-thumbnails.py`. It reuses
@@ -199,8 +217,11 @@ document listeners and disconnect its resize observer. Filter updates keep the
 same mounted layout. Unconnected visibility defaults on; tag overlays default off.
 
 Bubble selection shows member files and nonempty typed relationships. File
-selection reuses the same simplified drawer renderer as Grid, List and Projects.
-The homepage keeps its existing Graph links; it does not mount a second graph.
+selection reuses the same simplified drawer renderer as Grid and Projects.
+The homepage's clickable `mountGraphPreview` renders actual connected bubbles,
+members and typed arrows from the same snapshot and layout. It shares SVG geometry
+with the interactive graph and adds no listeners or observers. The whole preview
+opens Hub → Knowledge Graph.
 
 Enter fixed target IDs in the workbook's Informs, Supports or Evaluates column,
 separated by semicolons, then refresh the snapshot. The importer validates IDs
@@ -222,3 +243,6 @@ For the mounted graph flow, start the local preview and run
 `npx --yes --package @playwright/cli playwright-cli run-code --filename=tests/browser/graph-flow.js`
 in an open Playwright CLI session. Importer checks run with
 `python -m unittest discover -s tests -p test_framework_import.py` (requires openpyxl).
+Run the same browser command with `--filename=tests/browser/studio-feedback-flow.js`
+for tag links, multi-step viewing history, People profiles, the connected homepage
+preview, UrbanLab branding and mobile menu/header checks.

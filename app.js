@@ -1,9 +1,10 @@
 // 1. Shared state and safe rendering helpers.
-import { site, projects, collections, buckets, tagGroups, relationshipTypes } from './js/content.js';
-import { titleOf, bucketStyle, extensionOf, isImage, previewFile, projectAttachments, filterEvidence, readFilters } from './js/evidence.js';
-import { mountGraph } from './js/graph.js';
+import { site, projects, collections, buckets, tagGroups, relationshipTypes, peopleGroups } from './js/content.js';
+import { titleOf, bucketStyle, extensionOf, isImage, previewFile, projectAttachments, filterEvidence, readFilters, tagGridUrl } from './js/evidence.js';
+import { mountGraph, mountGraphPreview } from './js/graph.js';
 import { frameworkEntries, relatedEntries } from './js/graph-data.js';
 import graphModel from './js/graph-model.js';
+import { createViewingHistory } from './js/viewing-history.js';
 
 const main = document.querySelector('#main');
 const detail = document.querySelector('#evidence-detail');
@@ -34,6 +35,8 @@ let returnFocus = null;
 let visibleCount = 36;
 let projectFiles = [];
 let activeProject;
+let projectHistory;
+let evidenceHistory = createViewingHistory();
 
 function cleanupGraph() {
   graphView?.destroy();
@@ -44,15 +47,15 @@ function cleanupGraph() {
 function collectionCard(item, type) {
   const href = `#/${type}/${item.id}`;
   const date = item.date ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(item.date)) : '';
-  const metadata = type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
+  const metadata = type === 'people' && item.role ? `<span class="person-role">${escape(item.role)}</span>` : type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
     : type === 'publications' && date ? `<time class="card-year" datetime="${escape(item.date)}">${date}</time>` : '';
   // Frame padded logos in SVG so the visible artwork aligns with the card title.
   const artwork = item.imageFrame
     ? `<svg class="collection-artwork" viewBox="${escape(item.imageFrame.viewBox)}" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><image href="${safeUrl(item.image)}" width="${item.imageFrame.width}" height="${item.imageFrame.height}" /></svg>`
     : `<img class="collection-artwork" src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" />`;
-  const contents = `${item.image ? `<div class="collection-image${type === 'partners' ? ' partner-logo' : ''}">${artwork}</div>` : ''}
+  const contents = `${item.initials && !item.image ? `<span class="person-avatar" aria-hidden="true">${escape(item.initials)}</span>` : ''}${item.image ? `<div class="collection-image${item.imageFrame ? ' partner-logo' : ''}">${artwork}</div>` : ''}
     <div class="collection-card-copy"><h3>${escape(item.title)}</h3>${metadata}</div>`;
-  return `<a class="collection-card" href="${href}">${contents}</a>`;
+  return `<a class="collection-card${item.initials ? ' person-card' : ''}" href="${href}">${contents}</a>`;
 }
 
 function collectionPreview(type) {
@@ -69,16 +72,19 @@ function renderHome() {
       <div class="hero-copy"><p class="eyebrow">${site.homeLabel}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p><p class="hero-description">${site.description}</p>
         <figure class="hero-image"><img src="${site.heroImage}" alt="A vision of a healthy city with green buildings, public transport and connected urban systems." width="1792" height="1024" fetchpriority="high" /></figure>
       </div>
-      <div class="graph-preview">
-        <div class="graph-preview-empty"><a class="graph-centre-link" href="#/hub/graph">Knowledge Graph ${arrow}</a></div>
-        <a class="graph-preview-bottom" href="#/hub/graph">Open Knowledge Graph <span aria-hidden="true">→</span></a>
-      </div>
+      <a class="graph-preview" href="#/hub/graph" aria-label="Open Knowledge Graph">
+        <div id="home-graph-preview" class="graph-preview-canvas" aria-hidden="true"></div>
+        <span class="graph-preview-bottom">Open Knowledge Graph <span aria-hidden="true">→</span></span>
+      </a>
     </section>
-    ${collectionPreview('projects')}${collectionPreview('publications')}${collectionPreview('partners')}
+    <section class="home-section home-introduction" aria-labelledby="hub-introduction"><div class="section-heading"><h2 id="hub-introduction">About the Urban Evidence Hub</h2></div><p>${escape(site.introduction)}</p></section>
+    ${collectionPreview('projects')}${collectionPreview('publications')}${collectionPreview('people')}
   </div>`;
+  mountGraphPreview(document.querySelector('#home-graph-preview'), { evidence: fileEvidence, links: fileLinks });
 }
 
 function renderCollection(type) {
+  if (type === 'people') return renderPeople();
   const collection = collections[type];
   const years = [...new Set(collection.items.map(item => item.year))].sort((a, b) => b - a);
   main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>${collection.title}</h1><p>${collection.description}</p></header>
@@ -86,12 +92,23 @@ function renderCollection(type) {
   </div>`;
 }
 
-// Partner and publication pages share a simple title, introduction and return link.
+// People categories reuse the same content cards and profile-page renderer.
+function renderPeople() {
+  const group = peopleGroups.find(group => group.id === route.params.get('category')) || peopleGroups[0];
+  const years = [...new Set(group.items.map(item => item.year).filter(Boolean))];
+  main.innerHTML = `<div class="container collection-page"><header class="page-heading"><h1>People</h1><p>${collections.people.description}</p></header>
+    <nav class="people-nav" aria-label="People categories">${peopleGroups.map(category => `<a href="#/people?category=${category.id}"${category === group ? ' aria-current="page"' : ''}>${category.title}</a>`).join('')}</nav>
+    <section class="year-section"><div class="section-heading"><h2>${group.title}</h2><span class="muted">${group.id === 'students' ? years.map(year => `Studio ${year}`).join(', ') + ' · ' : ''}${group.items.length} ${group.title.toLowerCase()}</span></div><div class="collection-grid">${group.items.map(item => collectionCard(item, 'people')).join('')}</div></section></div>`;
+}
+
+// Profile and publication pages share a title, introduction and return link.
 function renderCollectionItem(type, id) {
   const item = collections[type].items.find(item => item.id === id);
   if (!item) return renderNotFound();
   document.title = `${item.title} | ${site.title}`;
-  main.innerHTML = `<article class="container collection-page"><header class="page-heading"><h1>${escape(item.title)}</h1><p>${escape(item.description)}</p></header><a class="text-link" href="#/${type}">← All ${type}</a></article>`;
+  const category = type === 'people' ? peopleGroups.find(group => group.items.includes(item)) : null;
+  const back = category ? `#/people?category=${category.id}` : `#/${type}`;
+  main.innerHTML = `<article class="container collection-page"><header class="page-heading"><h1>${escape(item.title)}</h1><p>${escape(item.description)}</p></header>${item.evidenceTag ? `<p><a class="text-link" href="${tagGridUrl(item.evidenceTag)}">Browse evidence by ${escape(item.title)} →</a></p>` : ''}<a class="text-link" href="${back}">← All ${type}</a></article>`;
 }
 
 // Project viewer: large selected file, project information on the right, all files below.
@@ -101,8 +118,10 @@ function renderProject(id) {
   activeProject = project;
   document.title = `${project.title} | ${site.title}`;
   projectFiles = projectAttachments(evidence, project.tag);
+  const selected = projectFiles.findIndex(entry => (entry.item.id === route.params.get('evidence') && entry.fileIndex === Number(route.params.get('file') || 0)) || entry.file.framework?.id === route.params.get('evidence'));
+  projectHistory = createViewingHistory(selected);
   main.innerHTML = `<article class="project-viewer" aria-label="${escape(project.title)}">
-    <div class="project-toolbar"><a href="#/projects" class="text-link">← All projects</a><div class="project-controls"><button type="button" data-project-cover>Project overview</button><button type="button" data-project-step="-1" aria-label="Previous file">←</button><span id="project-position" role="status" aria-live="polite"></span><button type="button" data-project-step="1" aria-label="Next file">→</button></div></div>
+    <div class="project-toolbar"><a href="#/projects" class="text-link">← All projects</a><div class="project-controls"><button type="button" data-project-cover>Project overview</button>${historyControls(projectHistory, 'project')}<span id="project-position" role="status" aria-live="polite"></span></div></div>
     <div id="project-stage" class="project-stage"></div>
     <aside id="project-info" class="project-info" aria-label="Project information"></aside>
     <nav class="project-filmstrip" aria-label="Project files by evidence bucket">${buckets.map(bucket => {
@@ -113,12 +132,12 @@ function renderProject(id) {
       }).join('')}</div></details>` : '';
     }).join('') || '<p class="muted">No project files have been added yet.</p>'}</nav>
   </article>`;
-  const selected = projectFiles.findIndex(entry => entry.item.id === route.params.get('evidence') && entry.fileIndex === Number(route.params.get('file') || 0));
   selectProjectFile(selected, false);
 }
 
 function selectProjectFile(index, syncUrl = true) {
   const entry = projectFiles[index];
+  projectHistory.visit(entry ? index : -1);
   const { item, file, fileIndex } = entry || {};
   const project = activeProject;
   const panel = document.querySelector('#project-info');
@@ -129,8 +148,8 @@ function selectProjectFile(index, syncUrl = true) {
   panel.innerHTML = entry ? evidenceDetails(item, file) : `<img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(escape).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', new URLSearchParams({ include: project.tag }))}">Browse in the Hub →</a>`;
   panel.scrollTop = 0;
   document.querySelector('#project-position').textContent = entry ? `${index + 1} of ${projectFiles.length}` : `${projectFiles.length} files`;
-  document.querySelector('[data-project-step="-1"]').disabled = index < 1;
-  document.querySelector('[data-project-step="1"]').disabled = index >= projectFiles.length - 1;
+  document.querySelector('.project-controls [data-step="-1"]').disabled = !projectHistory.canBack;
+  document.querySelector('.project-controls [data-step="1"]').disabled = !projectHistory.canForward;
   document.querySelectorAll('[data-project-file]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.projectFile) === index)));
   if (entry) {
     const thumbnail = document.querySelector(`[data-project-file="${index}"]`);
@@ -191,16 +210,16 @@ function renderResults() {
     target.innerHTML = `<div class="no-results"><h2>No matching evidence</h2><p>Try another search or remove a filter.</p><button class="button secondary" type="button" data-clear>Clear search and filters</button></div>`;
     return;
   }
-  target.innerHTML = `<div class="evidence-${route.view}">${results.slice(0, visibleCount).map(item => evidenceCard(item, route.view)).join('')}</div>${results.length > visibleCount ? `<div class="load-more"><button type="button" class="button secondary" data-more>Show more evidence</button><span class="muted">Showing ${Math.min(visibleCount, results.length)} of ${results.length}</span></div>` : ''}`;
+  target.innerHTML = `<div class="evidence-grid">${results.slice(0, visibleCount).map(item => evidenceCard(item)).join('')}</div>${results.length > visibleCount ? `<div class="load-more"><button type="button" class="button secondary" data-more>Show more evidence</button><span class="muted">Showing ${Math.min(visibleCount, results.length)} of ${results.length}</span></div>` : ''}`;
 }
 
-function evidenceCard(item, view) {
+function evidenceCard(item) {
   const file = previewFile(item);
   const format = file ? extensionOf(file).toUpperCase() : 'FILE';
   const image = item.thumbnail || file?.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : '');
-  return `<button type="button" class="evidence-card ${view}-card" style="${bucketStyle(item)}" data-evidence="${escape(item.id)}" aria-haspopup="dialog" aria-label="View details: ${escape(titleOf(item))}">
-    ${view === 'grid' ? `<span class="evidence-thumbnail">${image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />` : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`}<span class="thumbnail-details">${bucketLabel(item)}<span class="hover-project">${escape(item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(' · '))}</span><span class="detail-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).map(pill).join('')}</span></span></span>` : ''}
-    <span class="evidence-card-copy">${view === 'list' ? bucketLabel(item) : ''}<span class="evidence-title">${escape(titleOf(item))}</span>${view === 'list' ? `<span class="evidence-description">${escape(item.description || item.tags.filter(tag => tag.startsWith('Group ')).join(' · ').replace(/Group \d: /g, '') || site.studio)}</span><span class="card-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).slice(0, 4).map(pill).join('')}</span><span class="card-open" aria-hidden="true">↗</span>` : ''}</span>
+  return `<button type="button" class="evidence-card grid-card" style="${bucketStyle(item)}" data-evidence="${escape(item.id)}" aria-haspopup="dialog" aria-label="View details: ${escape(titleOf(item))}">
+    <span class="evidence-thumbnail">${image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />` : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`}<span class="thumbnail-details">${bucketLabel(item)}<span class="hover-project">${escape(item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(' · '))}</span><span class="detail-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).map(pill).join('')}</span></span></span>
+    <span class="evidence-card-copy"><span class="evidence-title">${escape(titleOf(item))}</span></span>
   </button>`;
 }
 
@@ -246,7 +265,12 @@ function linkedItemsSection(label, entries, attribute = 'data-evidence') {
   return `<section class="detail-section"><h3>${escape(label)} (${entries.length})</h3><div class="linked-items">${entries.map(entry => `<button type="button" ${attribute}="${escape(entry.id)}"><strong>${escape(graphModel.displayTitle(entry.title))}</strong></button>`).join('')}</div></section>`;
 }
 
-// Hub, Graph and Projects share exact-file previews, metadata and relationship lists.
+// History follows actual selections, with independent project and Hub sessions.
+function historyControls(history, scope) {
+  return `<div class="viewing-history" role="group" aria-label="Evidence viewing history"><button type="button" data-view-history="${scope}" data-step="-1" aria-label="Back to previously viewed evidence"${history.canBack ? '' : ' disabled'}>← Back</button><button type="button" data-view-history="${scope}" data-step="1" aria-label="Forward to next viewed evidence"${history.canForward ? '' : ' disabled'}>Forward →</button></div>`;
+}
+
+// Shared file details; project pages already show the preview on their main stage.
 function evidenceDetails(item, file = previewFile(item)) {
   const entry = file?.framework;
   const tags = entry?.tags || item.tags;
@@ -258,12 +282,13 @@ function evidenceDetails(item, file = previewFile(item)) {
   const related = relatedEntries(entry?.id || item.id, entry ? fileEvidence : evidence, entry ? fileLinks : links, relationshipTypes);
   const selectFiles = item.files.length > 1 && !(route.page === 'hub' && route.view === 'graph');
   return `<div class="detail-top"><span class="eyebrow">Evidence details</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div>
-    <h2 id="detail-title" tabindex="-1">${escape(graphModel.displayTitle(entry?.title || item.title))}</h2><div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>
+    ${route.page === 'hub' ? historyControls(evidenceHistory, 'evidence') : ''}
+    <h2 id="detail-title" tabindex="-1">${escape(graphModel.displayTitle(entry?.title || item.title))}</h2>${route.page === 'projects' ? '' : `<div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>`}
     ${selectFiles ? `<label class="file-select-label">Attached files<select id="file-select">${item.files.map((attached, index) => `<option value="${index}"${attached === file ? ' selected' : ''}>${escape(attached.fileName || attached.title)}</option>`).join('')}</select></label>` : ''}
     <div id="file-action">${file?.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : ''}</div>
     <section class="detail-section"><h3>Description</h3><p>${escape((entry ? entry.description : item.description) || 'No description has been added yet.')}</p></section>
     <section class="detail-section"><h3>Metadata</h3><dl class="metadata">${metadata.map(([label, value]) => `<div><dt>${label}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl></section>
-    <section class="detail-section"><h3>Tags</h3><div class="detail-tags">${tags.map(pill).join('') || '<p class="muted">No tags recorded.</p>'}</div></section>
+    <section class="detail-section"><h3>Tags</h3><div class="detail-tags">${tags.map(tag => `<a class="tag" href="${escape(tagGridUrl(tag))}">${escape(tag)}</a>`).join('') || '<p class="muted">No tags recorded.</p>'}</div></section>
     ${related.map(section => linkedItemsSection(section.label, section.entries)).join('')}`;
 }
 
@@ -286,7 +311,10 @@ function openGraphDetail(group, node, arrows) {
   route.params.set(node ? 'evidence' : 'group', node?.id || group.key);
   history.replaceState(null, '', hubUrl('graph', route.params));
   syncHubLinks();
-  if (node) return showDetail(evidenceDetails(node.item, node.file));
+  if (node) {
+    evidenceHistory.visit(node.id);
+    return showDetail(evidenceDetails(node.item, node.file));
+  }
   const relations = [false, true].flatMap(backward => relationshipTypes.map(type => {
     const entries = arrows.filter(arrow => arrow.type === type.id && (backward ? arrow.target : arrow.source) === group.key)
       .map(arrow => backward ? arrow.sourceGroup : arrow.targetGroup).map(other => ({ id: other.key, title: other.name }));
@@ -308,6 +336,7 @@ function openDetail(id, focus = true, fileIndex) {
   }
   if (route.page === 'hub' && route.view === 'graph' && graphView?.select(file?.framework?.id || id, true)) return;
   selectedId = file?.framework?.id || id;
+  evidenceHistory.visit(selectedId);
   route.params.set('evidence', selectedId);
   route.params.delete('group');
   history.replaceState(null, '', hubUrl(route.view, route.params));
@@ -349,7 +378,7 @@ function renderSearch() {
       const items = collection.items.filter(matches);
       return items.length ? `<section class="home-section"><div class="section-heading"><h2>${collection.title}</h2></div><div class="collection-grid">${items.map(item => collectionCard(item, type)).join('')}</div></section>` : '';
     }).join('')}
-    <section class="home-section"><div class="section-heading"><h2>Evidence</h2><a href="${hubUrl('grid', new URLSearchParams({ q: query }))}">View all evidence →</a></div>${results.length ? `<div class="search-evidence">${results.slice(0, 8).map(item => `<a class="search-result" style="${bucketStyle(item)}" href="${hubUrl('list', new URLSearchParams({ q: query, evidence: item.id }))}">${bucketLabel(item)}<h3>${escape(titleOf(item))}</h3>${arrow}</a>`).join('')}</div>` : '<div class="no-results"><h3>No matching evidence</h3><p>Try a different search term.</p></div>'}</section></div>`;
+    <section class="home-section"><div class="section-heading"><h2>Evidence</h2><a href="${hubUrl('grid', new URLSearchParams({ q: query }))}">View all evidence →</a></div>${results.length ? `<div class="search-evidence">${results.slice(0, 8).map(item => `<a class="search-result" style="${bucketStyle(item)}" href="${hubUrl('grid', new URLSearchParams({ q: query, evidence: item.id }))}">${bucketLabel(item)}<h3>${escape(titleOf(item))}</h3>${arrow}</a>`).join('')}</div>` : '<div class="no-results"><h3>No matching evidence</h3><p>Try a different search term.</p></div>'}</section></div>`;
 }
 
 function renderNotFound() {
@@ -377,7 +406,18 @@ function renderRoute() {
   const [path, query = ''] = location.hash.slice(1).split('?');
   const parts = (path || '/home').split('/').filter(Boolean);
   const params = new URLSearchParams(query);
-  route = { page: parts[0], view: ['list', 'grid', 'graph'].includes(parts[1]) ? parts[1] : 'graph', params, filters: readFilters(params) };
+  // Old saved links resolve to their replacement; no List/Partners page is rendered.
+  if (parts[0] === 'hub' && parts[1] === 'list') {
+    parts[1] = 'grid';
+    history.replaceState(null, '', hubUrl('grid', params));
+  }
+  if (parts[0] === 'partners') {
+    parts[0] = 'people';
+    if (!parts[1]) params.set('category', 'partners');
+    history.replaceState(null, '', '#/people' + (parts[1] ? '/' + parts[1] : '') + (params.size ? '?' + params : ''));
+  }
+  if (route?.page !== 'hub' || parts[0] !== 'hub') evidenceHistory = createViewingHistory();
+  route = { page: parts[0], view: ['grid', 'graph'].includes(parts[1]) ? parts[1] : 'graph', params, filters: readFilters(params) };
   visibleCount = 36;
   document.querySelectorAll('#main-nav [data-page]').forEach(link => {
     if (link.dataset.page === route.page) link.setAttribute('aria-current', 'page');
@@ -385,9 +425,8 @@ function renderRoute() {
   });
   syncHubLinks();
   setHubMenu(hubNav.matches(':hover') && !mobileViewport.matches);
-  const mobileHub = mobileViewport.matches && route.page === 'hub';
-  document.querySelector('#main-nav').classList.toggle('is-open', mobileHub);
-  document.querySelector('.menu-button').setAttribute('aria-expanded', String(mobileHub));
+  document.querySelector('#main-nav').classList.remove('is-open');
+  document.querySelector('.menu-button').setAttribute('aria-expanded', 'false');
   document.querySelector('#global-search').value = params.get('q') || '';
   document.title = `${route.page === 'home' ? 'Trace evidence into design' : (collections[route.page]?.title || (route.page === 'hub' ? 'Hub' : 'Search'))} | ${site.title}`;
   if (route.page === 'home') renderHome();
@@ -417,9 +456,11 @@ document.addEventListener('click', event => {
     document.querySelector('#main-nav').classList.toggle('is-open', open);
   } else if (button.hasAttribute('data-project-file')) selectProjectFile(Number(button.dataset.projectFile));
   else if (button.hasAttribute('data-project-cover')) selectProjectFile(-1);
-  else if (button.hasAttribute('data-project-step')) {
-    const current = document.querySelector('[data-project-file][aria-pressed="true"]');
-    selectProjectFile((current ? Number(current.dataset.projectFile) : -1) + Number(button.dataset.projectStep));
+  else if (button.hasAttribute('data-view-history')) {
+    const project = button.dataset.viewHistory === 'project';
+    const value = (project ? projectHistory : evidenceHistory).move(Number(button.dataset.step));
+    if (project) selectProjectFile(value);
+    else openDetail(value);
   } else if (button.hasAttribute('data-graph-group')) graphView?.select(button.dataset.graphGroup, true);
   else if (button.hasAttribute('data-evidence')) openDetail(button.dataset.evidence);
   else if (button.hasAttribute('data-close')) {
@@ -454,11 +495,13 @@ document.addEventListener('click', event => {
 
 // Hover reveals the view links; Hub pages keep them open, including on touch screens.
 // Keep the three links centred under Hub while their background spans the header.
-new ResizeObserver(() => {
+const headerObserver = new ResizeObserver(() => {
   const header = document.querySelector('.site-header').getBoundingClientRect();
   const hub = hubLink.getBoundingClientRect();
   hubNav.style.setProperty('--hub-centre', `${hub.left - header.left + hub.width / 2}px`);
-}).observe(document.querySelector('.site-header'));
+});
+headerObserver.observe(document.querySelector('.site-header'));
+headerObserver.observe(hubLink);
 hubNav.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse' && !mobileViewport.matches) setHubMenu(true); });
 hubNav.addEventListener('pointerleave', () => { if (!hubNav.querySelector(':focus-visible')) setHubMenu(false); });
 hubNav.addEventListener('focusin', () => setHubMenu(true));

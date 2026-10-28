@@ -22,6 +22,7 @@
   --graph-faded-bubble: .18;
   --graph-faded-arrow: .16;
   --font: "Segoe UI", Arial, sans-serif;
+  --nav-font-size: 16px;
   --content-width: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
   --header-height: 108px;
