@@ -20,7 +20,7 @@ npm test          # Evidence filtering and data integrity
 npm run build     # Public website only, written to dist/
 ```
 
-### Connect GitHub to UrbanEvidenceHub.com through Cloudflare Pages
+### Connect the draft through Cloudflare Pages
 
 1. In Cloudflare, open **Workers & Pages → Create application → Pages → Connect
    to Git**. Authorize GitHub and select
@@ -35,22 +35,25 @@ npm run build     # Public website only, written to dist/
    | Build output directory | `dist` |
    | Root directory | Repository root (leave the override blank) |
 
-3. Check the generated `pages.dev` address. In the Pages project, select
-   **Custom domains → Set up a domain** and enter `urbanevidencehub.com`.
-   Confirm the Cloudflare DNS setup; add `www.urbanevidencehub.com` there too if
-   you want both addresses. The root domain must be in the same Cloudflare
-   account as this Pages project, using Cloudflare nameservers.
-4. If the domain is attached to the existing holding-page project, move that
-   domain connection to the new Pages project when you are ready to replace it.
+3. Add `draft.urbanevidencehub.com` under **Custom domains** on the new Pages
+   project. Keep the root domain attached to the holding-page project.
+4. After the draft works over HTTPS, publish the **View draft website** link
+   from the local `coming-soon/index.html` through the existing holding-page
+   project. For an invite-only draft, configure Cloudflare Access for the
+   custom domain and the Pages URLs before sharing the link.
 
 Future pushes to `codex/website-v2` will automatically build and publish to this
 Pages project. GitHub stores the source; Cloudflare Pages hosts the website and
-connects it to the domain. These instructions do not modify the live domain.
+connects it to the domain.
 See Cloudflare's [Git integration guide](https://developers.cloudflare.com/pages/get-started/git-integration/)
 and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
 Only the allowlisted public files are copied into `dist`. Local spreadsheets,
 archives, prototypes, working documents and evidence originals are excluded.
+The build includes `_headers` for the draft. It requests no indexing and
+limits embedded evidence to the configured hosts. Inline styles support the
+graph and bucket colors. Review these policies when moving to a public launch
+or adding another evidence host.
 All page links use hash routes, so direct links work on static hosts without
 server rewrite rules or a backend.
 
@@ -63,6 +66,7 @@ part of the website they implement, so the next student group can maintain it.
 | File | Owns |
 | --- | --- |
 | `index.html` | Centred logo/title and navigation, full-width Hub bar, search, main area, detail drawer and footer |
+| `_headers` | Cloudflare Pages browser security and indexing policies for the draft |
 | `assets/ueh-logo.png` | Original supplied logo; its header SVG frame removes surrounding whitespace |
 | `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
@@ -124,7 +128,7 @@ Tutors and Partners as consecutive sections, without category tabs. Existing
 Student examples reuse `projects[].members` and their framework author tags;
 cards, profiles and project overviews display first names only. Tutors are in `tutors`; update names, initials and
 introductions there. Add an image for a portrait when available. The RIVM card
-uses its name until a replacement logo is supplied.
+uses the supplied black-text Dutch logo, exported from EPS to PNG.
 Replace the publication examples or add new entries when available, for example:
 
 ```js

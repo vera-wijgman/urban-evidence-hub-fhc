@@ -8,7 +8,7 @@ const output = path.join(root, 'dist');
 // This destination is a fixed child of the repository, never supplied by callers.
 await rm(output, { recursive: true, force: true });
 await mkdir(path.join(output, 'data'), { recursive: true });
-const entries = ['index.html', 'app.js', 'styles.css', 'assets', 'js',
+const entries = ['index.html', '_headers', 'app.js', 'styles.css', 'assets', 'js',
   'home-responsive-neighbourhood.jpeg', 'home-living-superblocks.png', 'home-health-islands.png',
   'data/evidence.json'];
 for (const entry of entries) await cp(path.join(root, entry), path.join(output, entry), { recursive: true });
