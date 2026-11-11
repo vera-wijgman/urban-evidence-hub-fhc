@@ -35,11 +35,11 @@ export const publications = [
     date: '2026-10-01', image: 'assets/healthy-cities.jpg',
     description: 'Example publication 02 explores how urban evidence can inform healthier cities.' },
 ];
-// Partner: { id, title, year, description, image?, imageFrame? }.
+// Use logoOnly when the artwork already spells out the partner's name.
 // imageFrame excludes built-in white margins without changing the original logo.
 export const partners = [
   { id: 'rivm', title: 'RIVM — Rijksinstituut voor Volksgezondheid en Milieu', year: 2026,
-    image: 'assets/partners/rivm-nl.png',
+    image: 'assets/partners/rivm-nl.png', logoOnly: true,
     imageFrame: { viewBox: '582 0 632 490', width: 1276, height: 553 },
     description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities UrbanLab.' },
 ];

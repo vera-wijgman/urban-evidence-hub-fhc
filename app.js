@@ -53,8 +53,9 @@ function collectionCard(item, type) {
   const artwork = item.imageFrame
     ? `<svg class="collection-artwork" viewBox="${escape(item.imageFrame.viewBox)}" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><image href="${safeUrl(item.image)}" width="${item.imageFrame.width}" height="${item.imageFrame.height}" /></svg>`
     : `<img class="collection-artwork" src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" />`;
+  const copyClass = item.logoOnly && item.image ? 'sr-only' : 'collection-card-copy';
   const contents = `${item.initials && !item.image ? `<span class="person-avatar" aria-hidden="true">${escape(item.initials)}</span>` : ''}${item.image ? `<div class="collection-image${item.imageFrame ? ' partner-logo' : ''}">${artwork}</div>` : ''}
-    <div class="collection-card-copy"><h3>${escape(item.title)}</h3>${metadata}</div>`;
+    <div class="${copyClass}"><h3>${escape(item.title)}</h3>${metadata}</div>`;
   return `<a class="collection-card${item.initials ? ' person-card' : ''}" href="${href}">${contents}</a>`;
 }
 
