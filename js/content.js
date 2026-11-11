@@ -39,8 +39,6 @@ export const publications = [
 // imageFrame excludes built-in white margins without changing the original logo.
 export const partners = [
   { id: 'rivm', title: 'RIVM — Rijksinstituut voor Volksgezondheid en Milieu', year: 2026,
-    image: 'assets/partners/rivm.jpg',
-    imageFrame: { viewBox: '36 0 402 151', width: 474, height: 180 },
     description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities UrbanLab.' },
 ];
 

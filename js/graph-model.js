@@ -406,50 +406,7 @@ const graphModel = (() => {
     return { groups, arrows: links };
   }
 
-  // Tag membership is a view overlay, independent of workbook relationships.
-  // Place enabled tags in free space without moving the evidence layout.
-  function buildTagOverlay(clusters, nodes, activeTags, arrows = []) {
-    const tags = [];
-    const occupied = clusters.map(group => ({ x: group.x, y: group.y, radius: group.radius }));
-    for (const name of activeTags) {
-      const members = nodes.filter(node => node.visible && (node.tags || []).includes(name));
-      const groups = [...new Set(members.map(node => node.cluster))];
-      if (!groups.length) continue;
-      const titleLines = wrapTitle(name);
-      const radius = Math.max(45, Math.max(...titleLines.map(line => line.length)) * 3.6 + 14);
-      const centreX = groups.reduce((sum, group) => sum + group.x, 0) / groups.length;
-      const centreY = groups.reduce((sum, group) => sum + group.y, 0) / groups.length;
-      let position;
-      for (let ring = 0; !position; ring++) {
-        const count = ring ? Math.max(16, ring * 12) : 1;
-        for (let index = 0; index < count; index++) {
-          const angle = index / count * Math.PI * 2 - Math.PI / 2;
-          const x = centreX + Math.cos(angle) * ring * 80;
-          const y = centreY + Math.sin(angle) * ring * 80;
-          const clearOfArrows = arrows.every(arrow => {
-            const source = arrow.sourceGroup;
-            const target = arrow.targetGroup;
-            const dx = target.x - source.x;
-            const dy = target.y - source.y;
-            const squared = dx * dx + dy * dy;
-            if (!squared) return true;
-            const projection = ((x - source.x) * dx + (y - source.y) * dy) / squared;
-            if (projection <= 0 || projection >= 1) return true;
-            return Math.hypot(x - source.x - projection * dx, y - source.y - projection * dy) >= radius + 20;
-          });
-          if (clearOfArrows && occupied.every(other => Math.hypot(x - other.x, y - other.y) >= radius + other.radius + 24)) {
-            position = { x, y, radius };
-            break;
-          }
-        }
-      }
-      occupied.push(position);
-      tags.push({ name, titleLines, members, groups, ...position });
-    }
-    return tags;
-  }
-
-  return { buildGraph, wrapTitle, displayTitle, decisionChain, buildTagOverlay };
+  return { buildGraph, wrapTitle, displayTitle, decisionChain };
 })();
 
 export default graphModel;

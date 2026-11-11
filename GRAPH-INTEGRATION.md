@@ -43,8 +43,8 @@ the bubble, optional exact file and group arrows to the shared drawer.
 
 The graph owns scoped canvas events, two abortable document listeners and one
 resize observer. Route teardown destroys them. Filter updates preserve positions,
-pan/zoom and tag overlays. The graph opens with connected evidence only:
-Unconnected starts off, and Reset restores that default with tag overlays off.
+pan and zoom. The graph opens with connected evidence only. Unconnected starts
+off, and Clear all filters restores that default.
 Fit all can zoom far enough out to contain the complete collection when
 Unconnected is enabled. Layout geometry itself matches the prototype.
 
@@ -87,22 +87,19 @@ and standalone HTML in `outputs/` remain local historical references.
   unrelated sibling branches.
 - Bubble drawers show the bubble title, its member files and its nonempty
   relationship categories. No tags, preview or file metadata appear for a bubble.
-- Individual file drawers show title, preview, description, Bucket, Project,
-  Evidence group, Content type, Source and the file's own tags. Do not display
-  Evidence ID, Framework row or a duplicate File metadata field.
-- Member lists and linked-item lists display names only. Do not add ID numbers,
+- Individual file drawers show the title, preview, buckets, description when
+  provided, and the file's own tags and relationships. The project sidebar
+  shares these details while its preview appears on the main stage.
+- Member lists and linked-item lists display names in natural numeric order. Do not add ID numbers,
   bucket badges, secondary metadata or navigation icons to each list entry.
 - Use Informs, Supports, Evaluates, Informed by, Supported by and Evaluated by.
   Omit empty relationship sections entirely, including their headings and any
   “No links recorded yet” placeholder. File links refer to the exact linked file;
   bubble links refer to the connected bubble.
-- Keep the lower-left legend next to Fit/zoom controls, the Unconnected switch in
-  the filter header, and unchecked-by-default tag display checkboxes grouped by
-  the website's categories. Tag membership lines are an optional metadata overlay,
-  not new workbook relationships.
+- Keep the lower-left legend next to Fit/zoom controls and the Unconnected switch
+  in the filter header. Use collapsible sections for evidence buckets and tag filters.
 - Keep related bubbles close, place disconnected evidence separately, and verify
-  initial straight arrows do not pass through unrelated bubbles. Enabled tag
-  nodes also stay clear of relationship arrows. Preserve circle-boundary endpoints
+  initial straight arrows do not pass through unrelated bubbles. Preserve circle-boundary endpoints
   when dragging; the layout does not run a continuous animation.
 - Preserve the final neighbour-aware placement logic: count distinct neighbours,
   give single-neighbour bubbles stronger attraction, penalize long gaps more than
@@ -121,7 +118,7 @@ IDs, legacy references, invalid targets and exact-file metadata after reordering
 
 With the local preview running, use Playwright CLI's `run-code` with
 `--filename=tests/browser/graph-flow.js`. The mounted website flow checks hover,
-pin/clear, exact member/linked-file selection, simplified panels, tag overlays,
+pin/clear, exact member/linked-file selection, simplified panels, collapsible buckets,
 filters, pan/zoom, Unconnected, mobile modal behavior and Graph/Grid/Projects.
 It also counts abortable listeners through repeated route teardown/remount.
 Additional local verification checked dragging, circle-boundary arrow endpoints,

@@ -32,7 +32,6 @@ p { margin-bottom: 16px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 11px 17px; color: var(--paper); background: var(--accent); border: 1px solid var(--accent); font-size: 13px; font-weight: 600; }
 .button:hover { filter: brightness(.94); }
 .button.secondary { color: var(--accent); background: var(--paper); border-color: var(--line); }
-.text-button { background: transparent; padding: 4px 0; color: var(--accent); font-size: 11px; }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
 .section-heading h2 { margin: 0; }
 .loading { padding: 80px var(--gutter); color: var(--muted); }
@@ -67,7 +66,7 @@ p { margin-bottom: 16px; }
 .home-hero { padding: var(--page-heading-top) 0 52px; display: grid; grid-template-columns: 1fr 1.18fr; gap: 44px; }
 .hero-copy { position: relative; }
 /* The homepage label sits above its title without shifting the shared title line. */
-.hero-copy .eyebrow { position: absolute; bottom: 100%; margin: 0 0 18px; text-transform: none; }
+.hero-copy .eyebrow { position: absolute; bottom: 100%; margin: 0 0 18px; font-size: var(--nav-font-size); font-style: italic; font-weight: 400; letter-spacing: normal; text-transform: none; }
 .hero-copy h1 { margin-bottom: 9px; font-size: clamp(36px, 3.65vw, 58px); white-space: nowrap; }
 .hero-subtitle { font-size: clamp(22px, 2vw, 31px); letter-spacing: -.03em; margin-bottom: 15px; line-height: 1.25; }
 .hero-description { color: var(--muted); font-size: 16px; max-width: 470px; line-height: 1.6; margin-bottom: 28px; }
@@ -244,10 +243,6 @@ a.tag:is(:hover, :focus-visible) { color: var(--accent); border-color: var(--acc
 .detail-section { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
 .detail-section h3 { display: flex; align-items: baseline; gap: 7px; font-size: 13px; margin-bottom: 13px; letter-spacing: 0; }
 .detail-section p { color: var(--muted); font-size: 12px; line-height: 1.65; white-space: pre-line; }
-.metadata { margin: 0; display: grid; gap: 10px; }
-.metadata > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; font-size: 11px; }
-.metadata dt { color: var(--muted); }
-.metadata dd { margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
 .detail-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .linked-items { display: grid; gap: 8px; }
 .linked-items button { position: relative; width: 100%; text-align: left; display: flex; flex-direction: column; align-items: flex-start; padding: 12px; background: var(--surface); border: 1px solid var(--line); }

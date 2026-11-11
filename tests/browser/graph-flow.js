@@ -32,7 +32,13 @@ async (page) => {
   check(await graph.locator('.cluster').count() === 296, 'The 296 compact project-scoped bubbles render');
   check(await graph.locator('.relationship-arrow').count() === 48, 'All 48 typed group arrows render');
   check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence`, 'Graph defaults to connected individual files');
-  check(await page.locator('[data-graph="tag-controls"] input:checked').count() === 0, 'Tag overlays start unchecked');
+  check(await page.getByRole('heading', { name: 'Show tags in graph' }).count() === 0, 'Graph filters omit tag display controls');
+  const buckets = page.locator('summary').filter({ hasText: 'Evidence buckets' });
+  const research = page.getByRole('checkbox', { name: 'Research', exact: true });
+  await buckets.click();
+  check(await research.isHidden(), 'Evidence buckets can collapse');
+  await buckets.click();
+  check(await research.isVisible() && await research.isChecked(), 'Reopening Evidence buckets preserves checked filters');
   const bubble = graph.locator('.cluster').filter({ hasText: /^Integration/ }).first();
   await bubble.hover({ force: true });
   check(await graph.locator('.cluster.previewed').count() === 1 && await graph.locator('.cluster.unrelated').count() > 0, 'Hover traces the chain and fades unrelated bubbles');
@@ -49,12 +55,18 @@ async (page) => {
   const expected = byId.get(memberId);
   check(await drawer.locator('.file-open').getAttribute('href') === expected.file.fileUrl, 'Member selection opens the exact attachment');
   check(await drawer.locator('.detail-tags .tag').allTextContents().then(tags => JSON.stringify(tags) === JSON.stringify(expected.tags)), 'File drawer shows this file’s own tags');
-  const labels = await drawer.locator('.metadata dt').allTextContents();
-  check(JSON.stringify(labels) === JSON.stringify(['Bucket','Project','Evidence group','Content type','Source']), 'File drawer uses the five simplified metadata fields');
+  check(await drawer.getByRole('heading', { name: /^Buckets?$/ }).count() === 1
+    && !/^(Metadata|Project|Evidence group|Content type|Source)$/m.test((await drawer.locator('.detail-section h3').allTextContents()).join('\n')),
+  'File drawer displays buckets and omits duplicate metadata fields');
+  check(await drawer.getByRole('heading', { name: 'Description', exact: true }).count() === Number(Boolean(expected.description?.trim())), 'Description appears only when present');
   check(!/UEH-|Framework row|No links recorded yet/.test(await drawer.textContent()), 'IDs, row numbers and empty relationship placeholders stay hidden');
   const related = data.fileLinks.filter(link => link.source === memberId || link.target === memberId);
   const actualTargets = await drawer.locator('.linked-items [data-evidence]').evaluateAll(buttons => buttons.map(button => button.dataset.evidence));
   check(actualTargets.length === related.length, 'File relationship lists contain exactly the recorded incoming/outgoing links');
+  check(await drawer.locator('.linked-items').evaluateAll(lists => lists.every(list => {
+    const titles = Array.from(list.querySelectorAll('button'), button => button.textContent);
+    return titles.every((title, i) => !i || titles[i - 1].localeCompare(title, undefined, { numeric: true }) <= 0);
+  })), 'Relationship lists use natural title order');
   if (actualTargets.length) {
     const targetId = actualTargets[0];
     await drawer.locator('.linked-items [data-evidence]').first().click();
@@ -84,14 +96,11 @@ async (page) => {
   check(await graph.locator('.cluster[style*="display: none"]').count() > 0, 'Unconnected switch hides disconnected bubbles');
   await page.getByRole('switch', { name: 'Show unconnected evidence' }).check();
   check(await graph.locator('.cluster[style*="display: none"]').count() === 0, 'Unconnected switch restores them');
-  await page.getByRole('checkbox', { name: 'Show Mobility in graph', exact: true }).check();
-  check(await graph.locator('.tag-node').count() === 1 && await graph.locator('.tag-membership').count() > 0, 'A checked tag creates its node and membership overlay');
   await page.getByRole('button', { name: 'Include Mobility', exact: true }).click();
   const count = Number((await page.locator('#result-count').textContent()).split(' ')[0]);
   check(count === files.filter(file => file.tags.includes('Mobility')).length, 'Shared include filters use exact file metadata');
-  check(await graph.locator('.tag-node').count() === 1, 'Filter updates preserve the mounted tag overlay');
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence` && await graph.locator('.tag-node').count() === 0, 'Reset restores the graph and clears tag overlays');
+  await page.getByRole('button', { name: 'Clear all filters', exact: true }).click();
+  check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence`, 'Clearing filters restores the connected graph');
   check(await page.evaluate(() => graphListeners) === 2, 'One mounted graph owns exactly its two document listeners');
   await page.screenshot({ path: 'output/playwright/integrated-graph-desktop.png', fullPage: true });
   for (const view of ['grid','graph','grid','graph']) {
@@ -101,7 +110,7 @@ async (page) => {
     if (view !== 'graph') {
       await page.locator('.evidence-card').first().click();
       await drawer.locator('#detail-title').waitFor();
-      check(await drawer.locator('.metadata dt').count() === 5, `${view}: catalogue cards use the shared exact-file drawer`);
+      check(await drawer.getByRole('heading', { name: /^Buckets?$/ }).count() === 1, `${view}: catalogue cards use the shared exact-file drawer`);
       await drawer.locator('[data-close]').click();
     }
   }
@@ -109,7 +118,7 @@ async (page) => {
   await page.locator('#project-info h1').waitFor();
   check(await page.locator('#project-info').getAttribute('aria-label') === 'Project information', 'Project opens with its overview');
   await page.locator('[data-project-file]').first().click();
-  check(await page.locator('#project-info .metadata dt').count() === 5, 'Project file selection reuses the same simplified metadata');
+  check(await page.locator('#project-info').getByRole('heading', { name: /^Buckets?$/ }).count() === 1, 'Project file selection reuses the same bucket details');
   const group = page.locator('.filmstrip-group').first();
   await group.locator('summary').click();
   check(!await group.evaluate(element => element.open), 'Project buckets remain collapsible');

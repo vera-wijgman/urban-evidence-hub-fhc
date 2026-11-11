@@ -1,6 +1,6 @@
 // 1. Mounted graph canvas; the shared Hub owns filters, routes and the drawer.
 import graphModel from './graph-model.js';
-import { buckets, tagGroups, relationshipTypes } from './content.js';
+import { buckets, relationshipTypes } from './content.js';
 import { filterEvidence } from './evidence.js';
 
 function svgElement(tag, attributes = {}, text) {
@@ -97,7 +97,7 @@ export function mountGraphPreview(container, { evidence, links }) {
 
 const graphMarkup = `<section class="graph-view canvas-panel" aria-label="Evidence graph">
   <div class="canvas-title"><strong data-graph="view-title">Evidence groups</strong><span>Hover to trace a chain · Click to pin · Click outside the chain to return</span></div>
-  <svg data-graph="knowledge-graph" aria-label="Studio evidence graph"><defs data-graph="arrow-markers"></defs><g data-graph="world"><g data-graph="tag-links"></g><g data-graph="clusters"></g><g data-graph="links"></g><g data-graph="nodes"></g><g data-graph="tag-nodes"></g></g></svg>
+  <svg data-graph="knowledge-graph" aria-label="Studio evidence graph"><defs data-graph="arrow-markers"></defs><g data-graph="world"><g data-graph="clusters"></g><g data-graph="links"></g><g data-graph="nodes"></g></g></svg>
   <div data-graph="graph-tools" class="graph-tools"><div class="controls" aria-label="Graph view controls"><button data-graph="fit" type="button">Fit all</button><button data-graph="minus" type="button" aria-label="Zoom out">−</button><output data-graph="zoom">100%</output><button data-graph="plus" type="button" aria-label="Zoom in">+</button><details class="graph-legend"><summary>Legend</summary><div data-graph="relationship-legend"></div></details></div><p data-graph="edge-count" class="edge-count" aria-live="polite"></p></div>
 </section>`;
 
@@ -112,7 +112,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
   const world = getElement('world');
   const colors = new Map(data.buckets.map(bucket => [bucket.name, bucket.color]));
   const relationshipById = new Map(data.relationshipTypes.map(type => [type.id, type]));
-  const activeTags = new Set();
   const nodes = [];
   const model = graphModel.buildGraph(data);
   const clusters = model.clusters;
@@ -126,7 +125,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
   let pointer = null;
   let selected = null;
   let hovered = null;
-  let tagNodes = [];
 
   const wrapTitle = graphModel.wrapTitle;
 
@@ -188,8 +186,7 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
 
   function graphBounds() {
     const shown = clusters.filter(group => group.visible);
-    const extent = [...(shown.length ? shown : clusters), ...tagNodes];
-    return graphBoundsOf(extent);
+    return graphBoundsOf(shown.length ? shown : clusters);
   }
 
   function drawBubbles() {
@@ -199,7 +196,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
       node.y = node.cluster.y + node.offsetY;
       node.element.setAttribute('transform', `translate(${node.x} ${node.y})`);
     }
-    renderTags();
     updateArrows();
   }
 
@@ -216,15 +212,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
     legend.append(line, label);
     getElement('relationship-legend').append(legend);
   }
-  const tagLegend = document.createElement('div');
-  tagLegend.className = 'relationship-key';
-  const tagLine = document.createElement('span');
-  tagLine.style.borderTopStyle = 'dotted';
-  tagLine.style.borderTopColor = 'var(--muted)';
-  const tagLabel = document.createElement('span');
-  tagLabel.textContent = 'Tag membership · no relationship type';
-  tagLegend.append(tagLine, tagLabel);
-  getElement('relationship-legend').append(tagLegend);
   for (const arrow of arrows) {
     const type = relationshipById.get(arrow.type);
     if (!type) throw new Error('Unknown relationship type.');
@@ -259,10 +246,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
       group.element.classList.toggle('previewed', !selected && hovered === group);
     });
     nodes.forEach(node => node.element.classList.toggle('unrelated', Boolean(chain && !chain.groups.has(node.cluster.key))));
-    tagNodes.forEach(tag => {
-      tag.element.classList.toggle('unrelated', Boolean(chain && !tag.groups.some(group => chain.groups.has(group.key))));
-      tag.lines.forEach(({ element, group }) => element.classList.toggle('unrelated', Boolean(chain && !chain.groups.has(group.key))));
-    });
     const mode = selected ? 'pinned chain' : hovered ? 'chain preview' : 'all connections';
     getElement('edge-count').textContent = `${highlighted} of ${arrows.length} group arrows · ${mode}`;
     drawArrows();
@@ -314,79 +297,9 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
       cluster.element.setAttribute('tabindex', cluster.visible ? '0' : '-1');
     });
     onCount(count);
-    renderTags();
     if (hovered && !hovered.visible) hovered = null;
     if (selected && !selected.visible) clearSelection();
     updateArrows();
-  }
-
-  // Reuse the site's categories; keep all tag checkboxes off until requested.
-  const knownTags = new Set(Object.values(tagGroups).flat());
-  const extraTags = [...new Set(nodes.flatMap(node => node.tags || []))].filter(tag => !knownTags.has(tag) && !colors.has(tag));
-  const categories = [['Bucket tags', [...colors.keys()]], ...Object.entries(tagGroups), ...(extraTags.length ? [['Other tags', extraTags]] : [])];
-  for (const [category, tags] of categories) {
-    const section = document.createElement('details');
-    section.className = 'filter-group';
-    section.open = category === 'Urban categories';
-    const summary = document.createElement('summary');
-    summary.textContent = category;
-    const indicator = document.createElement('span');
-    indicator.className = 'group-indicator';
-    indicator.textContent = '+';
-    summary.append(indicator);
-    section.append(summary);
-    for (const tag of tags) {
-      const count = nodes.filter(node => (node.tags || []).includes(tag)).length;
-      const label = document.createElement('label');
-      label.className = 'tag-checkbox';
-      const name = document.createElement('span');
-      name.textContent = tag.replace(/^Group \d: /, '');
-      const total = document.createElement('small');
-      total.textContent = count;
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.checked = false;
-      checkbox.disabled = count === 0;
-      checkbox.setAttribute('aria-label', `Show ${tag} in graph`);
-      checkbox.dataset.tag = tag;
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) activeTags.add(tag);
-        else activeTags.delete(tag);
-        renderTags();
-        updateArrows();
-        fit();
-      });
-      label.append(name, total, checkbox);
-      section.append(label);
-    }
-    getElement('tag-controls').append(section);
-  }
-
-  function renderTags() {
-    getElement('tag-links').replaceChildren();
-    getElement('tag-nodes').replaceChildren();
-    tagNodes = graphModel.buildTagOverlay(clusters, nodes, activeTags,
-      arrows.filter(arrow => arrow.sourceGroup.visible && arrow.targetGroup.visible));
-    for (const tag of tagNodes) {
-      tag.element = svgElement('g', { class: 'tag-node', transform: `translate(${tag.x} ${tag.y})`, 'data-tag': tag.name });
-      tag.element.append(svgElement('circle', { r: tag.radius }));
-      const text = svgElement('text');
-      tag.titleLines.forEach((line, index) => text.append(svgElement('tspan', { x: 0, y: (index - (tag.titleLines.length - 1) / 2) * 16 + 4 }, line)));
-      tag.element.append(text);
-      tag.element.append(svgElement('title', {}, `${tag.name} · ${tag.members.length} evidence entries`));
-      tag.lines = tag.groups.map(group => {
-        const dx = group.x - tag.x;
-        const dy = group.y - tag.y;
-        const distance = Math.max(1, Math.hypot(dx, dy));
-        const element = svgElement('path', {
-          class: 'tag-membership', fill: 'none', 'data-group': group.key, 'data-tag': tag.name,
-          d: `M ${tag.x + dx / distance * tag.radius} ${tag.y + dy / distance * tag.radius} L ${group.x - dx / distance * group.radius} ${group.y - dy / distance * group.radius}`
-        });
-        getElement('tag-links').append(element);
-        return { element, group };
-      });
-      getElement('tag-nodes').append(tag.element);
-    }
   }
 
   // Group details keep file identities available without drawing file-level arrows.
@@ -498,7 +411,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
     destroy() {
       lifetime.abort();
       observer.disconnect();
-      controls.querySelector('[data-graph="tag-controls"]').replaceChildren();
       getElement('show-unconnected').onchange = null;
       container.replaceChildren();
     }

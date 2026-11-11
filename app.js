@@ -186,11 +186,12 @@ function renderFilters() {
   const { filters } = route;
   const counts = new Map();
   (route.view === 'graph' ? fileEvidence : evidence).forEach(item => item.tags.forEach(tag => counts.set(tag, (counts.get(tag) || 0) + 1)));
-  document.querySelector('#filter-controls').innerHTML = `${route.view === 'graph' ? '<div class="filter-heading graph-filter-header"><h2>Filters</h2><label class="connection-toggle"><span>Unconnected</span><input data-graph="show-unconnected" type="checkbox" role="switch" aria-label="Show unconnected evidence" /><span class="switch-track" aria-hidden="true"></span></label></div>' : ''}<div class="filter-heading"><h2>Evidence buckets</h2><button type="button" class="text-button" data-clear>Reset</button></div>
-    <div class="bucket-filters">${buckets.map(bucket => `<label style="--bucket:var(--${bucket.toLowerCase()})"><span class="bucket-dot" aria-hidden="true"></span><span>${bucket}</span><input type="checkbox" data-bucket="${bucket}" ${!filters.buckets.length || filters.buckets.includes(bucket) ? 'checked' : ''} /></label>`).join('')}</div>
+  document.querySelector('#filter-controls').innerHTML = `${route.view === 'graph' ? '<div class="filter-heading graph-filter-header"><h2>Filters</h2><label class="connection-toggle"><span>Unconnected</span><input data-graph="show-unconnected" type="checkbox" role="switch" aria-label="Show unconnected evidence" /><span class="switch-track" aria-hidden="true"></span></label></div>' : ''}
+    <details class="filter-group" open><summary>Evidence buckets<span class="group-indicator" aria-hidden="true">+</span></summary>
+      <div class="bucket-filters">${buckets.map(bucket => `<label style="--bucket:var(--${bucket.toLowerCase()})"><span class="bucket-dot" aria-hidden="true"></span><span>${bucket}</span><input type="checkbox" data-bucket="${bucket}" ${!filters.buckets.length || filters.buckets.includes(bucket) ? 'checked' : ''} /></label>`).join('')}</div>
+    </details>
     <div class="filter-heading tag-heading"><h2>Filter by tags</h2></div><p class="filter-help">Include or exclude a tag.</p>
     ${Object.entries(tagGroups).map(([group, tags], index) => `<details class="filter-group"${index === 0 ? ' open' : ''}><summary>${group}<span class="group-indicator" aria-hidden="true">+</span></summary><div class="tag-options">${tags.map(tag => `<div class="tag-option"><span>${escape(tag.replace(/^Group \d: /, ''))}<small>${counts.get(tag) || 0}</small></span><div class="tag-actions"><button type="button" data-tag="${escape(tag)}" data-mode="include" aria-pressed="${filters.include.includes(tag)}" aria-label="Include ${escape(tag)}" title="Include ${escape(tag)}">+</button><button type="button" data-tag="${escape(tag)}" data-mode="exclude" aria-pressed="${filters.exclude.includes(tag)}" aria-label="Exclude ${escape(tag)}" title="Exclude ${escape(tag)}">−</button></div></div>`).join('')}</div></details>`).join('')}
-    ${route.view === 'graph' ? '<div class="filter-heading tag-heading"><h2>Show tags in graph</h2></div><p class="filter-help">Check a tag to show its node and connections to evidence bubbles.</p><div data-graph="tag-controls"></div>' : ''}
     <button type="button" class="clear-filters" data-clear>Clear all filters <span aria-hidden="true">↺</span></button>`;
 }
 
@@ -263,7 +264,9 @@ function renderPreview(file, thumbnail = '') {
 // Simplified file/bubble link lists contain names and recorded relationships only.
 function linkedItemsSection(label, entries, attribute = 'data-evidence') {
   if (!entries.length) return '';
-  return `<section class="detail-section"><h3>${escape(label)} (${entries.length})</h3><div class="linked-items">${entries.map(entry => `<button type="button" ${attribute}="${escape(entry.id)}"><strong>${escape(graphModel.displayTitle(entry.title))}</strong></button>`).join('')}</div></section>`;
+  const ordered = entries.map(({ id, title }) => ({ id, title: graphModel.displayTitle(title) }))
+    .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+  return `<section class="detail-section"><h3>${escape(label)} (${entries.length})</h3><div class="linked-items">${ordered.map(entry => `<button type="button" ${attribute}="${escape(entry.id)}"><strong>${escape(entry.title)}</strong></button>`).join('')}</div></section>`;
 }
 
 // History follows actual selections, with independent project and Hub sessions.
@@ -275,11 +278,8 @@ function historyControls(history, scope) {
 function evidenceDetails(item, file = previewFile(item)) {
   const entry = file?.framework;
   const tags = entry?.tags || item.tags;
-  const metadata = [['Bucket', entry?.buckets.join(', ') || item.bucket],
-    ['Project', (entry?.projects || tags.filter(tag => tag.startsWith('Group '))).map(tag => tag.replace(/^Group \d: /, '')).join(', ') || 'Not recorded'],
-    ['Evidence group', entry?.group || item.group || titleOf(item)],
-    ['Content type', tags.filter(tag => tagGroups['Content type'].includes(tag)).join(', ') || '—'],
-    ['Source', entry?.source || file?.source || item.source || 'Not recorded']];
+  const fileBuckets = entry?.buckets.length ? entry.buckets : item.buckets || [item.bucket];
+  const description = (entry ? entry.description : item.description)?.trim();
   const related = relatedEntries(entry?.id || item.id, entry ? fileEvidence : evidence, entry ? fileLinks : links, relationshipTypes);
   const selectFiles = item.files.length > 1 && !(route.page === 'hub' && route.view === 'graph');
   return `<div class="detail-top"><span class="eyebrow">Evidence details</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div>
@@ -287,8 +287,8 @@ function evidenceDetails(item, file = previewFile(item)) {
     <h2 id="detail-title" tabindex="-1">${escape(graphModel.displayTitle(entry?.title || item.title))}</h2>${route.page === 'projects' ? '' : `<div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>`}
     ${selectFiles ? `<label class="file-select-label">Attached files<select id="file-select">${item.files.map((attached, index) => `<option value="${index}"${attached === file ? ' selected' : ''}>${escape(attached.fileName || attached.title)}</option>`).join('')}</select></label>` : ''}
     <div id="file-action">${file?.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : ''}</div>
-    <section class="detail-section"><h3>Description</h3><p>${escape((entry ? entry.description : item.description) || 'No description has been added yet.')}</p></section>
-    <section class="detail-section"><h3>Metadata</h3><dl class="metadata">${metadata.map(([label, value]) => `<div><dt>${label}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl></section>
+    ${description ? `<section class="detail-section"><h3>Description</h3><p>${escape(description)}</p></section>` : ''}
+    <section class="detail-section"><h3>${fileBuckets.length === 1 ? 'Bucket' : 'Buckets'}</h3><p>${escape(fileBuckets.join(', '))}</p></section>
     <section class="detail-section"><h3>Tags</h3><div class="detail-tags">${tags.map(tag => `<a class="tag" href="${escape(tagGridUrl(tag))}">${escape(tag)}</a>`).join('') || '<p class="muted">No tags recorded.</p>'}</div></section>
     ${related.map(section => linkedItemsSection(section.label, section.entries)).join('')}`;
 }

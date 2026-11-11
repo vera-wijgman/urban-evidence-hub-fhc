@@ -8,9 +8,6 @@
 .hub-page .connection-toggle input:checked + .switch-track { background: var(--accent); }
 .hub-page .connection-toggle input:checked + .switch-track::after { transform: translateX(12px); }
 .hub-page .connection-toggle input:focus-visible + .switch-track { outline: 2px solid var(--accent); outline-offset: 3px; }
-.hub-page .tag-checkbox { display: flex; gap: 8px; align-items: center; padding: 7px 0; font-size: 11px; cursor: pointer; }
-.hub-page .tag-checkbox small { margin-left: auto; color: var(--muted); }
-.hub-page .tag-checkbox input { accent-color: var(--accent); width: 14px; height: 14px; margin: 0; }
 
 /* 2. Plain graph canvas and compact round evidence groups. */
 .graph-view.canvas-panel { position: relative; height: max(540px, 65svh); min-width: 0; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
@@ -34,12 +31,6 @@
 .graph-view .cluster.unrelated, .graph-view .node.unrelated { opacity: var(--graph-faded-bubble); }
 .graph-view .relationship-arrow.unrelated { opacity: var(--graph-faded-arrow); }
 .graph-view .cluster.dim, .graph-view .node.dim { opacity: .07; }
-.graph-view .tag-node, .graph-view .tag-membership { pointer-events: none; }
-.graph-view .tag-node circle { fill: var(--surface); stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.graph-view .tag-node text { fill: var(--muted); font: 12px var(--font); text-anchor: middle; }
-.graph-view .tag-membership { stroke: var(--muted); stroke-width: 1; opacity: .3; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
-.graph-view .tag-node.unrelated { opacity: var(--graph-faded-bubble); }
-.graph-view .tag-membership.unrelated { opacity: .08; }
 
 /* 3. Lower-left zoom controls and relationship legend. */
 .graph-view .graph-tools { position: absolute; bottom: 15px; left: 18px; z-index: 2; }

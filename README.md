@@ -70,7 +70,7 @@ part of the website they implement, so the next student group can maintain it.
 | `app.js` | Seven labelled sections for pages, project buckets, shared evidence details/tag links, viewing history controls, filters, routing, events and loading |
 | `js/viewing-history.js` | Back/Forward through actual evidence selections; separate Hub and project sessions |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
-| `js/graph.js` | Connected homepage preview and interactive Hub graph; shared SVG geometry, chains, overlays, pan/zoom and cleanup |
+| `js/graph.js` | Connected homepage preview and interactive Hub graph with shared SVG geometry, chains, pan/zoom and cleanup |
 | `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow/tag clearance |
 | `js/graph-data.js` | Exact framework-file mapping and typed incoming/outgoing relationship sections |
 | `assets/graph.css` | Scoped graph visuals and filter controls; shared palette stays in `assets/theme.css` |
@@ -105,7 +105,8 @@ scrollable thumbnail strip underneath. The strip includes every attachment,
 ordered by the eight evidence buckets and then alphabetically by filename.
 Click a bucket heading to collapse or expand its thumbnails. Selecting a file
 replaces the project introduction with the same evidence details used in the
-Hub: description, metadata, clickable tags and typed incoming/outgoing links.
+Hub: buckets, a description when provided, clickable tags and typed
+incoming/outgoing links. Linked titles use natural numeric order.
 The sidebar omits the preview because it is already shown on the main stage.
 Both sidebars use `evidenceDetails` in `app.js`, so their content stays consistent.
 The large preview and shareable URL update with the selection. Back/Forward
@@ -122,8 +123,8 @@ Tutors and Partners as consecutive sections, without category tabs. Existing
 `?category=students`, `tutors` or `partners` links scroll to the corresponding section.
 Student examples reuse `projects[].members` and their framework author tags;
 cards, profiles and project overviews display first names only. Tutors are in `tutors`; update names, initials and
-introductions there. Add an image for a portrait when available. RIVM is the current
-partner; supplied logo originals are kept in `assets/partners/` for future use.
+introductions there. Add an image for a portrait when available. The RIVM card
+uses its name until a replacement logo is supplied.
 Replace the publication examples or add new entries when available, for example:
 
 ```js
@@ -221,8 +222,8 @@ positions or use a representative image when a specific file is selected.
 filter-controls root, shared drawer and selection/clear/count callbacks. Its
 controller provides `select`, `clear`, `update` and `destroy`; route changes abort
 document listeners and disconnect its resize observer. Filter updates keep the
-same mounted layout. The graph opens with connected evidence only; Unconnected
-and tag overlays default off. Reset restores these defaults.
+same mounted layout. Evidence buckets and tag categories are collapsible.
+The graph opens with connected evidence only. Clear all filters restores that default.
 
 Bubble selection shows member files and nonempty typed relationships. File
 selection reuses the same simplified drawer renderer as Grid and Projects.
