@@ -32,7 +32,8 @@ Deploy the combined build to keep the holding page at `/` and the draft at
 
 1. Run `npm test` and `npm run build:cloudflare`.
 2. With Wrangler signed in, deploy `dist-cloudflare` to a preview branch.
-   Open the preview URL and follow **View draft website** to check the release.
+   Open the preview URL and click **UrbanLab** in the studio credit to check
+   the draft entrance.
 3. Upload the same folder to the production branch `main`.
 
 ```sh
