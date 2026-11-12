@@ -3,8 +3,6 @@
 export const site = {
   title: 'Urban Evidence Hub',
   subtitle: 'Trace evidence into design',
-  description: 'Explore how research and analysis inform design decisions across the Future Healthy Cities UrbanLab.',
-  heroImage: 'assets/healthy-cities.jpg',
   homeLabel: 'UrbanLab — Future Healthy Cities',
   hubDescription: 'Explore the evidence and the connections between research, analysis and design.',
   introduction: 'The Urban Evidence Hub brings together research, analyses and design work from the Future Healthy Cities UrbanLab. It makes the evidence behind urban design decisions easier to explore, connecting individual files to projects, themes and one another. Use the knowledge graph to trace these connections, or browse the grid to discover the work of the studio’s students, tutors and partners.',
@@ -14,15 +12,15 @@ export const projects = [
   { id: 'responsive-neighbourhood', title: 'Responsive Neighbourhood', year: 2026,
     image: 'home-responsive-neighbourhood.jpeg', tag: 'Group 1: Responsive Neighbourhood',
     description: 'Research and design from the Responsive Neighbourhood project.',
-    members: ['Raneem Alrifaai', 'Lara', 'Niels van Maurik'] },
+    avatar: 'accent', members: ['Raneem Alrifaai', 'Lara', 'Niels van Maurik'] },
   { id: 'living-superblocks', title: 'Living Superblocks', year: 2026,
     image: 'home-living-superblocks.png', tag: 'Group 2: Living Superblocks',
     description: 'Research and design from the Living Superblocks project.',
-    members: ['Hilda Khorsandi', 'Tim Pooters', 'Daniel Strauβ'] },
+    avatar: 'evaluation', members: ['Hilda Khorsandi', 'Tim Pooters', 'Daniel Strauβ'] },
   { id: 'health-islands', title: 'Health Islands', year: 2026,
     image: 'home-health-islands.png', tag: 'Group 3: Health Islands',
     description: 'Research and design from the Health Islands project.',
-    members: ['Cas Prinsze', 'Milana Romanova', 'Vera'] },
+    avatar: 'design', members: ['Cas Prinsze', 'Milana Romanova', 'Vera'] },
 ];
 
 // Clearly labelled layout examples; replace with real publications when available.
@@ -44,22 +42,22 @@ export const partners = [
     description: 'This page introduces RIVM — Rijksinstituut voor Volksgezondheid en Milieu, a partner of the Future Healthy Cities UrbanLab.' },
 ];
 
-// People: student names reuse the project teams; add portraits in place of initials later.
+// People: students share their project's avatar color. Colors refer to theme.css.
 export const students = projects.flatMap(project => project.members.map(name => name.split(' ')[0]).map(title => ({
   id: `student-${title.toLowerCase()}`, title, year: project.year,
-  initials: title[0], role: `Student · ${project.title}`, evidenceTag: title,
+  avatar: project.avatar, role: `Student · ${project.title}`, evidenceTag: title,
   description: `${title} participates in the ${project.title} project in the Future Healthy Cities UrbanLab.`,
 })));
 export const tutors = [
-  { id: 'diana-carrillo-silva', title: 'Diana Carrillo Silva', initials: 'DS', role: 'Studio tutor',
+  { id: 'diana-carrillo-silva', title: 'Diana Carrillo Silva', avatar: 'strategy', role: 'Studio tutor',
     description: 'Diana Carrillo Silva is a tutor in the Future Healthy Cities UrbanLab.' },
-  { id: 'cem-ataman', title: 'Cem Ataman', initials: 'CA', role: 'Studio tutor',
+  { id: 'cem-ataman', title: 'Cem Ataman', avatar: 'conclusion', role: 'Studio tutor',
     description: 'Cem Ataman is a tutor in the Future Healthy Cities UrbanLab.' },
 ];
 export const peopleGroups = [
-  { id: 'students', title: 'Students', items: students },
-  { id: 'tutors', title: 'Tutors', items: tutors },
   { id: 'partners', title: 'Partners', items: partners },
+  { id: 'tutors', title: 'Tutors', items: tutors },
+  { id: 'students', title: 'Students', items: students },
 ];
 
 export const collections = {

@@ -11,9 +11,7 @@
 
 /* 2. Plain graph canvas and compact round evidence groups. */
 .graph-view.canvas-panel { position: relative; height: max(540px, 65svh); min-width: 0; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
-.graph-view .canvas-title { position: absolute; top: 20px; left: 22px; z-index: 1; pointer-events: none; }
-.graph-view .canvas-title strong { display: block; font-size: 13px; font-weight: 600; }
-.graph-view .canvas-title span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+.graph-view .canvas-hint { position: absolute; inset: 20px 22px auto; z-index: 1; margin: 0; color: var(--muted); font-size: 11px; pointer-events: none; }
 .graph-view [data-graph="knowledge-graph"] { width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .graph-view [data-graph="knowledge-graph"].dragging { cursor: grabbing; }
 .graph-view .cluster, .graph-view .node { cursor: pointer; outline: none; }
@@ -32,17 +30,15 @@
 .graph-view .relationship-arrow.unrelated { opacity: var(--graph-faded-arrow); }
 .graph-view .cluster.dim, .graph-view .node.dim { opacity: .07; }
 
-/* 3. Lower-left zoom controls and relationship legend. */
-.graph-view .graph-tools { position: absolute; bottom: 15px; left: 18px; z-index: 2; }
-.graph-view .controls { display: flex; gap: 3px; align-items: center; padding: 5px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
-.graph-view .controls button, .graph-view .graph-legend summary { padding: 7px 10px; background: transparent; color: var(--muted); font-size: 11px; }
-.graph-view .controls button:hover, .graph-view .graph-legend summary:hover { background: var(--surface); color: var(--ink); }
+/* 3. Zoom controls on the left, persistent relationship legend on the right. */
+.graph-view .graph-tools { position: absolute; inset: auto 18px 15px; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: end; gap: 8px; pointer-events: none; }
+.graph-view .graph-navigation { margin-right: auto; }
+.graph-view .controls { display: flex; width: fit-content; gap: 3px; align-items: center; padding: 5px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); pointer-events: auto; }
+.graph-view .controls button { padding: 7px 10px; background: transparent; color: var(--muted); font-size: 11px; }
+.graph-view .controls button:hover { background: var(--surface); color: var(--ink); }
 .graph-view [data-graph="zoom"] { min-width: 36px; text-align: center; color: var(--muted); font-size: 10px; }
-.graph-view .graph-legend { position: relative; }
-.graph-view .graph-legend summary { cursor: pointer; list-style: none; }
-.graph-view .graph-legend summary::-webkit-details-marker { display: none; }
-.graph-view [data-graph="relationship-legend"] { position: absolute; bottom: calc(100% + 12px); left: 0; min-width: 205px; padding: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 4px 16px #19253412; }
-.graph-view .relationship-key { display: flex; align-items: center; gap: 8px; margin: 8px 0; white-space: nowrap; font-size: 11px; }
+.graph-view .graph-legend { padding: 8px 12px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); font-size: 11px; pointer-events: auto; }
+.graph-view .relationship-key { display: flex; align-items: center; gap: 8px; margin-top: 4px; white-space: nowrap; }
 .graph-view .relationship-key > span:first-child { width: 22px; border-top-width: 2px; }
 .graph-view .edge-count { margin: 7px 0 0 3px; color: var(--muted); font-size: 10px; pointer-events: none; }
 
@@ -50,8 +46,6 @@
 @media (max-width: 680px) {
   .graph-hub .filters { max-height: 320px; }
   .graph-view.canvas-panel { height: 560px; }
-  .graph-view .canvas-title span { max-width: 230px; }
-  .graph-view .graph-tools { left: 10px; }
-  .graph-view .controls button, .graph-view .graph-legend summary { padding: 7px; }
-  .graph-view [data-graph="relationship-legend"] { left: auto; right: 0; }
+  .graph-view .graph-tools { inset-inline: 10px; }
+  .graph-view .controls button { padding: 7px; }
 }

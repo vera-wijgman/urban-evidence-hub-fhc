@@ -6,6 +6,7 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
     "dev": "node scripts/build.mjs && node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs"
   }

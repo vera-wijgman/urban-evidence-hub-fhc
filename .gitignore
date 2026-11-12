@@ -21,5 +21,6 @@
 
 # Website build and browser QA artifacts
 /dist/
+/dist-cloudflare/
 /.playwright-cli/
 __pycache__/

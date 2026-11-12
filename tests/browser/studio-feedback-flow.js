@@ -17,10 +17,13 @@ async (page) => {
   check(shown.length === connected.size && shown.every(key => connected.has(key)), 'Homepage preview shows exactly the connected bubbles');
   check(await preview.locator('.preview-node').count() === files.filter(file => connected.has(groupKey(file))).length, 'Preview includes the actual member files');
   check(await preview.locator('.relationship-arrow').count() === 48, 'Preview renders the real typed graph arrows');
-  check(await page.locator('#hub-introduction').count() === 1, 'Homepage has a dedicated explanation of the Hub');
+  check(await page.locator('.hero-copy #hub-introduction').count() === 1
+    && await page.locator('.home-hero img, .hero-copy h2').count() === 0, 'Homepage places the introduction alongside the graph without a photo or secondary heading');
+  check(await page.locator('[aria-labelledby="home-projects"] .person-card').count() === 0, 'Avatar colors apply to People cards only');
   check(await page.locator('.hero-copy .eyebrow').textContent() === 'UrbanLab — Future Healthy Cities', 'Homepage uses the UrbanLab name');
   check(!/master studio/i.test(await page.locator('body').innerText()), 'Old studio branding is absent from homepage copy');
-  check(await page.locator('.site-footer a').count() === 1 && !/Trace evidence/i.test(await page.locator('.site-footer').innerText()), 'Footer has no Trace Evidence into Design link');
+  check(await page.locator('.site-footer span').textContent() === '© 2026 Team Urban Evidence Hub', 'Footer credits the team');
+  check(await page.locator('.site-footer a').count() === 0, 'Footer displays the copyright credit');
   const peopleLink = page.locator('#main-nav [data-page="people"]');
   const positions = selector => page.locator(selector).evaluateAll(links => links.map(link => {
     const rect = link.querySelector('span').getBoundingClientRect();
@@ -44,7 +47,7 @@ async (page) => {
   check(await page.locator('[data-view="graph"] span').textContent() === 'Knowledge graph', 'Knowledge graph uses a lowercase g');
   check(await page.locator('#main-nav [data-page="partners"], #hub-subnav [data-view="list"]').count() === 0, 'Navigation contains People and only two Hub views');
   await page.screenshot({ path: 'output/playwright/studio-home-desktop.png', fullPage: true });
-  await page.getByRole('link', { name: 'Open Knowledge graph', exact: true }).click();
+  await page.getByRole('link', { name: 'View Knowledge graph', exact: true }).click();
   await page.locator('.canvas-panel .node').last().waitFor({ state: 'attached' });
   check(await page.locator('.canvas-panel .node').count() === 660, 'The whole homepage preview opens the real Knowledge Graph');
   check(await page.getByRole('switch', { name:'Show unconnected evidence' }).isChecked() === false, 'Knowledge graph opens with Unconnected switched off');
@@ -53,6 +56,28 @@ async (page) => {
   await page.locator('[data-page="home"]').hover();
   const selectedStyle = await page.locator('[data-view="graph"]').evaluate(link => ({ color:getComputedStyle(link).color, weight:Number(getComputedStyle(link).fontWeight), background:getComputedStyle(link).backgroundColor, ink:getComputedStyle(document.body).color, main:getComputedStyle(document.querySelector('[data-page="hub"]')).color }));
   check(selectedStyle.color === selectedStyle.ink && selectedStyle.main === selectedStyle.ink && selectedStyle.weight >= 650 && selectedStyle.background === 'rgba(0, 0, 0, 0)', 'Selected tabs stay dark and bold without a box');
+
+  // Header search and saved search links use the same grid as Hub.
+  const headerSearch = page.getByRole('searchbox', { name: 'Search the evidence collection' });
+  await headerSearch.fill('bad');
+  await headerSearch.press('Enter');
+  await page.getByRole('heading', { name: 'Results for “bad”', exact: true }).waitFor();
+  check(await page.evaluate(() => location.hash) === '#/hub/grid?q=bad'
+    && await page.locator('.evidence-grid .evidence-title').allTextContents().then(titles => titles.join() === 'Bad health diagrams'),
+  'Header search opens the normal grid with the matching evidence');
+  const gridSearch = page.getByRole('searchbox', { name: 'Search evidence', exact: true });
+  await gridSearch.fill('');
+  await gridSearch.press('Enter');
+  await page.getByRole('heading', { name: 'Hub', exact: true }).waitFor();
+  check(await page.locator('.evidence-grid .evidence-card').count() > 1, 'Clearing Grid search restores the normal Hub heading and cards');
+  await page.goto(`${base}#/search?q=bad`);
+  await page.getByRole('heading', { name: 'Results for “bad”', exact: true }).waitFor();
+  check(await page.evaluate(() => location.hash) === '#/hub/grid?q=bad', 'Saved search links still open their results');
+  await page.goto(`${base}#/hub/grid?q=Buurtatlas`);
+  const spreadsheet = page.locator('.evidence-card').first();
+  await spreadsheet.locator('.table-thumbnail').waitFor();
+  await spreadsheet.click();
+  check(await page.locator('#file-preview table td').count() > 0, 'Spreadsheet cards and file details display saved cell previews');
 
   // A tag starts a fresh Grid query, independent of the previously active filters.
   const tagged = files.find(file => file.tags.includes('Mobility'));
@@ -87,6 +112,11 @@ async (page) => {
     return info.locator('.file-open').getAttribute('href');
   };
   const first = await select(0);
+  check(await page.getByRole('button', { name: 'Previous evidence', exact: true }).isDisabled(), 'Previous stops at the first project file');
+  await page.getByRole('button', { name: 'Next evidence', exact: true }).click();
+  check(await page.locator('[data-project-file="1"]').getAttribute('aria-pressed') === 'true', 'Next opens the next file in project grid order');
+  await page.keyboard.press('ArrowLeft');
+  check(await info.locator('.file-open').getAttribute('href') === first, 'Left arrow returns to the previous grid file');
   const fourth = await select(3);
   const tenth = await select(9);
   check(await info.locator('#file-preview, img, iframe, video, .excerpt-preview').count() === 0, 'Project sidebar shows information without a duplicate preview');
@@ -111,8 +141,18 @@ async (page) => {
   await page.locator('#main-nav [data-page="people"]').click();
   await page.getByRole('heading', { name: 'People', exact: true }).waitFor();
   check(await page.locator('#people-students .person-card').count() === 9, 'People shows all nine students');
+  const studentColors = await page.locator('#people-students .person-card').evaluateAll(cards => cards.map(card => [
+    card.querySelector('.person-role').textContent,
+    getComputedStyle(card.querySelector('.person-avatar')).backgroundColor,
+  ]));
+  check(new Set(studentColors.map(([, color]) => color)).size === 3
+    && studentColors.every(([team, color]) => studentColors.filter(([other]) => other === team).every(([, otherColor]) => otherColor === color)),
+  'Student avatar colors match within each team and differ across teams');
+  check(await page.locator('#people-tutors .person-avatar').evaluateAll(avatars => avatars.length === 2
+    && avatars.every(avatar => !avatar.textContent)
+    && new Set(avatars.map(avatar => getComputedStyle(avatar).backgroundColor)).size === 2), 'Tutors have distinct avatars without initials');
   const sections = await page.locator('main .year-section h2').allTextContents();
-  check(JSON.stringify(sections) === JSON.stringify(['Students','Tutors','Partners']), 'People stacks Students, Tutors and Partners in order');
+  check(JSON.stringify(sections) === JSON.stringify(['Partners','Tutors','Students']), 'People stacks Partners, Tutors and Students in order');
   check(await page.locator('.people-nav').count() === 0, 'People has no category tabs');
   const studentNames = await page.locator('#people-students h3').allTextContents();
   check(studentNames.every(name => !name.includes(' ')), 'Student cards use only first names');

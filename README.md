@@ -7,10 +7,8 @@ version is developed on `codex/website-v2`.
 
 ## Run and publish
 
-Earlier hosted preview with collapsible buckets and shared evidence details:
-[Open version 2](https://6ad7da5502598c654daf95a9--urban-evidence-hub-fhc.netlify.app/).
-The latest website, including the integrated studio graph, is saved on GitHub
-and checked locally. It has not been deployed to Netlify.
+The [holding page](https://urbanevidencehub.com/) links to the
+[website draft](https://urbanevidencehub.com/draft/).
 
 Requires Node.js 20 or later.
 
@@ -18,35 +16,32 @@ Requires Node.js 20 or later.
 npm run dev       # Local preview: http://127.0.0.1:4174
 npm test          # Evidence filtering and data integrity
 npm run build     # Public website only, written to dist/
+npm run build:cloudflare # Holding page and draft, written to dist-cloudflare/
 ```
 
-### Connect the draft through Cloudflare Pages
+The homepage uses the split design at `#/home`. Edit the shared palette in
+`assets/theme.css` and the homepage wording in `js/content.js`. The homepage
+renderer and hero styles are in `app.js` and section 3 of `styles.css`.
 
-1. In Cloudflare, open **Workers & Pages → Create application → Pages → Connect
-   to Git**. Authorize GitHub and select
-   [`vera-wijgman/urban-evidence-hub-fhc`](https://github.com/vera-wijgman/urban-evidence-hub-fhc).
-2. Use these settings, then select **Save and Deploy**:
+### Publish the holding page and draft
 
-   | Setting | Value |
-   | --- | --- |
-   | Production branch | `codex/website-v2` |
-   | Framework preset | None |
-   | Build command | `npm run build` |
-   | Build output directory | `dist` |
-   | Root directory | Repository root (leave the override blank) |
+The Cloudflare Pages project `urban-evidence-hub-coming-soon` uses
+[Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/).
+Deploy the combined build to keep the holding page at `/` and the draft at
+`/draft/`. GitHub stores the source. Each release requires a Pages upload.
 
-3. Add `draft.urbanevidencehub.com` under **Custom domains** on the new Pages
-   project. Keep the root domain attached to the holding-page project.
-4. After the draft works over HTTPS, publish the **View draft website** link
-   from the local `coming-soon/index.html` through the existing holding-page
-   project. For an invite-only draft, configure Cloudflare Access for the
-   custom domain and the Pages URLs before sharing the link.
+1. Run `npm test` and `npm run build:cloudflare`.
+2. With Wrangler signed in, deploy `dist-cloudflare` to a preview branch.
+   Open the preview URL and follow **View draft website** to check the release.
+3. Upload the same folder to the production branch `main`.
 
-Future pushes to `codex/website-v2` will automatically build and publish to this
-Pages project. GitHub stores the source; Cloudflare Pages hosts the website and
-connects it to the domain.
-See Cloudflare's [Git integration guide](https://developers.cloudflare.com/pages/get-started/git-integration/)
-and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
+```sh
+npx wrangler pages deploy dist-cloudflare --project-name urban-evidence-hub-coming-soon --branch ueh-draft-review
+npx wrangler pages deploy dist-cloudflare --project-name urban-evidence-hub-coming-soon --branch main
+```
+
+The draft is publicly accessible by link and requests that search engines do
+not index it.
 
 Only the allowlisted public files are copied into `dist`. Local spreadsheets,
 archives, prototypes, working documents and evidence originals are excluded.
@@ -67,15 +62,17 @@ part of the website they implement, so the next student group can maintain it.
 | --- | --- |
 | `index.html` | Centred logo/title and navigation, full-width Hub bar, search, main area, detail drawer and footer |
 | `_headers` | Cloudflare Pages browser security and indexing policies for the draft |
+| `coming-soon/` | Holding page HTML, artwork, styles and browser policies |
+| `scripts/build-cloudflare.mjs` | Packages the holding page and draft together with path-specific browser policies |
 | `assets/ueh-logo.png` | Original supplied logo; its header SVG frame removes surrounding whitespace |
 | `assets/theme.css` | Palette, font, shared page-title size, header/bar heights, content width, spacing and corner radius |
 | `styles.css` | Eight labelled sections for shared controls, pages, Hub, cards, drawer and responsive layouts |
-| `js/content.js` | UrbanLab copy, projects/cohorts, publications, People categories/profiles, partners and tag categories |
-| `app.js` | Seven labelled sections for pages, project buckets, shared evidence details/tag links, viewing history controls, filters, routing, events and loading |
+| `js/content.js` | Studio and collection copy, People and avatar colors, tag categories |
+| `app.js` | Seven labelled sections for pages, project viewer, shared evidence cards and details, filters, routing, events and loading |
 | `js/viewing-history.js` | Back/Forward through actual evidence selections; separate Hub and project sessions |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
 | `js/graph.js` | Connected homepage preview and interactive Hub graph with shared SVG geometry, chains, pan/zoom and cleanup |
-| `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow/tag clearance |
+| `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow clearance |
 | `js/graph-data.js` | Exact framework-file mapping and typed incoming/outgoing relationship sections |
 | `assets/graph.css` | Scoped graph visuals and filter controls; shared palette stays in `assets/theme.css` |
 | `GRAPH-INTEGRATION.md` | Integrated graph data contract, maintenance workflow, interaction requirements and checks |
@@ -104,31 +101,31 @@ same collections. Add a project with an `id`, `title`, `year`, `image`, `tag`,
 `description` and `members`. A new year automatically creates a new Studio year
 section. Project cards show only their image, title and studio year.
 
-Project pages show a large file preview, project information on the right and a
-scrollable thumbnail strip underneath. The strip includes every attachment,
-ordered by the eight evidence buckets and then alphabetically by filename.
-Click a bucket heading to collapse or expand its thumbnails. Selecting a file
+Project pages show the overview text beside one cover image, above a single grid
+of all attachments. Selecting a file opens a large preview and
 replaces the project introduction with the same evidence details used in the
 Hub: buckets, a description when provided, clickable tags and typed
 incoming/outgoing links. Linked titles use natural numeric order.
 The sidebar omits the preview because it is already shown on the main stage.
 Both sidebars use `evidenceDetails` in `app.js`, so their content stays consistent.
-The large preview and shareable URL update with the selection. Back/Forward
+The large preview and shareable URL update with the selection. Previous and Next,
+or the left and right arrow keys, browse the files in grid order. Back/Forward
 controls retrace the files actually viewed, including nonadjacent selections.
 Going Back and selecting something new replaces the old forward branch. Restoring
-a file expands its bucket when necessary; the toolbar remains accessible while scrolling.
+a file updates the viewer, and the toolbar remains accessible while scrolling.
 Project overview or closing the evidence details restores the project image.
 The layout stacks on mobile. Cached PDF first pages provide mobile previews,
-with links to open the original PDFs. A link also opens the project's filtered
-Hub view.
+with links to open the original PDFs.
 
-Publications contains two clearly named layout examples. People has Students,
-Tutors and Partners as consecutive sections, without category tabs. Existing
+Publications contains two clearly named layout examples. People lists Partners,
+Tutors and Students in that order. Existing
 `?category=students`, `tutors` or `partners` links scroll to the corresponding section.
 Student examples reuse `projects[].members` and their framework author tags;
-cards, profiles and project overviews display first names only. Tutors are in `tutors`; update names, initials and
+cards, profiles and project overviews display first names only. Students share
+their project’s avatar color. Tutors are in `tutors`; update names, colors and
 introductions there. Add an image for a portrait when available. The RIVM card
 uses the supplied black-text Dutch logo, exported from EPS to PNG.
+
 Replace the publication examples or add new entries when available, for example:
 
 ```js
@@ -143,7 +140,8 @@ an image and title. The image is optional. Every card opens its own page at
 sentence and a link back to the collection. Edit these introductions in
 `js/content.js`; both page types share `renderCollectionItem` in `app.js`.
 
-Collection artwork shares one hover/focus zoom rule in `styles.css`. Partner
+Collection cards share one hover and focus treatment in `styles.css`. The
+shadow surrounds both the artwork and the card copy. Partner
 `imageFrame` settings in `js/content.js` define the visible SVG viewBox and original
 image dimensions, excluding white margins so the artwork starts at the title
 edge. Original logo files stay unchanged.
@@ -194,8 +192,16 @@ none. Filters, sorting and selected evidence are stored in the URL and survive
 switches between Knowledge Graph and Grid in the horizontal Hub submenu. Hover or
 keyboard focus reveals it; clicking Hub opens Graph and keeps the view links
 visible while browsing any Hub view, including on touch screens. Both views
-share the same filter function and details drawer. Grid cards show their
-bucket, project name and tags on hover or keyboard focus.
+share the same filter function and details drawer. Choose Include or Exclude
+before selecting a tag. Solid blue squares mark included tags and hatched
+squares mark excluded tags. Grid cards always show the title over the thumbnail
+with a colored bucket badge. Displayed titles omit file extensions and use
+spaces instead of underscores. Images fit inside the thumbnail without cropping,
+and spreadsheet cards use the saved cell excerpts. The arrow actions share
+one style in `styles.css`.
+
+The header search opens the evidence Grid with a quoted results heading. The
+Grid’s own search refines the same query. Saved `#/search?q=…` links open Grid.
 
 Evidence tags in the Hub drawer and project sidebar link to a fresh Grid query
 containing only that tag, including bucket/custom tags. Prior search, filters
@@ -248,8 +254,8 @@ line types and labels live in `js/content.js`.
 project attachment coverage and ordering, unique evidence IDs, framework row coverage, tags, safe file URLs, thumbnail
 paths and relationship integrity. The local browser flow additionally checks
 navigation, filters across views, direct evidence links, drawer controls,
-project file selection, collapsible buckets, direct links, shared metadata and
-relationship navigation, persistent Hub tabs, grid hover tags, example
+project file selection, the flat project grid, direct links, shared metadata and
+relationship navigation, persistent Hub tabs, grid titles, example
 collections, global search and mobile overflow.
 
 For the mounted graph flow, start the local preview and run

@@ -1,3 +1,5 @@
+import { displayTitle, stripFileExtension } from './evidence.js';
+
 const graphModel = (() => {
   'use strict';
 
@@ -15,11 +17,6 @@ const graphModel = (() => {
     neighbourAngles: 72,
     neighbourRingStep: 40
   };
-
-  // Presentation labels omit file suffixes; source filenames and IDs stay intact.
-  function displayTitle(title) {
-    return title.replace(/\.(?:pdf|png|jpe?g|xlsx?|pptx?|docx?|svg|webp|gif|mp4|html?|csv|tsv|json|geojson|tiff?|zip|mov|txt)$/i, '');
-  }
 
   // The same wrapping determines both title rendering and ring clearance.
   function wrapTitle(title, maximum = 18) {
@@ -50,7 +47,8 @@ const graphModel = (() => {
       const projectScope = (entry.projects || []).join('|');
       const key = entry.group ? `group:${projectScope ? projectScope + ':' : ''}${entry.group}` : entry.id;
       if (!groups.has(key)) {
-        groups.set(key, { key, name: displayTitle(entry.group || entry.title), named: Boolean(entry.group), members: [] });
+        // Keep the source name for the established graph geometry and sorting.
+        groups.set(key, { key, name: stripFileExtension(entry.group || entry.title), named: Boolean(entry.group), members: [] });
       }
       const group = groups.get(key);
       group.members.push(entry);

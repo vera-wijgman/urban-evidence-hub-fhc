@@ -1,9 +1,8 @@
 // 1. Shared state and safe rendering helpers.
-import { site, projects, collections, buckets, tagGroups, relationshipTypes, peopleGroups } from './js/content.js';
-import { titleOf, bucketStyle, extensionOf, isImage, previewFile, projectAttachments, filterEvidence, readFilters, tagGridUrl } from './js/evidence.js';
+import { site, projects, collections, buckets, tagGroups, relationshipTypes, peopleGroups, students } from './js/content.js';
+import { displayTitle, titleOf, bucketStyle, extensionOf, isImage, previewFile, projectAttachments, filterEvidence, readFilters, tagGridUrl } from './js/evidence.js';
 import { mountGraph, mountGraphPreview } from './js/graph.js';
 import { frameworkEntries, relatedEntries } from './js/graph-data.js';
-import graphModel from './js/graph-model.js';
 import { createViewingHistory } from './js/viewing-history.js';
 
 const main = document.querySelector('#main');
@@ -20,8 +19,8 @@ const safeUrl = value => {
   } catch { return ''; }
 };
 const arrow = '<span aria-hidden="true">↗</span>';
-const pill = tag => `<span class="tag">${escape(tag)}</span>`;
-const bucketLabel = item => `<span class="bucket-label" style="${bucketStyle(item)}"><i aria-hidden="true"></i>${escape(item.bucket)}</span>`;
+// The blue square sits behind the arrowhead on shared navigation actions.
+const actionArrow = (direction = 'right') => `<span class="action-arrow action-arrow--${direction}" aria-hidden="true"></span>`;
 const hubUrl = (view, params = new URLSearchParams()) => `#/hub/${view}${params.size ? '?' + params : ''}`;
 let evidence = [];
 let links = [];
@@ -46,6 +45,7 @@ function cleanupGraph() {
 // 2. Shared collection cards: homepage previews and year-grouped subpages.
 function collectionCard(item, type) {
   const href = `#/${type}/${item.id}`;
+  const avatar = type === 'people' && item.avatar;
   const date = item.date ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(item.date)) : '';
   const metadata = type === 'people' && item.role ? `<span class="person-role">${escape(item.role)}</span>` : type === 'projects' ? `<span class="card-year">Studio ${escape(item.year)}</span>`
     : type === 'publications' && date ? `<time class="card-year" datetime="${escape(item.date)}">${date}</time>` : '';
@@ -54,33 +54,32 @@ function collectionCard(item, type) {
     ? `<svg class="collection-artwork" viewBox="${escape(item.imageFrame.viewBox)}" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><image href="${safeUrl(item.image)}" width="${item.imageFrame.width}" height="${item.imageFrame.height}" /></svg>`
     : `<img class="collection-artwork" src="${safeUrl(item.image)}" alt="" loading="lazy" width="640" height="360" />`;
   const copyClass = item.logoOnly && item.image ? 'sr-only' : 'collection-card-copy';
-  const contents = `${item.initials && !item.image ? `<span class="person-avatar" aria-hidden="true">${escape(item.initials)}</span>` : ''}${item.image ? `<div class="collection-image${item.imageFrame ? ' partner-logo' : ''}">${artwork}</div>` : ''}
+  const contents = `${avatar && !item.image ? `<span class="person-avatar" style="--avatar:var(--${escape(avatar)})" aria-hidden="true"></span>` : ''}${item.image ? `<div class="collection-image${item.imageFrame ? ' partner-logo' : ''}">${artwork}</div>` : ''}
     <div class="${copyClass}"><h3>${escape(item.title)}</h3>${metadata}</div>`;
-  return `<a class="collection-card${item.initials ? ' person-card' : ''}" href="${href}">${contents}</a>`;
+  return `<a class="collection-card${avatar ? ' person-card' : ''}" href="${href}">${contents}</a>`;
 }
 
-function collectionPreview(type) {
+function collectionPreview(type, items = collections[type].items) {
   const collection = collections[type];
   return `<section class="home-section" aria-labelledby="home-${type}">
-    <div class="section-heading"><h2 id="home-${type}">${collection.title}</h2><a class="text-link" href="#/${type}">View all ${type} <span aria-hidden="true">→</span></a></div>
-    ${collection.items.length ? `<div class="collection-grid">${collection.items.slice(0, 3).map(item => collectionCard(item, type)).join('')}</div>` : `<div class="collection-empty"><span class="empty-label">${type === 'publications' ? 'Work in progress' : 'Building connections'}</span><p>${collection.empty}</p></div>`}
+    <div class="section-heading"><h2 id="home-${type}">${collection.title}</h2><a class="text-link arrow-action" href="#/${type}">View all ${type} ${actionArrow()}</a></div>
+    ${items.length ? `<div class="collection-grid">${items.slice(0, 3).map(item => collectionCard(item, type)).join('')}</div>` : `<div class="collection-empty"><span class="empty-label">${type === 'publications' ? 'Work in progress' : 'Building connections'}</span><p>${collection.empty}</p></div>`}
   </section>`;
 }
 
 function renderHome() {
-  main.innerHTML = `<div class="container home-page">
-    <section class="home-hero" aria-labelledby="home-title">
-      <div class="hero-copy"><p class="eyebrow">${site.homeLabel}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p><p class="hero-description">${site.description}</p>
-        <figure class="hero-image"><img src="${site.heroImage}" alt="A vision of a healthy city with green buildings, public transport and connected urban systems." width="1792" height="1024" fetchpriority="high" /></figure>
+  main.innerHTML = `<section class="container home-hero" aria-labelledby="home-title">
+      <div class="hero-copy"><p class="eyebrow">${site.homeLabel}</p><h1 id="home-title">${site.title}</h1><p class="hero-subtitle">${site.subtitle}</p>
+        <p class="home-introduction" id="hub-introduction">${escape(site.introduction)}</p>
       </div>
-      <a class="graph-preview" href="#/hub/graph" aria-label="Open Knowledge graph">
+      <a class="graph-preview" href="#/hub/graph" aria-label="View Knowledge graph">
         <div id="home-graph-preview" class="graph-preview-canvas" aria-hidden="true"></div>
-        <span class="graph-preview-bottom">Open Knowledge graph <span aria-hidden="true">→</span></span>
+        <span class="graph-preview-bottom arrow-action">View Knowledge graph ${actionArrow()}</span>
       </a>
     </section>
-    <section class="home-section home-introduction" aria-labelledby="hub-introduction"><div class="section-heading"><h2 id="hub-introduction">About the Urban Evidence Hub</h2></div><p>${escape(site.introduction)}</p></section>
-    ${collectionPreview('projects')}${collectionPreview('publications')}${collectionPreview('people')}
-  </div>`;
+    <div class="container">
+      ${collectionPreview('projects')}${collectionPreview('publications')}${collectionPreview('people', students)}
+    </div>`;
   mountGraphPreview(document.querySelector('#home-graph-preview'), { evidence: fileEvidence, links: fileLinks });
 }
 
@@ -122,17 +121,21 @@ function renderProject(id) {
   projectFiles = projectAttachments(evidence, project.tag);
   const selected = projectFiles.findIndex(entry => (entry.item.id === route.params.get('evidence') && entry.fileIndex === Number(route.params.get('file') || 0)) || entry.file.framework?.id === route.params.get('evidence'));
   projectHistory = createViewingHistory(selected);
-  main.innerHTML = `<article class="project-viewer" aria-label="${escape(project.title)}">
-    <div class="project-toolbar"><a href="#/projects" class="text-link">← All projects</a><div class="project-controls"><button type="button" data-project-cover>Project overview</button>${historyControls(projectHistory, 'project')}<span id="project-position" role="status" aria-live="polite"></span></div></div>
-    <div id="project-stage" class="project-stage"></div>
-    <aside id="project-info" class="project-info" aria-label="Project information"></aside>
-    <nav class="project-filmstrip" aria-label="Project files by evidence bucket">${buckets.map(bucket => {
-      const files = projectFiles.map((entry, index) => ({ ...entry, index })).filter(entry => entry.item.bucket === bucket);
-      return files.length ? `<details class="filmstrip-group" open><summary><h2>${bucket} <span>(${files.length})</span></h2></summary><div class="filmstrip-files">${files.map(({ item, file, index }) => {
-        const thumbnail = file.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : item.thumbnail);
-        return `<button type="button" class="project-thumbnail" style="${bucketStyle(item)}" data-project-file="${index}" aria-pressed="false" aria-label="Preview ${escape(file.fileName)}" title="${escape(file.fileName)}">${thumbnail ? `<img src="${safeUrl(thumbnail)}" alt="" loading="lazy" width="120" height="78" />` : `<span class="file-placeholder">${escape(extensionOf(file).toUpperCase())}</span>`}<span>${escape(file.fileName)}</span></button>`;
-      }).join('')}</div></details>` : '';
-    }).join('') || '<p class="muted">No project files have been added yet.</p>'}</nav>
+  main.innerHTML = `<article class="container project-viewer" aria-label="${escape(project.title)}">
+    <div class="project-toolbar"><a href="#/projects" class="text-link arrow-action">${actionArrow('left')} All projects</a><div class="project-controls"><button type="button" data-project-cover>Project overview</button>${historyControls(projectHistory, 'project')}<span id="project-position" role="status" aria-live="polite"></span></div>
+      <div class="project-sequence" role="group" aria-label="Browse project evidence" hidden>
+        <button class="arrow-action" type="button" data-project-step="-1" aria-label="Previous evidence">${actionArrow('left')} Previous</button>
+        <button class="arrow-action" type="button" data-project-step="1" aria-label="Next evidence">Next ${actionArrow()}</button>
+      </div>
+    </div>
+    <div class="project-display">
+      <div id="project-info" class="project-info" role="region" aria-label="Project information"></div>
+      <div id="project-stage" class="project-stage" tabindex="-1"></div>
+    </div>
+    <section class="project-files" aria-labelledby="project-files-title">
+      <h2 id="project-files-title">Project evidence</h2>
+      ${projectFiles.length ? `<div class="evidence-grid">${projectFiles.map((entry, index) => evidenceCard(entry.item, { ...entry, index })).join('')}</div>` : '<p class="muted">No project files have been added yet.</p>'}
+    </section>
   </article>`;
   selectProjectFile(selected, false);
 }
@@ -143,29 +146,38 @@ function selectProjectFile(index, syncUrl = true) {
   const { item, file, fileIndex } = entry || {};
   const project = activeProject;
   const panel = document.querySelector('#project-info');
+  panel.closest('.project-display').classList.toggle('is-file-open', Boolean(entry));
   document.querySelector('#project-stage').innerHTML = entry ? renderPreview(file, file === previewFile(item) ? item.thumbnail : '') : `<img class="project-overview" src="${safeUrl(activeProject.image)}" alt="${escape(activeProject.title)} project overview" />`;
   selectedId = item?.id || null;
-  panel.classList.toggle('evidence-info', Boolean(entry));
   panel.setAttribute('aria-label', entry ? 'Evidence details' : 'Project information');
-  panel.innerHTML = entry ? evidenceDetails(item, file) : `<img class="project-info-image" src="${safeUrl(project.image)}" alt="${escape(project.title)} project visual" /><p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(name => escape(name.split(' ')[0])).join(' · ')}</p><a class="text-link" href="${hubUrl('grid', new URLSearchParams({ include: project.tag }))}">Browse in the Hub →</a>`;
-  panel.scrollTop = 0;
+  panel.innerHTML = entry ? evidenceDetails(item, file) : `<p class="eyebrow">Studio ${project.year}</p><h1 id="project-title">${escape(project.title)}</h1><p>${escape(project.description)}</p><h2>Project team</h2><p>${project.members.map(name => escape(name.split(' ')[0])).join(' · ')}</p>`;
+  document.querySelector('.project-controls').hidden = !entry && !projectHistory.canBack && !projectHistory.canForward;
   document.querySelector('#project-position').textContent = entry ? `${index + 1} of ${projectFiles.length}` : `${projectFiles.length} files`;
+  document.querySelector('.project-sequence').hidden = !entry;
+  document.querySelector('[data-project-step="-1"]').disabled = index <= 0;
+  document.querySelector('[data-project-step="1"]').disabled = index >= projectFiles.length - 1;
   document.querySelector('.project-controls [data-step="-1"]').disabled = !projectHistory.canBack;
   document.querySelector('.project-controls [data-step="1"]').disabled = !projectHistory.canForward;
   document.querySelectorAll('[data-project-file]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.projectFile) === index)));
-  if (entry) {
-    const thumbnail = document.querySelector(`[data-project-file="${index}"]`);
-    thumbnail.closest('details').open = true;
-    thumbnail.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-  }
   route.params = entry ? new URLSearchParams({ evidence: item.id, file: fileIndex }) : new URLSearchParams();
   if (syncUrl) history.replaceState(null, '', `#/projects/${activeProject.id}${route.params.size ? '?' + route.params : ''}`);
+}
+
+function stepProjectFile(step) {
+  const index = projectHistory.current + step;
+  if (projectHistory.current >= 0 && projectFiles[index]) selectProjectFile(index);
+}
+
+function closeProjectFile() {
+  const card = document.querySelector('[data-project-file][aria-pressed="true"]');
+  selectProjectFile(-1);
+  card?.focus();
 }
 
 // 3. Hub shell and collapsible include/exclude filters.
 function renderHub() {
   main.innerHTML = `<section class="hub-page${route.view === 'graph' ? ' graph-hub' : ''}">
-    <header class="hub-header"><h1>Hub</h1><p>${site.hubDescription}</p></header>
+    <header class="hub-header"><h1 id="hub-title">Hub</h1><p id="hub-description">${site.hubDescription}</p></header>
     <div class="hub-layout"><aside class="filters" aria-label="Evidence filters"><details class="filter-container" open><summary class="mobile-filter-summary">Filters</summary><div id="filter-controls"></div></details></aside>
       <div class="hub-content"><div class="hub-toolbar"><form id="evidence-search" class="search-field" role="search"><label class="sr-only" for="evidence-query">Search evidence</label><span aria-hidden="true">⌕</span><input id="evidence-query" type="search" placeholder="Search evidence…" value="${escape(route.filters.q)}" /><button type="submit" class="search-submit">Search</button></form><label class="sort-label">Sort <select id="sort"><option value="title">Title A–Z</option><option value="bucket">Bucket</option><option value="newest">Newest first</option></select></label></div>
         <div id="active-filters" class="active-filters"></div><p id="result-count" class="result-count" role="status" aria-live="polite"></p>
@@ -188,19 +200,36 @@ function renderFilters() {
   const counts = new Map();
   (route.view === 'graph' ? fileEvidence : evidence).forEach(item => item.tags.forEach(tag => counts.set(tag, (counts.get(tag) || 0) + 1)));
   document.querySelector('#filter-controls').innerHTML = `${route.view === 'graph' ? '<div class="filter-heading graph-filter-header"><h2>Filters</h2><label class="connection-toggle"><span>Unconnected</span><input data-graph="show-unconnected" type="checkbox" role="switch" aria-label="Show unconnected evidence" /><span class="switch-track" aria-hidden="true"></span></label></div>' : ''}
-    <details class="filter-group" open><summary>Evidence buckets<span class="group-indicator" aria-hidden="true">+</span></summary>
-      <div class="bucket-filters">${buckets.map(bucket => `<label style="--bucket:var(--${bucket.toLowerCase()})"><span class="bucket-dot" aria-hidden="true"></span><span>${bucket}</span><input type="checkbox" data-bucket="${bucket}" ${!filters.buckets.length || filters.buckets.includes(bucket) ? 'checked' : ''} /></label>`).join('')}</div>
+    <details class="filter-group" open><summary>Evidence buckets<span class="group-indicator" aria-hidden="true"></span></summary>
+      <div class="bucket-filters">${buckets.map(bucket => `<label><input type="checkbox" style="${bucketStyle(bucket)}" data-bucket="${bucket}" ${!filters.buckets.length || filters.buckets.includes(bucket) ? 'checked' : ''} />${bucket}</label>`).join('')}</div>
     </details>
-    <div class="filter-heading tag-heading"><h2>Filter by tags</h2></div><p class="filter-help">Include or exclude a tag.</p>
-    ${Object.entries(tagGroups).map(([group, tags], index) => `<details class="filter-group"${index === 0 ? ' open' : ''}><summary>${group}<span class="group-indicator" aria-hidden="true">+</span></summary><div class="tag-options">${tags.map(tag => `<div class="tag-option"><span>${escape(tag.replace(/^Group \d: /, ''))}<small>${counts.get(tag) || 0}</small></span><div class="tag-actions"><button type="button" data-tag="${escape(tag)}" data-mode="include" aria-pressed="${filters.include.includes(tag)}" aria-label="Include ${escape(tag)}" title="Include ${escape(tag)}">+</button><button type="button" data-tag="${escape(tag)}" data-mode="exclude" aria-pressed="${filters.exclude.includes(tag)}" aria-label="Exclude ${escape(tag)}" title="Exclude ${escape(tag)}">−</button></div></div>`).join('')}</div></details>`).join('')}
+    <div class="filter-heading tag-heading"><h2>Filter by tags</h2></div>
+    <div class="tag-modes" role="group" aria-label="Tag filter mode">
+      <button type="button" data-tag-mode="include" aria-pressed="${route.tagMode === 'include'}">Include</button>
+      <button type="button" data-tag-mode="exclude" aria-pressed="${route.tagMode === 'exclude'}">Exclude</button>
+    </div>
+    ${Object.entries(tagGroups).map(([group, tags], index) => `<details class="filter-group"${index === 0 ? ' open' : ''}><summary>${group}<span class="group-indicator" aria-hidden="true"></span></summary><div class="tag-options">${tags.map(tag => `<button class="tag-option" type="button" data-tag="${escape(tag)}" aria-pressed="false">
+      <span class="filter-square" aria-hidden="true"></span><span>${escape(tag.replace(/^Group \d: /, ''))}</span><small class="tag-total" aria-hidden="true">${counts.get(tag) || 0}</small><span class="sr-only tag-state" hidden>Excluded</span>
+    </button>`).join('')}</div></details>`).join('')}
     <button type="button" class="clear-filters" data-clear>Clear all filters <span aria-hidden="true">↺</span></button>`;
 }
 
 function renderResults() {
   const results = filterEvidence(evidence, route.filters);
   const target = document.querySelector('#hub-results');
+  const query = route.view === 'grid' ? route.filters.q : '';
+  document.querySelector('#hub-title').textContent = query ? `Results for “${query}”` : 'Hub';
+  document.querySelector('#hub-description').hidden = Boolean(query);
   document.querySelector('#result-count').textContent = `${results.length} ${results.length === 1 ? 'piece' : 'pieces'} of evidence`;
-  document.querySelector('#active-filters').innerHTML = ['include', 'exclude'].flatMap(mode => route.filters[mode].map(tag => `<button class="filter-chip ${mode}" type="button" data-tag="${escape(tag)}" data-mode="${mode}">${mode === 'exclude' ? 'Exclude: ' : ''}${escape(tag)} <span aria-hidden="true">×</span></button>`)).join('');
+  document.querySelectorAll('.tag-option[data-tag]').forEach(button => {
+    const { tag } = button.dataset;
+    const excluded = route.filters.exclude.includes(tag);
+    const included = route.filters.include.includes(tag);
+    button.dataset.selection = excluded ? 'exclude' : included ? 'include' : '';
+    button.setAttribute('aria-pressed', String(excluded || included));
+    button.querySelector('.tag-state').hidden = !excluded;
+  });
+  document.querySelector('#active-filters').innerHTML = ['include', 'exclude'].flatMap(mode => route.filters[mode].map(tag => `<button class="filter-chip ${mode}" type="button" data-tag="${escape(tag)}" data-mode="${mode}" aria-label="Remove ${mode} filter: ${escape(tag)}">${mode === 'exclude' ? 'Exclude: ' : ''}${escape(tag)}</button>`)).join('');
   if (route.view === 'graph') {
     if (graphView) graphView.update(route.filters);
     else graphView = mountGraph(target, { evidence: fileEvidence, links: fileLinks, filters: route.filters,
@@ -213,22 +242,35 @@ function renderResults() {
     target.innerHTML = `<div class="no-results"><h2>No matching evidence</h2><p>Try another search or remove a filter.</p><button class="button secondary" type="button" data-clear>Clear search and filters</button></div>`;
     return;
   }
-  target.innerHTML = `<div class="evidence-grid">${results.slice(0, visibleCount).map(item => evidenceCard(item)).join('')}</div>${results.length > visibleCount ? `<div class="load-more"><button type="button" class="button secondary" data-more>Show more evidence</button><span class="muted">Showing ${Math.min(visibleCount, results.length)} of ${results.length}</span></div>` : ''}`;
+  target.innerHTML = `<div class="evidence-grid">${results.slice(0, visibleCount).map(item => evidenceCard(item)).join('')}</div>${results.length > visibleCount ? `<div class="load-more"><button type="button" class="arrow-action" data-more>Show more evidence ${actionArrow('down')}</button><span class="muted">Showing ${visibleCount} of ${results.length}</span></div>` : ''}`;
 }
 
-function evidenceCard(item) {
-  const file = previewFile(item);
+function evidenceCard(item, { file = previewFile(item), index, bucket = item.bucket } = {}) {
   const format = file ? extensionOf(file).toUpperCase() : 'FILE';
-  const image = item.thumbnail || file?.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : '');
-  return `<button type="button" class="evidence-card grid-card" style="${bucketStyle(item)}" data-evidence="${escape(item.id)}" aria-haspopup="dialog" aria-label="View details: ${escape(titleOf(item))}">
-    <span class="evidence-thumbnail">${image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />` : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`}<span class="thumbnail-details">${bucketLabel(item)}<span class="hover-project">${escape(item.tags.filter(tag => tag.startsWith('Group ')).map(tag => tag.replace(/^Group \d: /, '')).join(' · '))}</span><span class="detail-tags">${item.tags.filter(tag => !tag.startsWith('Group ')).map(pill).join('')}</span></span></span>
-    <span class="evidence-card-copy"><span class="evidence-title">${escape(titleOf(item))}</span></span>
+  const inProject = index !== undefined;
+  const title = inProject ? displayTitle(file.framework?.title || file.fileName) : titleOf(item);
+  const preview = file?.framework?.preview;
+  const image = (file === previewFile(item) ? item.thumbnail : '') || file?.previewUrl || (isImage(file) && file.available !== false ? file.fileUrl : '');
+  const artwork = preview?.kind === 'table' && preview.rows?.length ? tableThumbnail(preview.rows)
+    : image ? `<img src="${safeUrl(image)}" alt="" loading="lazy" width="400" height="260" />`
+    : `<span class="file-placeholder"><span class="file-glyph" aria-hidden="true">▤</span>${escape(format)}</span>`;
+  const action = inProject ? `data-project-file="${index}" aria-pressed="false"` : `data-evidence="${escape(item.id)}" aria-haspopup="dialog"`;
+  return `<button type="button" class="evidence-card" style="${bucketStyle(bucket)}" ${action} aria-label="${inProject ? 'Preview' : 'View details:'} ${escape(title)}">
+    <span class="evidence-thumbnail">${artwork}</span>
+    <span class="evidence-card-copy"><span class="bucket-badge">${escape(bucket)}</span><span class="evidence-title">${escape(title)}</span></span>
   </button>`;
+}
+
+// Spreadsheet tiles show a small excerpt of the saved preview, as phrasing content inside the button.
+function tableThumbnail(rows) {
+  return `<span class="table-thumbnail" aria-hidden="true">${rows.slice(0, 6).map(row =>
+    `<span>${row.slice(0, 5).map(cell => `<span>${escape(cell)}</span>`).join('')}</span>`).join('')}</span>`;
 }
 
 function updateFilters() {
   const params = new URLSearchParams();
   const filters = route.filters;
+  if (filters.q !== (route.params.get('q') || '')) document.querySelector('#global-search').value = filters.q;
   if (filters.q) params.set('q', filters.q);
   if (filters.sort !== 'title') params.set('sort', filters.sort);
   for (const [key, values] of [['bucket', filters.buckets], ['include', filters.include], ['exclude', filters.exclude]]) values.forEach(value => params.append(key, value));
@@ -245,11 +287,11 @@ function updateFilters() {
 function renderPreview(file, thumbnail = '') {
   if (file?.available === false) {
     const note = 'The original file is awaiting publication.';
-    return file.previewUrl ? `<div class="file-preview"><img src="${safeUrl(file.previewUrl)}" alt="Preview of ${escape(file.fileName)}" /><span class="preview-caption">Preview only · ${note}</span></div>` : `<div class="file-unavailable">${note}</div>`;
+    return file.previewUrl ? `<div class="file-preview"><img src="${safeUrl(file.previewUrl)}" alt="Preview of ${escape(displayTitle(file.fileName))}" /><span class="preview-caption">Preview only · ${note}</span></div>` : `<div class="file-unavailable">${note}</div>`;
   }
   if (!file?.fileUrl) return '<div class="file-unavailable">A published file has not been attached to this record yet.</div>';
   const url = safeUrl(file.fileUrl);
-  const name = escape(file.fileName || file.title || 'Evidence file');
+  const name = escape(displayTitle(file.framework?.title || file.fileName || file.title || 'Evidence file'));
   const preview = file.framework?.preview;
   if (preview?.kind === 'table') return `<div class="excerpt-preview"><table>${preview.rows.map(row => `<tr>${row.map(value => `<td>${escape(value)}</td>`).join('')}</tr>`).join('')}</table><p class="preview-caption">${escape(preview.caption || '')}</p></div>`;
   if (preview?.kind === 'text') return `<div class="excerpt-preview"><pre>${escape(preview.text)}</pre><p class="preview-caption">${escape(preview.caption || '')}</p></div>`;
@@ -265,14 +307,14 @@ function renderPreview(file, thumbnail = '') {
 // Simplified file/bubble link lists contain names and recorded relationships only.
 function linkedItemsSection(label, entries, attribute = 'data-evidence') {
   if (!entries.length) return '';
-  const ordered = entries.map(({ id, title }) => ({ id, title: graphModel.displayTitle(title) }))
+  const ordered = entries.map(({ id, title }) => ({ id, title: displayTitle(title) }))
     .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
   return `<section class="detail-section"><h3>${escape(label)} (${entries.length})</h3><div class="linked-items">${ordered.map(entry => `<button type="button" ${attribute}="${escape(entry.id)}"><strong>${escape(entry.title)}</strong></button>`).join('')}</div></section>`;
 }
 
 // History follows actual selections, with independent project and Hub sessions.
 function historyControls(history, scope) {
-  return `<div class="viewing-history" role="group" aria-label="Evidence viewing history"><button type="button" data-view-history="${scope}" data-step="-1" aria-label="Back to previously viewed evidence"${history.canBack ? '' : ' disabled'}>← Back</button><button type="button" data-view-history="${scope}" data-step="1" aria-label="Forward to next viewed evidence"${history.canForward ? '' : ' disabled'}>Forward →</button></div>`;
+  return `<div class="viewing-history" role="group" aria-label="Evidence viewing history"><button class="arrow-action" type="button" data-view-history="${scope}" data-step="-1" aria-label="Back to previously viewed evidence"${history.canBack ? '' : ' disabled'}>${actionArrow('left')} Back</button><button class="arrow-action" type="button" data-view-history="${scope}" data-step="1" aria-label="Forward to next viewed evidence"${history.canForward ? '' : ' disabled'}>Forward ${actionArrow()}</button></div>`;
 }
 
 // Shared file details; project pages already show the preview on their main stage.
@@ -285,8 +327,8 @@ function evidenceDetails(item, file = previewFile(item)) {
   const selectFiles = item.files.length > 1 && !(route.page === 'hub' && route.view === 'graph');
   return `<div class="detail-top"><span class="eyebrow">Evidence details</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div>
     ${route.page === 'hub' ? historyControls(evidenceHistory, 'evidence') : ''}
-    <h2 id="detail-title" tabindex="-1">${escape(graphModel.displayTitle(entry?.title || item.title))}</h2>${route.page === 'projects' ? '' : `<div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>`}
-    ${selectFiles ? `<label class="file-select-label">Attached files<select id="file-select">${item.files.map((attached, index) => `<option value="${index}"${attached === file ? ' selected' : ''}>${escape(attached.fileName || attached.title)}</option>`).join('')}</select></label>` : ''}
+    <h2 id="detail-title" tabindex="-1">${escape(displayTitle(entry?.title || item.title))}</h2>${route.page === 'projects' ? '' : `<div id="file-preview">${renderPreview(file, file === previewFile(item) ? item.thumbnail : '')}</div>`}
+    ${selectFiles ? `<label class="file-select-label">Attached files<select id="file-select">${item.files.map((attached, index) => `<option value="${index}"${attached === file ? ' selected' : ''}>${escape(displayTitle(attached.fileName || attached.title))}</option>`).join('')}</select></label>` : ''}
     <div id="file-action">${file?.fileUrl && file.available !== false ? `<a class="button secondary file-open" href="${safeUrl(file.fileUrl)}" target="_blank" rel="noopener noreferrer">Open file ${arrow}</a>` : ''}</div>
     ${description ? `<section class="detail-section"><h3>Description</h3><p>${escape(description)}</p></section>` : ''}
     <section class="detail-section"><h3>${fileBuckets.length === 1 ? 'Bucket' : 'Buckets'}</h3><p>${escape(fileBuckets.join(', '))}</p></section>
@@ -322,7 +364,7 @@ function openGraphDetail(group, node, arrows) {
       .map(arrow => backward ? arrow.sourceGroup : arrow.targetGroup).map(other => ({ id: other.key, title: other.name }));
     return linkedItemsSection(backward ? type.incoming : type.label, entries, 'data-graph-group');
   })).join('');
-  showDetail(`<div class="detail-top"><span class="eyebrow">Evidence group</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div><h2 id="detail-title" tabindex="-1">${escape(group.name)}</h2>${linkedItemsSection('Evidence in this bubble', group.members)}${relations}`);
+  showDetail(`<div class="detail-top"><span class="eyebrow">Evidence group</span><button type="button" class="close-detail" data-close aria-label="Close evidence details">×</button></div><h2 id="detail-title" tabindex="-1">${escape(displayTitle(group.name))}</h2>${linkedItemsSection('Evidence in this bubble', group.members)}${relations}`);
 }
 
 function openDetail(id, focus = true, fileIndex) {
@@ -369,20 +411,7 @@ function syncDrawerMode() {
   detail.setAttribute('aria-modal', String(modal));
 }
 
-// 5. Site search and URL routing. Hash routes work on any static GitHub host.
-function renderSearch() {
-  const query = route.params.get('q') || '';
-  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const matches = item => terms.every(term => [item.title, item.description, item.year].join(' ').toLowerCase().includes(term));
-  const results = filterEvidence(evidence, readFilters(new URLSearchParams({ q: query })));
-  main.innerHTML = `<div class="container search-page"><header class="page-heading"><p class="eyebrow">Search the Urban Evidence Hub</p><h1>${query ? `Results for “${escape(query)}”` : 'Search the hub'}</h1><p>${results.length} pieces of evidence. Browse matching projects and studio content below.</p></header>
-    ${Object.entries(collections).map(([type, collection]) => {
-      const items = collection.items.filter(matches);
-      return items.length ? `<section class="home-section"><div class="section-heading"><h2>${collection.title}</h2></div><div class="collection-grid">${items.map(item => collectionCard(item, type)).join('')}</div></section>` : '';
-    }).join('')}
-    <section class="home-section"><div class="section-heading"><h2>Evidence</h2><a href="${hubUrl('grid', new URLSearchParams({ q: query }))}">View all evidence →</a></div>${results.length ? `<div class="search-evidence">${results.slice(0, 8).map(item => `<a class="search-result" style="${bucketStyle(item)}" href="${hubUrl('grid', new URLSearchParams({ q: query, evidence: item.id }))}">${bucketLabel(item)}<h3>${escape(titleOf(item))}</h3>${arrow}</a>`).join('')}</div>` : '<div class="no-results"><h3>No matching evidence</h3><p>Try a different search term.</p></div>'}</section></div>`;
-}
-
+// 5. Site pages and URL routing. Hash routes work on any static GitHub host.
 function renderNotFound() {
   main.innerHTML = '<div class="container no-results"><h1>Page not found</h1><p>This page may have moved.</p><a class="button" href="#/home">Return home →</a></div>';
 }
@@ -408,8 +437,9 @@ function renderRoute() {
   const [path, query = ''] = location.hash.slice(1).split('?');
   const parts = (path || '/home').split('/').filter(Boolean);
   const params = new URLSearchParams(query);
-  // Old saved links resolve to their replacement; no List/Partners page is rendered.
-  if (parts[0] === 'hub' && parts[1] === 'list') {
+  // Saved search and List links open the same evidence grid.
+  if (parts[0] === 'search' || (parts[0] === 'hub' && parts[1] === 'list')) {
+    parts[0] = 'hub';
     parts[1] = 'grid';
     history.replaceState(null, '', hubUrl('grid', params));
   }
@@ -419,7 +449,7 @@ function renderRoute() {
     history.replaceState(null, '', '#/people' + (parts[1] ? '/' + parts[1] : '') + (params.size ? '?' + params : ''));
   }
   if (route?.page !== 'hub' || parts[0] !== 'hub') evidenceHistory = createViewingHistory();
-  route = { page: parts[0], view: ['grid', 'graph'].includes(parts[1]) ? parts[1] : 'graph', params, filters: readFilters(params) };
+  route = { page: parts[0], view: parts[1] === 'grid' ? 'grid' : 'graph', params, filters: readFilters(params), tagMode: 'include' };
   visibleCount = 36;
   document.querySelectorAll('#main-nav [data-page]').forEach(link => {
     if (link.dataset.page === route.page) link.setAttribute('aria-current', 'page');
@@ -430,13 +460,13 @@ function renderRoute() {
   document.querySelector('#main-nav').classList.remove('is-open');
   document.querySelector('.menu-button').setAttribute('aria-expanded', 'false');
   document.querySelector('#global-search').value = params.get('q') || '';
-  document.title = `${route.page === 'home' ? 'Trace evidence into design' : (collections[route.page]?.title || (route.page === 'hub' ? 'Hub' : 'Search'))} | ${site.title}`;
+  const pageTitles = { home: site.subtitle, hub: 'Hub' };
+  document.title = `${collections[route.page]?.title || pageTitles[route.page] || 'Page not found'} | ${site.title}`;
   if (route.page === 'home') renderHome();
   else if (route.page === 'hub') renderHub();
   else if (route.page === 'projects' && parts[1]) renderProject(parts[1]);
   else if (collections[route.page] && parts[1]) renderCollectionItem(route.page, parts[1]);
   else if (collections[route.page]) renderCollection(route.page);
-  else if (route.page === 'search') renderSearch();
   else renderNotFound();
   const peopleSection = route.page === 'people' && document.getElementById(`people-${params.get('category')}`);
   if (peopleSection) peopleSection.scrollIntoView({ block: 'start' });
@@ -458,7 +488,11 @@ document.addEventListener('click', event => {
     const open = button.getAttribute('aria-expanded') !== 'true';
     button.setAttribute('aria-expanded', String(open));
     document.querySelector('#main-nav').classList.toggle('is-open', open);
-  } else if (button.hasAttribute('data-project-file')) selectProjectFile(Number(button.dataset.projectFile));
+  } else if (button.hasAttribute('data-project-file')) {
+    selectProjectFile(Number(button.dataset.projectFile));
+    document.querySelector('.project-viewer').scrollIntoView({ block: 'start' });
+    document.querySelector('#project-stage').focus({ preventScroll: true });
+  } else if (button.hasAttribute('data-project-step')) stepProjectFile(Number(button.dataset.projectStep));
   else if (button.hasAttribute('data-project-cover')) selectProjectFile(-1);
   else if (button.hasAttribute('data-view-history')) {
     const project = button.dataset.viewHistory === 'project';
@@ -468,11 +502,7 @@ document.addEventListener('click', event => {
   } else if (button.hasAttribute('data-graph-group')) graphView?.select(button.dataset.graphGroup, true);
   else if (button.hasAttribute('data-evidence')) openDetail(button.dataset.evidence);
   else if (button.hasAttribute('data-close')) {
-    if (route.page === 'projects') {
-      const thumbnail = document.querySelector('[data-project-file][aria-pressed="true"]');
-      selectProjectFile(-1);
-      thumbnail?.focus({ preventScroll: true });
-    }
+    if (route.page === 'projects') closeProjectFile();
     else closeDetail();
   } else if (button.hasAttribute('data-more')) {
     visibleCount += 36;
@@ -480,19 +510,22 @@ document.addEventListener('click', event => {
     document.querySelectorAll('.evidence-card')[visibleCount - 36]?.focus({ preventScroll: true });
   } else if (button.hasAttribute('data-clear')) {
     route.filters = readFilters(new URLSearchParams());
+    route.tagMode = 'include';
     document.querySelector('#evidence-query').value = '';
     document.querySelector('#sort').value = 'title';
     cleanupGraph();
     closeDetail(false);
     renderFilters();
     updateFilters();
-  } else if (button.hasAttribute('data-mode') && button.hasAttribute('data-tag')) {
-    const { tag, mode } = button.dataset;
+  } else if (button.hasAttribute('data-tag-mode')) {
+    route.tagMode = button.dataset.tagMode;
+    document.querySelectorAll('[data-tag-mode]').forEach(control => control.setAttribute('aria-pressed', String(control === button)));
+  } else if (button.hasAttribute('data-tag')) {
+    const { tag, mode = route.tagMode } = button.dataset;
     const other = mode === 'include' ? 'exclude' : 'include';
     const values = route.filters[mode];
     route.filters[mode] = values.includes(tag) ? values.filter(value => value !== tag) : [...values, tag];
     route.filters[other] = route.filters[other].filter(value => value !== tag);
-    document.querySelectorAll('[data-mode][data-tag]').forEach(control => control.setAttribute('aria-pressed', String(route.filters[control.dataset.mode].includes(control.dataset.tag))));
     updateFilters();
   }
 });
@@ -521,8 +554,8 @@ hubNav.addEventListener('keydown', event => {
 document.addEventListener('submit', event => {
   if (event.target.id === 'site-search') {
     event.preventDefault();
-    const params = new URLSearchParams({ q: document.querySelector('#global-search').value.trim() });
-    location.hash = `#/search?${params}`;
+    const query = document.querySelector('#global-search').value.trim();
+    location.hash = hubUrl('grid', new URLSearchParams(query ? { q: query } : undefined));
   } else if (event.target.id === 'evidence-search') {
     event.preventDefault();
     route.filters.q = document.querySelector('#evidence-query').value.trim();
@@ -569,10 +602,13 @@ document.addEventListener('keydown', event => {
     setHubMenu(false);
     return;
   }
-  if (event.key === 'Escape' && route.page === 'projects' && selectedId) {
-    const thumbnail = document.querySelector('[data-project-file][aria-pressed="true"]');
-    selectProjectFile(-1);
-    thumbnail?.focus({ preventScroll: true });
+  if (route.page === 'projects' && selectedId) {
+    if (event.key === 'Escape') closeProjectFile();
+    else if (['ArrowLeft', 'ArrowRight'].includes(event.key)
+      && !event.altKey && !event.ctrlKey && !event.metaKey && !event.target.closest('input, select, textarea, video')) {
+      event.preventDefault();
+      stepProjectFile(event.key === 'ArrowRight' ? 1 : -1);
+    }
   }
   if (detail.hidden) return;
   if (event.key === 'Escape') closeDetail();

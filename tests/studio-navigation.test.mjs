@@ -61,5 +61,5 @@ test('People contains every framework author once and unique profile IDs', () =>
   assert.deepEqual(students.map(student => student.evidenceTag), tagGroups.Author);
   const people = peopleGroups.flatMap(group => group.items);
   assert.equal(new Set(people.map(person => person.id)).size, people.length);
-  assert.deepEqual(peopleGroups.map(group => group.id), ['students', 'tutors', 'partners']);
+  assert.deepEqual(peopleGroups.map(group => group.id), ['partners', 'tutors', 'students']);
 });

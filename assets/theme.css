@@ -9,7 +9,6 @@
   /* Blue sampled from the logo's lower-left dot. */
   --accent: #518ebc;
   --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--paper));
-  --exclude: #a33f4d;
   --methods: #70b8af;
   --research: #78acd5;
   --analysis: #929cd5;

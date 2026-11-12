@@ -31,6 +31,9 @@ async (page) => {
   check(await graph.locator('.node').count() === 660, 'All 660 exact framework files render');
   check(await graph.locator('.cluster').count() === 296, 'The 296 compact project-scoped bubbles render');
   check(await graph.locator('.relationship-arrow').count() === 48, 'All 48 typed group arrows render');
+  const legend = graph.getByRole('group', { name: 'Relationship legend' });
+  check(await legend.isVisible() && await legend.locator('.relationship-key').count() === 3
+    && !(await graph.textContent()).includes('Evidence groups'), 'The three relationship keys are always visible and the canvas has no duplicate title');
   check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence`, 'Graph defaults to connected individual files');
   check(await page.getByRole('heading', { name: 'Show tags in graph' }).count() === 0, 'Graph filters omit tag display controls');
   const buckets = page.locator('summary').filter({ hasText: 'Evidence buckets' });
@@ -96,9 +99,16 @@ async (page) => {
   check(await graph.locator('.cluster[style*="display: none"]').count() > 0, 'Unconnected switch hides disconnected bubbles');
   await page.getByRole('switch', { name: 'Show unconnected evidence' }).check();
   check(await graph.locator('.cluster[style*="display: none"]').count() === 0, 'Unconnected switch restores them');
-  await page.getByRole('button', { name: 'Include Mobility', exact: true }).click();
+  const mobility = page.locator('.tag-option[data-tag="Mobility"]');
+  await mobility.click();
   const count = Number((await page.locator('#result-count').textContent()).split(' ')[0]);
   check(count === files.filter(file => file.tags.includes('Mobility')).length, 'Shared include filters use exact file metadata');
+  await page.getByRole('button', { name: 'Exclude', exact: true }).click();
+  await mobility.click();
+  check(await mobility.getAttribute('aria-pressed') === 'true'
+    && await mobility.locator('.filter-square').evaluate(square => getComputedStyle(square).backgroundImage.includes('repeating-linear-gradient'))
+    && (await page.evaluate(() => location.hash)).endsWith('?exclude=Mobility'),
+  'Exclude mode moves the same tag from Include to Exclude and hatches the square');
   await page.getByRole('button', { name: 'Clear all filters', exact: true }).click();
   check(await page.locator('#result-count').textContent() === `${connectedCount} pieces of evidence`, 'Clearing filters restores the connected graph');
   check(await page.evaluate(() => graphListeners) === 2, 'One mounted graph owns exactly its two document listeners');
@@ -117,11 +127,10 @@ async (page) => {
   await page.goto(`${base}#/projects/health-islands`);
   await page.locator('#project-info h1').waitFor();
   check(await page.locator('#project-info').getAttribute('aria-label') === 'Project information', 'Project opens with its overview');
+  check(await page.locator('.project-files .evidence-grid').count() === 1
+    && await page.locator('.project-files details').count() === 0, 'Project evidence appears in a single grid');
   await page.locator('[data-project-file]').first().click();
   check(await page.locator('#project-info').getByRole('heading', { name: /^Buckets?$/ }).count() === 1, 'Project file selection reuses the same bucket details');
-  const group = page.locator('.filmstrip-group').first();
-  await group.locator('summary').click();
-  check(!await group.evaluate(element => element.open), 'Project buckets remain collapsible');
   const outsideFilter = files.find(file => !file.tags.includes('Mobility'));
   await page.goto(`${base}#/hub/graph?include=Mobility&evidence=${outsideFilter.id}`);
   await drawer.locator('#detail-title').waitFor();
@@ -134,6 +143,13 @@ async (page) => {
   check(await drawer.locator('.file-open').getAttribute('href') === expected.file.fileUrl, 'Direct file links restore exact mobile selections');
   await drawer.locator('[data-close]').click();
   check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile Graph has no horizontal page overflow');
+  await page.setViewportSize({ width: 320, height: 844 });
+  const [legendBox, controlsBox, canvasBox] = await Promise.all([
+    legend.boundingBox(), graph.getByRole('group', { name: 'Graph view controls' }).boundingBox(), graph.boundingBox(),
+  ]);
+  check(legendBox.x + legendBox.width <= canvasBox.x + canvasBox.width
+    && (legendBox.x >= controlsBox.x + controlsBox.width || legendBox.y >= controlsBox.y + controlsBox.height),
+  'The legend fits the graph without covering zoom controls on a narrow phone');
   await page.screenshot({ path: 'output/playwright/integrated-graph-mobile.png', fullPage: true });
   check(errors.length === 0, `No JavaScript errors: ${errors.join('; ')}`);
   return { passed: checks.length, checks };

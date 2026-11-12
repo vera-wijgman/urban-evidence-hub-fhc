@@ -96,8 +96,9 @@ and standalone HTML in `outputs/` remain local historical references.
   Omit empty relationship sections entirely, including their headings and any
   “No links recorded yet” placeholder. File links refer to the exact linked file;
   bubble links refer to the connected bubble.
-- Keep the lower-left legend next to Fit/zoom controls and the Unconnected switch
-  in the filter header. Use collapsible sections for evidence buckets and tag filters.
+- Keep the relationship legend visible at the lower right and Fit/zoom at the
+  lower left. Use collapsible sections for evidence buckets and tag filters,
+  with the Unconnected switch in the filter header.
 - Keep related bubbles close, place disconnected evidence separately, and verify
   initial straight arrows do not pass through unrelated bubbles. Preserve circle-boundary endpoints
   when dragging; the layout does not run a continuous animation.

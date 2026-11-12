@@ -1,8 +1,9 @@
-// Viewing order is independent of the alphabetical filmstrip or browser page history.
+// Viewing order is independent of the evidence grid or browser page history.
 export function createViewingHistory(initial) {
   let entries = initial === undefined ? [] : [initial];
   let position = entries.length - 1;
   return {
+    get current() { return entries[position]; },
     get canBack() { return position > 0; },
     get canForward() { return position < entries.length - 1; },
     visit(value) {

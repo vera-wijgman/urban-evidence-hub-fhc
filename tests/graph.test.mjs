@@ -58,6 +58,8 @@ test('bubble labels omit file extensions without removing ordinary dotted text',
     assert.equal(label(`Example.${extension}`), 'Example');
   }
   assert.equal(label('Studio.2026'), 'Studio.2026');
+  assert.equal(label('  neighbourhood__survey_10.JPEG  '), 'Neighbourhood survey 10');
+  assert.equal(label('02_field_notes.ipynb'), '02 Field notes');
 });
 
 test('new spoken connections replace the two superseded paths with their intended directions', () => {

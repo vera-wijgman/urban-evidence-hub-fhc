@@ -13,15 +13,16 @@ function svgElement(tag, attributes = {}, text) {
 // Shared geometry keeps the homepage preview identical to the interactive graph.
 const arrowheadSize = 18;
 function bubbleElement(group, colors, interactive = false) {
+  const name = graphModel.displayTitle(group.name);
   const element = svgElement('g', {
     class: 'cluster', 'data-group': group.key,
-    ...(interactive ? { tabindex: 0, role: 'button', 'aria-label': `${group.name}, ${group.members.length} evidence entries` } : {})
+    ...(interactive ? { tabindex: 0, role: 'button', 'aria-label': `${name}, ${group.members.length} evidence entries` } : {})
   });
   const boundary = svgElement('circle', { r: group.radius, class: 'cluster-boundary' });
   boundary.style.fill = colors.get(group.bucket) || 'var(--muted)';
   element.append(boundary);
   const title = svgElement('text', { class: 'cluster-title', 'text-anchor': 'middle' });
-  const lines = group.titleLines;
+  const lines = graphModel.wrapTitle(name);
   lines.forEach((line, index) => {
     title.append(svgElement('tspan', { x: 0, y: (index - (lines.length - 1) / 2) * 16 }, line));
   });
@@ -96,9 +97,15 @@ export function mountGraphPreview(container, { evidence, links }) {
 }
 
 const graphMarkup = `<section class="graph-view canvas-panel" aria-label="Evidence graph">
-  <div class="canvas-title"><strong data-graph="view-title">Evidence groups</strong><span>Hover to trace a chain · Click to pin · Click outside the chain to return</span></div>
+  <p class="canvas-hint">Hover to trace a chain · Click to pin · Click outside the chain to return</p>
   <svg data-graph="knowledge-graph" aria-label="Studio evidence graph"><defs data-graph="arrow-markers"></defs><g data-graph="world"><g data-graph="clusters"></g><g data-graph="links"></g><g data-graph="nodes"></g></g></svg>
-  <div data-graph="graph-tools" class="graph-tools"><div class="controls" aria-label="Graph view controls"><button data-graph="fit" type="button">Fit all</button><button data-graph="minus" type="button" aria-label="Zoom out">−</button><output data-graph="zoom">100%</output><button data-graph="plus" type="button" aria-label="Zoom in">+</button><details class="graph-legend"><summary>Legend</summary><div data-graph="relationship-legend"></div></details></div><p data-graph="edge-count" class="edge-count" aria-live="polite"></p></div>
+  <div data-graph="graph-tools" class="graph-tools">
+    <div class="graph-navigation">
+      <div class="controls" role="group" aria-label="Graph view controls"><button data-graph="fit" type="button">Fit all</button><button data-graph="minus" type="button" aria-label="Zoom out">−</button><output data-graph="zoom">100%</output><button data-graph="plus" type="button" aria-label="Zoom in">+</button></div>
+      <p data-graph="edge-count" class="edge-count" aria-live="polite"></p>
+    </div>
+    <div class="graph-legend" role="group" aria-label="Relationship legend"><strong>Legend</strong><div data-graph="relationship-legend"></div></div>
+  </div>
 </section>`;
 
 export function mountGraph(container, { evidence, links, filters, controls, drawer, onSelect, onClear, onCount }) {
@@ -159,15 +166,16 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
         offsetX: Math.cos(angle) * cluster.orbit,
         offsetY: Math.sin(angle) * cluster.orbit
       };
+      const title = graphModel.displayTitle(node.title);
       node.element = svgElement('g', {
         class: 'node', tabindex: 0, role: 'button', 'data-id': node.id,
-        'aria-label': `${node.title}, ${node.buckets.join(', ')}`
+        'aria-label': `${title}, ${node.buckets.join(', ')}`
       });
-      node.element.append(svgElement('title', {}, `${node.title}\n${node.buckets.join(', ')}`));
+      node.element.append(svgElement('title', {}, `${title}\n${node.buckets.join(', ')}`));
       const circle = svgElement('circle', { r: 7, fill: colors.get(node.bucket) || 'var(--muted)' });
       node.element.append(circle);
       const label = svgElement('text', { y: 24, class: 'member-label' });
-      wrapTitle(graphModel.displayTitle(node.title)).forEach((line, index) => {
+      wrapTitle(title).forEach((line, index) => {
         label.append(svgElement('tspan', { x: 0, dy: index ? 15 : 0 }, line));
       });
       node.element.append(label);
@@ -220,7 +228,7 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
       'stroke-dasharray': type.dash, 'marker-end': `url(#arrow-${type.id})`,
       'data-source': arrow.source, 'data-target': arrow.target, 'data-type': type.id
     });
-    arrow.element.append(svgElement('title', {}, `${arrow.sourceGroup.name} → ${type.label.toLowerCase()} → ${arrow.targetGroup.name} (${arrow.evidenceLinks.length} evidence links)`));
+    arrow.element.append(svgElement('title', {}, `${graphModel.displayTitle(arrow.sourceGroup.name)} → ${type.label.toLowerCase()} → ${graphModel.displayTitle(arrow.targetGroup.name)} (${arrow.evidenceLinks.length} evidence links)`));
     getElement('links').append(arrow.element);
   }
 
@@ -259,15 +267,16 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
 
   function focusBox(box) {
     const rect = svg.getBoundingClientRect();
-    scale = Math.max(0.01, Math.min(1.15, (rect.width - 90) / box.width, (rect.height - 145) / box.height));
+    const top = 54;
+    const height = rect.height - top - getElement('graph-tools').offsetHeight - 20;
+    scale = Math.max(0.01, Math.min(1.15, (rect.width - 90) / box.width, height / box.height));
     translateX = (rect.width - box.width * scale) / 2 - box.x * scale;
-    translateY = (rect.height - box.height * scale) / 2 - box.y * scale + 15;
+    translateY = top + (height - box.height * scale) / 2 - box.y * scale;
     transform();
   }
 
   function fit() {
     focusBox(graphBounds());
-    getElement('view-title').textContent = 'Evidence groups';
   }
 
   function zoomBy(factor, centerX = svg.clientWidth / 2, centerY = svg.clientHeight / 2) {
