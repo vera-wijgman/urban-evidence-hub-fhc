@@ -72,8 +72,8 @@ part of the website they implement, so the next student group can maintain it.
 | `app.js` | Seven labelled sections for pages, project viewer, shared evidence cards and details, filters, routing, events and loading |
 | `js/viewing-history.js` | Back/Forward through actual evidence selections; separate Hub and project sessions |
 | `js/evidence.js` | Shared evidence filtering, project attachment ordering and file helpers |
-| `js/graph.js` | Connected homepage preview and interactive Hub graph with shared SVG geometry, chains, pan/zoom and cleanup |
-| `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, directed chains and arrow clearance |
+| `js/graph.js` | Connected homepage preview and interactive Hub graph with shared SVG geometry, direct-link highlighting, pan/zoom and cleanup |
+| `js/graph-model.js` | Pure compact layout, project-scoped bubbles, majority colors, direct connections and arrow clearance |
 | `js/graph-data.js` | Exact framework-file mapping and typed incoming/outgoing relationship sections |
 | `assets/graph.css` | Scoped graph visuals and filter controls; shared palette stays in `assets/theme.css` |
 | `GRAPH-INTEGRATION.md` | Integrated graph data contract, maintenance workflow, interaction requirements and checks |

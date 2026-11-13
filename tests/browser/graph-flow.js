@@ -43,12 +43,16 @@ async (page) => {
   await buckets.click();
   check(await research.isVisible() && await research.isChecked(), 'Reopening Evidence buckets preserves checked filters');
   const bubble = graph.locator('.cluster').filter({ hasText: /^Integration/ }).first();
+  const bubbleKey = await bubble.getAttribute('data-group');
+  const highlightsOnlyDirectArrows = () => graph.locator('.relationship-arrow').evaluateAll((arrows, key) =>
+    arrows.every(arrow => arrow.classList.contains('unrelated') === (arrow.dataset.source !== key && arrow.dataset.target !== key)), bubbleKey);
   await bubble.hover({ force: true });
-  check(await graph.locator('.cluster.previewed').count() === 1 && await graph.locator('.cluster.unrelated').count() > 0, 'Hover traces the chain and fades unrelated bubbles');
+  check(await graph.locator('.cluster.previewed').count() === 1 && await highlightsOnlyDirectArrows(), 'Hover highlights only direct arrows');
   check(await drawer.isHidden(), 'Hover leaves the shared drawer closed');
   await bubble.click({ force: true });
   await drawer.locator('#detail-title').waitFor();
   check(await drawer.locator('#detail-title').textContent() === 'Integration', 'Click pins the bubble and opens the shared drawer');
+  check(await highlightsOnlyDirectArrows(), 'Click pins only direct incoming and outgoing arrows');
   check(await drawer.locator('.metadata, #file-preview, .detail-tags').count() === 0, 'Bubble drawer has no file preview, metadata or tags');
   check(await drawer.locator('[data-evidence]').count() > 0, 'Bubble drawer lists its member files');
   const member = drawer.locator('[data-evidence]').first();
@@ -77,7 +81,7 @@ async (page) => {
     check(await drawer.locator('.file-open').getAttribute('href') === byId.get(targetId).file.fileUrl, 'Following a relationship opens that exact linked file');
   }
   await drawer.locator('[data-close]').click();
-  check(await drawer.isHidden() && await graph.locator('.cluster.selected').count() === 0, 'Closing the shared drawer clears the pinned chain');
+  check(await drawer.isHidden() && await graph.locator('.cluster.selected').count() === 0, 'Closing the shared drawer clears the highlight');
   await bubble.focus();
   await bubble.press('Enter');
   await page.keyboard.press('Escape');

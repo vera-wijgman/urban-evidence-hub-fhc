@@ -379,32 +379,20 @@ const graphModel = (() => {
     return { clusters, arrows, membership };
   }
 
-  // Follow predecessors and successors separately so sibling branches are not
-  // accidentally highlighted just because they share an upstream source.
-  function decisionChain(arrows, selectedKey) {
+  // Highlight only the arrows that touch the focused bubble.
+  function directConnections(arrows, selectedKey) {
     const groups = new Set([selectedKey]);
     const links = new Set();
-    for (const backwards of [true, false]) {
-      const visited = new Set([selectedKey]);
-      const pending = [selectedKey];
-      while (pending.length) {
-        const key = pending.pop();
-        for (const arrow of arrows) {
-          if ((backwards ? arrow.target : arrow.source) !== key) continue;
-          links.add(arrow);
-          const neighbour = backwards ? arrow.source : arrow.target;
-          groups.add(neighbour);
-          if (!visited.has(neighbour)) {
-            visited.add(neighbour);
-            pending.push(neighbour);
-          }
-        }
-      }
+    for (const arrow of arrows) {
+      if (arrow.source !== selectedKey && arrow.target !== selectedKey) continue;
+      links.add(arrow);
+      groups.add(arrow.source);
+      groups.add(arrow.target);
     }
     return { groups, arrows: links };
   }
 
-  return { buildGraph, wrapTitle, displayTitle, decisionChain };
+  return { buildGraph, wrapTitle, displayTitle, directConnections };
 })();
 
 export default graphModel;

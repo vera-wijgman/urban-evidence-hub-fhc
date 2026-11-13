@@ -98,17 +98,18 @@ test('different projects can reuse a bubble title without merging their evidence
   assert.notEqual(model.membership.get('A'), model.membership.get('B'));
 });
 
-test('decision chains follow predecessors and successors without highlighting sibling branches', () => {
-  const context = modelContext();
-  const arrows = [
+test('focus highlights only arrows entering or leaving the selected bubble', () => {
+  const direct = [
     { source: 'A', target: 'B' }, { source: 'B', target: 'C' },
-    { source: 'A', target: 'Sibling' }, { source: 'Elsewhere', target: 'Other' }
+    { source: 'C', target: 'B' },
   ];
-  const chain = context.HealthIslandsGraphModel.decisionChain(arrows, 'B');
-  assert.deepEqual([...chain.groups].sort(), ['A', 'B', 'C']);
-  assert.equal(chain.arrows.size, 2);
-  arrows.push({ source: 'C', target: 'B' });
-  assert.equal(context.HealthIslandsGraphModel.decisionChain(arrows, 'B').groups.size, 3);
+  const arrows = [...direct,
+    { source: 'Earlier', target: 'A' }, { source: 'C', target: 'Later' },
+    { source: 'A', target: 'C' },
+  ];
+  const connections = graphModel.directConnections(arrows, 'B');
+  assert.deepEqual([...connections.groups].sort(), ['A', 'B', 'C']);
+  assert.deepEqual([...connections.arrows], direct);
 });
 
 test('different relationship types and reverse directions do not disappear during grouping', () => {

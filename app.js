@@ -1,7 +1,7 @@
 // 1. Shared state and safe rendering helpers.
 import { site, projects, collections, buckets, tagGroups, relationshipTypes, peopleGroups, students } from './js/content.js';
 import { displayTitle, titleOf, bucketStyle, extensionOf, isImage, previewFile, projectAttachments, filterEvidence, readFilters, tagGridUrl } from './js/evidence.js';
-import { mountGraph, mountGraphPreview } from './js/graph.js';
+import { mountGraph, mountGraphPreview } from './js/graph.js?v=direct-links';
 import { frameworkEntries, relatedEntries } from './js/graph-data.js';
 import { createViewingHistory } from './js/viewing-history.js';
 

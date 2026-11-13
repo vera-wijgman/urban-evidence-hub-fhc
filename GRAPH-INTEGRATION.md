@@ -10,7 +10,7 @@ The snapshot has 300 catalogue records, 660 exact file IDs, 296 bubbles,
 | File | Responsibility |
 | --- | --- |
 | `js/graph.js` | Scoped mounted SVG, graph interactions, visibility/tag controls and lifecycle cleanup |
-| `js/graph-model.js` | Pure prototype layout: compact rings, neighbour-aware placement, safe contraction, project-scoped bubbles, directed chains and optional tag positions |
+| `js/graph-model.js` | Compact rings, neighbour-aware placement, safe contraction, project-scoped bubbles, direct connections and optional tag positions |
 | `js/graph-data.js` | Individual file identities/attachment references and nonempty typed relationship sections |
 | `app.js` | Hub shell/filter URLs, graph mounting and one shared drawer renderer for Graph, Grid and Projects |
 | `assets/graph.css` | Graph-scoped visuals and controls; no duplicate header or drawer styling |
@@ -80,9 +80,9 @@ and standalone HTML in `outputs/` remain local historical references.
 - All relationship arrows use `#909090`, with solid Informs, dashed Supports and
   dotted Evaluates lines. Arrowheads are 18 × 18 graph units. `refX=10` matches the
   triangle tip at `x=10`, keeping that tip on the target circle boundary.
-- Hover previews the upstream/downstream decision chain and outlines only the
-  focused bubble in darker gray. Clicking pins the chain. The rest fades; click
-  blank canvas or outside the chain, close the drawer, or press Escape to clear.
+- Hover highlights the focused bubble and its direct incoming and outgoing
+  arrows. Clicking a bubble pins its highlight while the rest fades. Click
+  blank canvas, close the drawer, or press Escape to clear it.
   Pan and zoom remain usable. Avoid traversing backwards and then forwards into
   unrelated sibling branches.
 - Bubble drawers show the bubble title, its member files and its nonempty
@@ -113,7 +113,7 @@ and standalone HTML in `outputs/` remain local historical references.
 
 `node --test tests/evidence.test.mjs tests/graph.test.mjs` checks fixed-ID coverage,
 exact attachment mapping, per-file filter/link behavior, compact placement,
-circle/arrow clearance, majority colors, typed aggregation and directed chains.
+circle/arrow clearance, majority colors, typed aggregation and direct connections.
 `python -m unittest discover -s tests -p test_framework_import.py` checks stable
 IDs, legacy references, invalid targets and exact-file metadata after reordering.
 

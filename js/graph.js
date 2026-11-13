@@ -1,5 +1,5 @@
 // 1. Mounted graph canvas; the shared Hub owns filters, routes and the drawer.
-import graphModel from './graph-model.js';
+import graphModel from './graph-model.js?v=direct-links';
 import { buckets, relationshipTypes } from './content.js';
 import { filterEvidence } from './evidence.js';
 
@@ -97,7 +97,7 @@ export function mountGraphPreview(container, { evidence, links }) {
 }
 
 const graphMarkup = `<section class="graph-view canvas-panel" aria-label="Evidence graph">
-  <p class="canvas-hint">Hover to trace a chain · Click to pin · Click outside the chain to return</p>
+  <p class="canvas-hint">Hover to see direct connections · Click to pin · Click blank canvas to clear</p>
   <svg data-graph="knowledge-graph" aria-label="Studio evidence graph"><defs data-graph="arrow-markers"></defs><g data-graph="world"><g data-graph="clusters"></g><g data-graph="links"></g><g data-graph="nodes"></g></g></svg>
   <div data-graph="graph-tools" class="graph-tools">
     <div class="graph-navigation">
@@ -240,21 +240,21 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
 
   function updateArrows() {
     const focus = selected || hovered;
-    const chain = focus ? graphModel.decisionChain(arrows, focus.key) : null;
+    const connections = focus ? graphModel.directConnections(arrows, focus.key) : null;
     let highlighted = 0;
     visibleArrows = arrows.filter(arrow => {
       const visible = arrow.sourceGroup.visible && arrow.targetGroup.visible;
       arrow.element.style.display = visible ? '' : 'none';
-      arrow.element.classList.toggle('unrelated', Boolean(chain && !chain.arrows.has(arrow)));
-      if (visible && (!chain || chain.arrows.has(arrow))) highlighted++;
+      arrow.element.classList.toggle('unrelated', Boolean(connections && !connections.arrows.has(arrow)));
+      if (visible && (!connections || connections.arrows.has(arrow))) highlighted++;
       return visible;
     });
     clusters.forEach(group => {
-      group.element.classList.toggle('unrelated', Boolean(chain && !chain.groups.has(group.key)));
+      group.element.classList.toggle('unrelated', Boolean(connections && !connections.groups.has(group.key)));
       group.element.classList.toggle('previewed', !selected && hovered === group);
     });
-    nodes.forEach(node => node.element.classList.toggle('unrelated', Boolean(chain && !chain.groups.has(node.cluster.key))));
-    const mode = selected ? 'pinned chain' : hovered ? 'chain preview' : 'all connections';
+    nodes.forEach(node => node.element.classList.toggle('unrelated', Boolean(connections && !connections.groups.has(node.cluster.key))));
+    const mode = focus ? 'direct connections' : 'all connections';
     getElement('edge-count').textContent = `${highlighted} of ${arrows.length} group arrows · ${mode}`;
     drawArrows();
   }
@@ -362,7 +362,6 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
       node: target ? nodeMap.get(target.dataset.id) : null,
       group: target ? nodeMap.get(target.dataset.id).cluster : bubble ? groups.get(bubble.dataset.group) : null, moved: false
     };
-    pointer.dismiss = Boolean(selected && (!pointer.group || !graphModel.decisionChain(arrows, selected.key).groups.has(pointer.group.key)));
     svg.setPointerCapture(event.pointerId);
     svg.classList.add('dragging');
   });
@@ -386,7 +385,7 @@ export function mountGraph(container, { evidence, links, filters, controls, draw
   svg.addEventListener('pointerup', event => {
     if (!pointer || pointer.id !== event.pointerId) return;
     if (!pointer.moved) {
-      if (pointer.dismiss || !pointer.group) clearSelection();
+      if (!pointer.group) clearSelection();
       else if (pointer.group.visible) showSelection(pointer.group, pointer.node);
     }
     pointer = null;
